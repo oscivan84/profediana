@@ -1,0 +1,79 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.content-form{
+    width: 80%;
+    margin: 50px auto;
+    display: flex;
+    background-color: #f5a5f5;
+    border-radius: 20px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    margin: 3rem auto;
+    width: 40%;
+
+}
+
+.form h1{
+    text-align: center;
+    color: #ffff;
+}
+
+label{
+    margin: 10px 0;
+    color: #ffff;
+}
+
+.input-global{
+    height: 40px;
+    margin: 20px 0;
+}
+
+select{
+    height: 40px;
+    margin: 20px 0;
+}
+
+hr{
+    margin: 50px auto;
+    width: 100%;
+}
+
+option{
+    margin: 20px 0;
+}
+
+button{
+    height: 40px;
+    width: 80%;
+    margin: auto;
+    border-radius: 150px;
+}
+
+.label-compromiso{
+    font-size: 2rem;
+    color: #ffff;
+}
+
+.input-compromiso{
+    font-size: 1rem;
+    color: #fff;
+}
+
+.label-checkbox{
+    margin: 50px 0;
+    color: #ffff;
+}
+
+.content-register{
+    background-color: #91a7eb;
+    display: flex;
+}
+

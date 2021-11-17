@@ -1,0 +1,141 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* section prices */
+
+.tabla-main{
+    background-color: #ebecf0; 
+    display: flex;
+    flex-direction: column;
+}
+
+.tabla-main h1{
+    text-align: center;
+    color: #ffff;
+}
+
+.tabla-main-p{
+    text-align: center;
+    margin: 50px auto;
+    width: 50%;
+    display: flex;
+    color: #9ca0a4;
+}
+
+.contenedor-tabla{
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: auto;
+    padding: 50px;
+}
+
+.tabla-estandar{
+    height: 500px;
+    margin: auto 50px;
+    border:1px solid #343759;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px  #343759;
+    padding: 60px;
+    text-align: center;
+    flex-grow: 1;
+    color: #343759;
+    background-color: #0095df;
+}
+
+.tabla{
+    height: 500px;
+    margin: auto 50px;
+    border:1px solid #343759;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px  #343759;
+    padding: 60px;
+    text-align: center;
+    flex-grow: 1;
+    color: #343759;
+    background-color: #111e41;
+}
+
+.tabla hr{
+    margin: 60px 0;
+}
+
+.tabla-estandar hr{
+    margin: 60px 0;
+}
+
+.tabla>h1, .tabla-estandar>h1{
+    font-size:30px;
+    margin-bottom:35px;
+}
+
+.tabla > h3, .tabla-estandar>h3{
+    font-size:30px;
+    margin-bottom: 20px;
+    color: #ffff;
+}
+
+.tabla > p{
+    display: block;
+    margin-bottom:20px;
+    color: #9ca0a4;
+}
+
+.tabla-estandar>p{
+    display: block;
+    margin-bottom:20px;
+    color: #ffff;
+}
+
+.tabla > span{
+    color: #9ca0a4;
+}
+
+.tabla-estandar span{
+    color: #ffff;
+}
+
+.boton{
+    display:inline-block;
+    width: 15rem;
+    padding: 18px;
+    background-color: #111e41;
+    border: 1px solid #9ca0a4;
+    text-decoration: none;
+    color: #ffff;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin: auto;
+}
+
+.boton-estandar{
+    display:inline-block;
+    width: 15rem;
+    padding: 18px;
+    background-color: #ffff;
+    border: 1px solid #9ca0a4;
+    text-decoration: none;
+    color: #0095df;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin: auto;
+}
+
+.tabla:hover{
+    transition: .5s all;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.tabla-estandar:hover{
+    transition: .5s all;
+    transform: scale(1.1);
+    cursor: pointer;
+}

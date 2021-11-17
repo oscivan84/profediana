@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+/* section info */
+
+.section_info{
+    
+}
+
+.info_one{
+    width: 80%;
+    display: flex;
+    margin: auto;
+    flex-direction: inherit;
+}
+
+.content-p-one{
+    text-align: center;
+    margin: auto;
+}
+
+.info_two{
+    width: 80%;
+    display: flex;
+    margin: auto;
+    flex-direction: inherit;
+}
+
+.content-p-two{
+    text-align: center;
+    margin: auto;
+}
+
+.content-text-two{
+    text-align: center;
+    margin: auto;
+}
+
+.wavy{
+    width: 100%;
+    position: relative;
+    z-index: -2;
+    background-color: #172755;
+    display: flex;
+}
+
