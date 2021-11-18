@@ -10,6 +10,11 @@ async function bootstrap() {
   // execption
   app.useGlobalFilters(new HttpExceptionFilter);
 
+  // cors
+  app.enableCors({
+    origin: '*'
+  })
+
   // documentation
   const config = new DocumentBuilder()
     .setTitle('SofSol')
