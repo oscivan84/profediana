@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AlumnosModule } from './modules/alumnos/alumnos.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 import * as path from 'path';
 
 @Module({
@@ -22,7 +24,9 @@ import * as path from 'path';
         } as TypeOrmModuleOptions
       }
     }),
-    AlumnosModule
+    AlumnosModule,
+    UsersModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
