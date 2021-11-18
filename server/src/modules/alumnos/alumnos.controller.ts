@@ -2,6 +2,7 @@ import { Controller, Get, Post, UseFilters, Body } from '@nestjs/common';
 import { AlumnosPipe, CreateAlumnoDto } from './alumnos.pipe';
 import { AlumnosService } from './alumnos.service';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('alumnos')
 export class AlumnosController {
@@ -13,6 +14,7 @@ export class AlumnosController {
   }
 
   @Post()
+  @ApiBody({})
   @UseFilters(new HttpExceptionFilter())
   public store(@Body(new AlumnosPipe(CreateAlumnoDto)) body) {
     return this.alumnosService.createAlumno(body);
