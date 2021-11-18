@@ -34,7 +34,7 @@
     "morgan": "^1.10.0",
     "mui-datatables": "^3.2.0",
     "mysql": "^2.18.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^6.0.1",
     "notistack": "^0.8.8",
     "prop-types": "^15.7.2",
     "qwest": "^4.5.0",
