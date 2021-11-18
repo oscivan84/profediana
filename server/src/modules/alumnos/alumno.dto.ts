@@ -1,6 +1,3 @@
-import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
-import { PaymentRequiredException } from '../../exceptions/payment-required.exception'
-import { ObjectSchema } from 'joi';
 import * as Joi from 'joi';
 
 export const CreateAlumnoDto = Joi.object({
@@ -21,20 +18,3 @@ export const CreateAlumnoDto = Joi.object({
   idestadocivil: Joi.number().required(),
   id_sede: Joi.number().required(),
 });
-
-@Injectable()
-export class AlumnosPipe implements PipeTransform {
-  constructor(private schema: ObjectSchema) {}
-
-  transform(value: any, metadata: ArgumentMetadata) {
-    const { error } = this.schema.validate(value, { 
-      abortEarly: false,
-      allowUnknown: true,
-      stripUnknown: true,
-    });
-
-    if (!error) return value;
-
-    throw new  PaymentRequiredException(error.details)
-  }
-}

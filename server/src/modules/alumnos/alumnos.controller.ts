@@ -1,7 +1,8 @@
-import { Controller, Get, Post, UseFilters, Body } from '@nestjs/common';
-import { AlumnosPipe, CreateAlumnoDto } from './alumnos.pipe';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { CreateAlumnoDto } from './alumno.dto';
+import { AlumnoEntity } from './alumno.entity';
 import { AlumnosService } from './alumnos.service';
-import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
+import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
 import { ApiBody } from '@nestjs/swagger';
 
 @Controller('alumnos')
@@ -14,9 +15,8 @@ export class AlumnosController {
   }
 
   @Post()
-  @ApiBody({})
-  @UseFilters(new HttpExceptionFilter())
-  public store(@Body(new AlumnosPipe(CreateAlumnoDto)) body) {
+  @ApiBody({ type: [AlumnoEntity] })
+  public store(@Body(new JoiValidationPipe(CreateAlumnoDto)) body) {
     return this.alumnosService.createAlumno(body);
   }
 
