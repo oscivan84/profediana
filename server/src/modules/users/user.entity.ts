@@ -1,17 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity('usuarios')
+@Entity('users')
 export class UserEntity {
 
-  @PrimaryGeneratedColumn({ name: 'idusuarios' })
+  @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ name: 'nombre' })
+  @Column()
   @ApiProperty()
   public name: string;
 
-  @Column({ name: 'apellido' })
+  @Column()
   @ApiProperty()
   public lastname: string;
 
@@ -27,20 +27,25 @@ export class UserEntity {
   @ApiProperty()
   public password: string;
 
-  @Column({ name: 'idrol' })
+  @Column({ name: 'role_id' })
   @ApiProperty()
   public roleId: number;
 
-  @Column({ name: 'idempresa' })
+  @Column({ name: 'company_id' })
   @ApiProperty()
-  public empresaId: number;
+  public companyId: number;
 
-  @Column({ name: 'sede_idsede' })
+  @Column({ name: 'sede_id' })
   @ApiProperty()
   public sedeId: number;
 
-  @Column({ type: 'timestamp', name: 'create_time' })
-  @ApiProperty()
+  @Column({ default: true })
+  public state: boolean = true;
+
+  @CreateDateColumn({ name: 'created_at' })
   public createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  public updatedAt: Date;
 
 }

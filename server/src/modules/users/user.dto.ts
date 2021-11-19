@@ -7,6 +7,6 @@ export const CreateUserDto = Joi.object({
   email: Joi.string().email().required().max(40),
   password: Joi.string().trim().required().min(6).max(12),
   roleId: Joi.number().required(),
-  empresaId: Joi.number().required(),
+  companyId: Joi.number().required(),
   sedeId: Joi.number().required()
 });

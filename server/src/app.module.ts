@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AlumnosModule } from './modules/alumnos/alumnos.module';
+import { StudentsModule } from './modules/students/students.module';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { AppController } from './app.controller';
 import * as path from 'path';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -24,11 +26,11 @@ import * as path from 'path';
         } as TypeOrmModuleOptions
       }
     }),
-    AlumnosModule,
+    StudentsModule,
     UsersModule,
     AuthModule
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
