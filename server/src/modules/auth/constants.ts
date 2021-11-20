@@ -1,6 +1,6 @@
 
-export const jwtConstants = {
-  secret: 'secretKey',
+export const jwtOptions = {
+  expiresIn: '60s',
 };
 
 export interface jwtAuthInput {

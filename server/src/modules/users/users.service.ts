@@ -6,6 +6,10 @@ import { UserRepository } from './user.repository';
 export class UsersService {
   constructor(private userRepository: UserRepository) {}
 
+  public async findOrFail(id: number) {
+    return await this.userRepository.findOneOrFail(id);
+  }
+
   public async findByUsername(username: string): Promise<UserEntity> {
     return await this.userRepository.findOne({ username });
   }

@@ -31,13 +31,9 @@ export class UserEntity {
   @ApiProperty()
   public roleId: number;
 
-  @Column({ name: 'company_id' })
+  @Column({ name: 'campus_id' })
   @ApiProperty()
-  public companyId: number;
-
-  @Column({ name: 'sede_id' })
-  @ApiProperty()
-  public sedeId: number;
+  public compusId: number;
 
   @Column({ default: true })
   public state: boolean = true;

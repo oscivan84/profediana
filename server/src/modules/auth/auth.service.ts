@@ -11,17 +11,21 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser({ username, password }: jwtAuthInput): Promise<UserEntity> {
-    const user = await this.usersService.findByUsername(username);
-    // verificar usuario
-    if (!user) throw new UnauthorizedException("El usuario no existe!!!");
-    // validar contraseña
-    if (user.password !== password) throw new UnauthorizedException("La contraseña es incorrecta");
-    // result
-    return user;
+  public async validateUser({ username, password }: jwtAuthInput): Promise<UserEntity> {
+    try {
+      const user = await this.usersService.findByUsername(username);
+      // verificar usuario
+      if (!user) throw new UnauthorizedException("El usuario no existe!!!");
+      // validar contraseña
+      if (user.password !== password) throw new UnauthorizedException("La contraseña es incorrecta");
+      // result
+      return user;
+    } catch (error) {
+      return undefined;
+    }
   }
 
-  async login(user: UserEntity): Promise<string> {
+  public async login(user: UserEntity): Promise<string> {
     // payload token JWT
     const payload = { 
       username: user.username, 
