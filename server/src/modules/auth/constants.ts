@@ -1,9 +1,4 @@
 
 export const jwtOptions = {
-  expiresIn: '60s',
+  expiresIn: '60m',
 };
-
-export interface jwtAuthInput {
-  username: string
-  password: string
-}
