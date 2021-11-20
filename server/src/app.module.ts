@@ -6,6 +6,8 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CareersModule } from './modules/careers/careers.module';
 import { ProductsModule } from './modules/products/products.module';
+import { InvoicesModule } from './modules/invoices/invoices.module';
+import { DetailsModule } from './modules/details/details.module';
 import * as path from 'path';
 
 @Module({
@@ -30,7 +32,9 @@ import * as path from 'path';
     UsersModule,
     AuthModule,
     CareersModule,
-    ProductsModule
+    ProductsModule,
+    InvoicesModule,
+    DetailsModule
   ],
 })
 export class AppModule {}
