@@ -14,8 +14,10 @@ export class PaymentsService {
     try {
       // obtener deuda
       const debt = await this.invoicesService.findDebt(payload.invoiceId);
-      const total = debt - payload.price;
+      const share: number = await this.invoicesService.findCountShare(payload.invoiceId);
+      const total: number = debt - payload.price;
       if (total < 0) throw new InternalServerErrorException(`La deuda total es: ${debt}`); 
+      payload.share = share + 1;
       // guardar el pago
       const newPayment = this.paymentRepository.create(payload);
       return await this.paymentRepository.save(newPayment);

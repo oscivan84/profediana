@@ -19,8 +19,15 @@ export class InvoicesService {
     try {
       return await this.invoiceRepository.findDebt(id, cancelled);
     } catch (error) {
-      console.log(error);
       throw new InternalServerErrorException("No se pudo obtener la deuda");
+    }
+  }
+
+  public async findCountShare(id: number): Promise<number> {
+    try {
+      return await this.invoiceRepository.findCountShare(id);
+    } catch (error) {
+      throw new InternalServerErrorException("No se pudo obtener el total letras de pago");
     }
   }
 }

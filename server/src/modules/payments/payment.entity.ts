@@ -22,12 +22,11 @@ export class PaymentEntity {
   @Column()
   public datetime: Date;
 
-  @ApiProperty()
-  @Column({ default: 0 })
-  public share: number = 0;
+  @Column({ default: 1 })
+  public share: number;
 
-  @Column({ default: true })
-  public cancelled: boolean = true;
+  @Column()
+  public cancelled: boolean;
 
   @Column({ default: true })
   public state: boolean = true;
