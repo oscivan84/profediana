@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { InvoiceEntity } from '../invoices/invoice.entity';
 
 @Entity('details')
 export class DetailEntity {
@@ -34,4 +35,7 @@ export class DetailEntity {
 
   @UpdateDateColumn({ name: 'updated_at' })
   public updatedAt: Date;
+
+  @ManyToOne(() =>  InvoiceEntity, invoice => invoice.details)
+  public invoice: InvoiceEntity;
 }

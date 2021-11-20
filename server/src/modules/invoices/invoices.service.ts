@@ -14,4 +14,13 @@ export class InvoicesService {
       throw new InternalServerErrorException("No se pudo guardar los datos");
     }
   }
+
+  public async findDebt(id: number, cancelled?: boolean | undefined): Promise<number> {
+    try {
+      return await this.invoiceRepository.findDebt(id, cancelled);
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException("No se pudo obtener la deuda");
+    }
+  }
 }

@@ -8,6 +8,7 @@ import { CareersModule } from './modules/careers/careers.module';
 import { ProductsModule } from './modules/products/products.module';
 import { InvoicesModule } from './modules/invoices/invoices.module';
 import { DetailsModule } from './modules/details/details.module';
+import { PaymentsModule } from './modules/payments/payments.module';
 import * as path from 'path';
 
 @Module({
@@ -34,7 +35,8 @@ import * as path from 'path';
     CareersModule,
     ProductsModule,
     InvoicesModule,
-    DetailsModule
+    DetailsModule,
+    PaymentsModule
   ],
 })
 export class AppModule {}
