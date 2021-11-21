@@ -30,4 +30,15 @@ export class InvoicesService {
       throw new InternalServerErrorException("No se pudo obtener el total letras de pago");
     }
   }
+
+  public async updatedCancelled(id: number) {
+    try {
+      const debt = await this.invoiceRepository.findDebt(id, true);
+      const cancelled = debt <= 0;
+      await this.invoiceRepository.update(id, { cancelled });
+      return { cancelled }
+    } catch (error) {
+      throw new InternalServerErrorException("No se pudo cancelar la factura");
+    }
+  }
 }

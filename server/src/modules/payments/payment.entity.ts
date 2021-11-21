@@ -25,8 +25,8 @@ export class PaymentEntity {
   @Column({ default: 1 })
   public share: number;
 
-  @Column()
-  public cancelled: boolean;
+  @Column({ default: false })
+  public cancelled: boolean = false;
 
   @Column({ default: true })
   public state: boolean = true;
