@@ -44,7 +44,6 @@ const PricingHero = () => {
     <div className={styles.price}>
       <div className={`container ${styles.container}`}>
           <div className={`${styles.header} text-center wow zoomIn`} 
-            dataWowDelay="0.1s" 
             style={{ 
               visibility: "visible", 
               animationDelay: "0.1s", 
@@ -57,7 +56,6 @@ const PricingHero = () => {
               {data.map((d, index) => 
                 <div key={`item-pricing-${index}`}
                   className="col-md-4 wow fadeInUp" 
-                  dataWowDelay="0.0s" 
                   style={{ 
                     visibility: "visible",
                     animationDelay: "0s", 

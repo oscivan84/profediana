@@ -40,7 +40,6 @@ const ServiceHero = () => {
               {data.map((d, index) => 
                 <div key={`list-item-service-${index}`}
                   className="col-lg-4 col-md-6 wow fadeInUp" 
-                  dataWowDelay="0.0s" 
                   style={{ 
                     visibility: "visible", 
                     animationDelay: "0s", 

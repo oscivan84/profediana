@@ -40,7 +40,6 @@ const AboutReact = () => {
   return (
     <>
       <div className={`${styles.about} wow fadeInUp`} 
-        dataWowDelay="0.1s" 
         style={{
           visibility: "visible",
           animationDelay: "0.1s", 
@@ -54,7 +53,7 @@ const AboutReact = () => {
               {isOver(index + 1) 
                 ? <div className="col-lg-5 col-md-6">
                     <div className={styles.aboutImg}>
-                      <Image src={d.image} alt="Image"/>
+                      <Image src={d.image || null} alt="Image"/>
                     </div>
                   </div> 
                 : null
@@ -73,7 +72,7 @@ const AboutReact = () => {
               {!isOver(index + 1) 
                 ? <div className="col-lg-5 col-md-6">
                     <div className={styles.aboutImg}>
-                      <Image src={d.image} alt="Image"/>
+                      <Image src={d.image || null} alt="Image"/>
                     </div>
                   </div>
                 : null
