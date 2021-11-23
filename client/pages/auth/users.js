@@ -1,19 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { authorize } from '../../helpers/authServerSideProps'
-import Layout from '../../components/layout'
+import { LayoutCuba } from '../../components/common/layout'
 import Breadcrumb from '../../components/layout/breadcrumb'
 import { Container } from 'reactstrap'
 import UserList from '../../components/auth/users/userList'
 import { translate } from 'react-switch-lang'
 
 const UsersPage = ({ t }) => (
-    <Layout>
+    <LayoutCuba>
         <Breadcrumb parent={t('pages.auth.users.title')} title={t('pages.auth.users.description')} />
         <Container fluid>
             <UserList/>
         </Container>
-    </Layout>
+    </LayoutCuba>
 )
 
 export const getServerSideProps = authorize("Users");
