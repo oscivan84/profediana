@@ -11,14 +11,18 @@ export class PaymentSubscriber implements EntitySubscriberInterface<PaymentEntit
     connection.subscribers.push(this);
   }
 
-  public async beforeInsert(event: InsertEvent<PaymentEntity>): Promise<void> {
+  public listenTo() {
+    return PaymentEntity;
+  }
+
+  public async beforeInsert(event: InsertEvent<PaymentEntity>) {
     const payment = event.entity;
     const share: number = (await this.invoicesService.findCountShare(payment.invoiceId)) + 1;
     payment.cancelled = `${payment.cancelled}` == 'true';
     payment.share = share;
   }
 
-  public async afterInsert(event: InsertEvent<PaymentEntity>): Promise<void> {
+  public afterInsert(event: InsertEvent<PaymentEntity>) {
     const payment = event.entity;
     this.invoicesService.updatedCancelled(payment.invoiceId);
   }

@@ -38,6 +38,7 @@ const BannerHero = ({
                     <ArrowDown decelerate={true}/>
                 </a>
             </div>
+            <div className={styles.heroGradiant}></div>
         </div>
     </>
   )

@@ -19,6 +19,10 @@ export class StudentEntity {
   @ApiProperty()
   public documentNumber: string;
 
+  @Column({ name: 'date_of_birth' })
+  @ApiProperty()
+  public dateOfBirth: Date;
+
   @Column()
   @ApiProperty()
   public address: string;
@@ -40,6 +44,10 @@ export class StudentEntity {
   @Column()
   @ApiProperty()
   public contact: string;
+
+  @Column()
+  @ApiProperty()
+  public eps: string;
 
   @Column({ name: 'affiliation_id' })
   @ApiProperty()
@@ -64,10 +72,6 @@ export class StudentEntity {
   @Column({ name: 'marital_status_id' })
   @ApiProperty()
   public maritalStatusId: number;
-
-  @Column({ name: 'sede_id' })
-  @ApiProperty()
-  public sedeId: number;
 
   @CreateDateColumn({ name: 'created_at' })
   public createdAt;

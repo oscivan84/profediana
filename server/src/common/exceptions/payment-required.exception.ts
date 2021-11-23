@@ -12,7 +12,7 @@ export class PaymentRequiredException extends HttpException {
   code: "PAYMENT_REQUIRED"
 
   constructor(detailPayments: Joi.ValidationErrorItem[]) {
-    super('Payment Required', 401);
+    super('Payment Required', 402);
     this.formatter(detailPayments);
   }
 

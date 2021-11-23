@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { TabContent, TabPane, Label, FormGroup, Form, Input, Button } from 'reactstrap';
-import { Eye, EyeOff } from 'react-feather'
 import { translate } from 'react-switch-lang'
-import LoginRequest from '../../request/auth/loginRequest'
+import StudentRequest from '../../request/student'
 import { setCookie } from 'nookies'
 import { useRouter } from 'next/router'
 import { Loader } from 'react-feather'
@@ -11,15 +10,12 @@ import { useSelector } from 'react-redux'
 
 const RegisterForm = ({ t }) => {
 
-    const router = useRouter();
-
     const { mode } = useSelector(state => state.screen);
 
-    const loginRequest = new LoginRequest({ translate: t });
+    const studentRequest = new StudentRequest({ translate: t });
 
     const [errors, setErrors] = useState({})
     const [form, setForm] = useState({})
-    const [show_password, setShowPassword] = useState(false);
     const [current_loading, setCurrentLoading] = useState(false)
 
     const handleInput = ({ name, value }) => {
@@ -28,17 +24,18 @@ const RegisterForm = ({ t }) => {
     }
 
     const canSubmit = useMemo(() => { 
-      return true
-    }, []);
+      return form?.access
+    }, [form]);
 
-    const handleLogin = async (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
         setCurrentLoading(true)
-        await loginRequest.login(form)
-        .then(res => {
-            let { access_token } = res.data;
-            setCookie(null, 'access_token', access_token);
-            router.push('/');
+        await studentRequest.store(form)
+        .then(() => {
+          Swal.fire({ icon: 'success', text: `Los datos se guardaron correctamente!` })
+          setForm({});
+          setErrors({});
+          setCurrentLoading(false);
         })
         .catch(err => {
             Swal.fire({ icon: 'warning', text: err.message })
@@ -51,7 +48,7 @@ const RegisterForm = ({ t }) => {
         <div className={`login-main ${mode == 'xs' ? 'block' : 'col-md-8 col-ms-10'}`}> 
             <TabContent activeTab={"jwt"} className="content-login">
                 <TabPane  className="fade show" tabId={"jwt"}>
-                    <Form className="theme-form" onSubmit={handleLogin}>
+                    <Form className="theme-form" onSubmit={handleSave}>
                         <h4>Formulario de Regístro</h4>
                         <p>Complete los campos necesarios</p>
 
@@ -120,12 +117,12 @@ const RegisterForm = ({ t }) => {
                             <Label className="col-form-label">Lugar de Nacimiento</Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
-                                name="dateOfBirth"
-                                value={`${form?.dateOfBirth || ''}`}
+                                name="cityId"
+                                value={`${form?.cityId || ''}`}
                                 onChange={(e) => handleInput(e.target)}
                                 disabled={current_loading}
                             />
-                            <label>{errors?.dateOfBirth?.[0] || ''}</label>
+                            <label>{errors?.cityId?.[0] || ''}</label>
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
@@ -248,15 +245,13 @@ const RegisterForm = ({ t }) => {
                             <label>{errors?.affiliationId?.[0] || ''}</label>
                           </FormGroup>
 
-                          {/* <div className="form-group mb-0">
-                              <div className="checkbox ml-3"></div>
-                              <Link href="/resetPassword">
-                                  <a className="link link-hero">{t('auth.formLogin.forget_password')}</a>
-                              </Link>
-                          </div> */}
-
-                          <FormGroup className="mb-0 col-12 text-center">
-                            <input type='checkbox'/> Acepto el manejo de la mis datos personales
+                          <FormGroup className="mb-0 col-12 text-center mt-4">
+                            <input type='checkbox'
+                              id="access"
+                              name='access'
+                              checked={form?.access}
+                              onChange={({ target }) => handleInput({ name: target.name, value: target.checked })}
+                            /> <label htmlFor='access' className='text-muted'>Acepto el manejo de la mis datos personales</label>
                           </FormGroup>
 
                           <div className="form-group mb-0 mt-5 col-md-4 col-10">
