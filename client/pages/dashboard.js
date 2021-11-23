@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../components/layout'
+import { LayoutCuba } from '../components/common/layout'
 import { authorize } from '../helpers/authServerSideProps'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { changelang } from '../redux/thunks/languageThunk'
@@ -10,12 +10,12 @@ const DashBoard = () => {
     const { lang } = useSelector(state => state.language)
     
     return (
-        <Layout>
+        <LayoutCuba>
             <button onClick={() => dispatch(changelang('es'))}>
                 cambiar a español
             </button>
             <div>Idioma actual: {lang}</div>
-        </Layout>
+        </LayoutCuba>
     )
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import LangBar from './langBar';
 import NotifyBar from './notifyBar';
 import UserBar from './userBar';
 import { Maximize } from 'react-feather';
@@ -17,8 +16,6 @@ const RightBar = () => {
     return (
         <div className="nav-right col-8 pull-right right-header p-0">
             <ul className="nav-menus">
-                {/* Cambio de idioma */}
-                <LangBar/>
                 {/* notify */}
                 <NotifyBar/>
                 {/* toggle theme */}

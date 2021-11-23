@@ -5,7 +5,6 @@ import { Twitter, Facebook, Youtube, Instagram, Linkedin } from 'react-feather'
 const FooterHero = () => {
   return (
     <div className={`${styles.footer} wow fadeIn`} 
-      dataWowDelay="0.3s" 
       style={{ 
         visibility: "visible", 
         animationDelay: "0.3s", 

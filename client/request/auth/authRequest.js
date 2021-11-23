@@ -7,8 +7,8 @@ class AuthRequest extends BaseRequest {
 
     root = "/auth"
 
-    me (config = {}) {
-        return this.requestGet('/me', config)
+    profile (config = {}) {
+        return this.requestGet('/profile', config)
     }
 
 }

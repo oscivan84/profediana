@@ -36,7 +36,7 @@ const FormLogin = ({ t }) => {
     }, [show_password])
 
     const canSubmit = useMemo(() => {
-        let required = ['email', 'password'];
+        let required = ['username', 'password'];
         for (let attr of required) {
             let value = form[attr]
             if (!value) return false;
@@ -49,8 +49,8 @@ const FormLogin = ({ t }) => {
         setCurrentLoading(true)
         await loginRequest.login(form)
         .then(res => {
-            let { token } = res.data;
-            setCookie(null, 'auth_token', token);
+            let { access_token } = res.data;
+            setCookie(null, 'access_token', access_token);
             router.push('/');
         })
         .catch(err => {
@@ -69,16 +69,16 @@ const FormLogin = ({ t }) => {
                         <p>{t('auth.formLogin.description')}</p>
 
                         <FormGroup className="mb-0">
-                            <Label className="col-form-label">{t('auth.formLogin.email')}</Label>
+                            <Label className="col-form-label">Username</Label>
                             <Input className={`form-control block input-hero`} 
-                                type="email"
-                                name="email"
-                                value={`${form?.email || ''}`}
+                                type="text"
+                                name="username"
+                                value={`${form?.username || ''}`}
                                 onChange={(e) => handleInput(e.target)}
-                                placeholder="example@gmail.com"
+                                placeholder="exmaple"
                                 disabled={current_loading}
                             />
-                            <label>{errors?.email?.[0] || ''}</label>
+                            <label>{errors?.username?.[0] || ''}</label>
                         </FormGroup>
 
                         <FormGroup className="mb-0">

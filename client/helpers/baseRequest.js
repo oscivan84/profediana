@@ -36,8 +36,8 @@ class BaseRequest {
     constructor(params = this.paramsDefault) {
         this.translate = params?.translate;
         this.ctx = params?.ctx;
-        let { auth_token } = nookies.get(this.ctx);
-        this.setAuthorization(auth_token)
+        let { access_token } = nookies.get(this.ctx);
+        this.setAuthorization(access_token)
         this.setClientToken(process.env.NEXT_PUBLIC_CLIENT_TOKEN)
     }
 

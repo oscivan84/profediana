@@ -3,6 +3,8 @@ import BaseRequest from '../../helpers/baseRequest'
 
 class LoginRequest extends BaseRequest {
 
+    root = "/auth"
+
     apiLib = apiAuth
 
     codeErrors = {

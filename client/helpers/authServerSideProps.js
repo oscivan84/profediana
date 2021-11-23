@@ -5,14 +5,14 @@ import { setTitle } from '../redux/thunks/screenThunk'
 import AuthRequest from '../request/auth/authRequest'
 
 export const authorize = (title = '') => wrapper.getServerSideProps(store => async (ctx) => {
-    const { auth_token } = nookies.get(ctx);
-    const isLogged = auth_token ? true : false;
+    const { access_token } = nookies.get(ctx);
+    const isLogged = access_token ? true : false;
 
     store.dispatch(setLogged(isLogged));
 
     const authRequest = new AuthRequest({ ctx })
 
-    await authRequest.me()
+    await authRequest.profile()
     .then(res => store.dispatch(setUser(res.data)))
     .catch(() =>  store.dispatch(setLogged(false)))
 
@@ -21,7 +21,7 @@ export const authorize = (title = '') => wrapper.getServerSideProps(store => asy
     // response error
     if (!auth.logged) {
 
-        nookies.destroy(ctx, 'auth_token')
+        nookies.destroy(ctx, 'access_token')
         store.dispatch(setUser({}))
         store.dispatch(setToken(null))
 
@@ -34,14 +34,14 @@ export const authorize = (title = '') => wrapper.getServerSideProps(store => asy
     } 
 
     // add title
-    store.dispatch(setToken(auth_token))
+    store.dispatch(setToken(access_token))
     store.dispatch(setTitle(title))
 })
 
 
 export const guest = (title = '') => wrapper.getServerSideProps(store => async (ctx) => {
-    const { auth_token } = nookies.get(ctx);
-    const isLogged = auth_token ? true : false;
+    const { access_token } = nookies.get(ctx);
+    const isLogged = access_token ? true : false;
 
     store.dispatch(setLogged(isLogged));
 
@@ -51,7 +51,7 @@ export const guest = (title = '') => wrapper.getServerSideProps(store => async (
     if (auth.logged) {
         return {
             redirect: {
-                destination: '/',
+                destination: '/dashboard',
                 permanent: false
             }
         }
