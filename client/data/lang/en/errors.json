@@ -1,0 +1,5 @@
+{
+    "DEFAULT": "Something went wrong try again",
+    "ERR_CONNECTION_REFUSED": "The connection has been rejected",
+    "E_PAYMENT_REQUIRED": "Required validation failed"
+}

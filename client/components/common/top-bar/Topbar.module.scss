@@ -1,0 +1,86 @@
+.topBar {
+  position: relative;
+  height: 35px;
+  background: #e91e63;
+}
+
+.topBar .topBarLeft {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.topBar .topBar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.topBar .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  height: 35px;
+  padding: 0 10px;
+  text-align: center;
+  border-left: 1px solid rgba(255, 255, 255, .15);
+}
+
+.topBar .text:last-child {
+  border-right: 1px solid rgba(255, 255, 255, .15);
+}
+
+.topBar .text i {
+  font-size: 13px;
+  color: #ffffff;
+  margin-right: 5px;
+}
+
+.topBar .text h2 {
+  color: #eeeeee;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.topBar .text p {
+  color: #eeeeee;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0 0 0 5px;
+}
+
+.topBar .social {
+  display: flex;
+  height: 35px;
+  font-size: 0;
+  justify-content: flex-end;
+}
+
+.topBar .social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 100%;
+  font-size: 16px;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, .15);
+}
+
+.topBar .social a:first-child {
+  border-left: 1px solid rgba(255, 255, 255, .15);
+}
+
+.topBar .social a:hover {
+  color: #092a49;
+  background: #ffffff;
+}
+
+@media (min-width: 992px) {
+  .topBar {
+      padding: 0 60px;
+  }
+}

@@ -1,0 +1,23 @@
+{
+    "setting": {
+        "account": "Cuenta",
+        "setting": "Ajustes",
+        "logout": "Salir"
+    },
+    "menu": {
+        "auth": {
+            "title": "Auth",
+            "description": "Personas, Usuarios, & Roles",
+            "people": "Personas",
+            "users": "Usuarios",
+            "roles": "Roles"
+        },
+        "restaurant": {
+            "title": "Restaurante",
+            "description": "Productos, Tableros & Entradas",
+            "products": "Productos",
+            "boards": "Tableros",
+            "tickets": "Entradas"
+        }
+    }
+}

@@ -1,0 +1,139 @@
+.hero {
+  position: relative;
+  width: 100%;
+  margin-bottom: 46px;
+  padding: 90px 0;
+  background: #F7CAC9;
+  overflow: hidden;
+  min-height: 95vh;
+}
+
+.hero .container-fluid {
+  padding: 0;
+}
+
+.hero .heroImage {
+  position: relative;
+  text-align: right;
+}
+
+.hero .heroImage img {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.hero .heroText {
+  position: relative;
+  padding-left: 75px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero .heroText h1 {
+  color: #343148;
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero .heroText p {
+  color: #343148;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.hero .heroBtn .btn {
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: #e91e63;
+  border-radius: 0;
+  transition: .3s;
+}
+
+.hero .heroBtn .btn:hover {
+  color: #e91e63;
+  background: #ffffff;
+}
+
+.hero .heroBtn .btn:first-child {
+  margin-right: 10px;
+}
+
+@media (max-width: 991.98px) {
+  .hero .heroText {
+      padding: 0 15px;
+  }
+  
+  .hero .heroText h1 {
+      font-size: 35px;
+  }
+  
+  .hero .heroText p {
+      font-size: 16px;
+  }
+  
+  .hero .heroText .btn {
+      padding: 12px 30px;
+      letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero .heroText h1 {
+      font-size: 30px;
+      font-weight: 600;
+  }
+  
+  .hero .heroText p {
+      font-size: 14px;
+  }
+  
+  .hero .heroText .btn {
+      padding: 10px 15px;
+      font-weight: 400;
+      letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero .heroText h1 {
+      font-size: 25px;
+      font-weight: 600;
+  }
+  
+  .hero .heroText p {
+      font-size: 14px;
+  }
+  
+  .hero .heroText .btn {
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0;
+  }
+}
+
+
+.heroContentArrow {
+  position: absolute;
+  bottom: 40px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.heroContentArrow .heroIconArrow {
+  background: #e91e63;
+  cursor: pointer;
+  color: #ffff;
+  padding: 1em;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}

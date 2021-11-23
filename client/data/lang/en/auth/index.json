@@ -1,0 +1,28 @@
+{
+    "formLogin": {
+        "title": "Log in",
+        "description": "Enter your email and password to login",
+        "email": "Email",
+        "password": "Password",
+        "button": "Log in",
+        "forget_password": "Did you forget your password?",
+        "have_an_account": "You do not have an account?",
+        "create_account": "Create Account"
+    },
+
+    "formResetPassword": {
+        "title": "Reset password",
+        "description": "Enter your email to recover your account",
+        "email": "Email",
+        "code": "Code",
+        "password": "New Password",
+        "confirm_password": "Confirm Password",
+        "back": "Go back to login",
+        "send_code": "Send Code",
+        "timer": "wait {timer} min",
+        "continue": "I already have the code",
+        "submit": "Change Password",
+        "success_code": "The code has been sent to your email",
+        "success_password": "The password was changed correctly"
+    }
+}
