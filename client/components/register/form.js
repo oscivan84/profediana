@@ -2,11 +2,11 @@ import React, { useState, useMemo } from 'react';
 import { TabContent, TabPane, Label, FormGroup, Form, Input, Button } from 'reactstrap';
 import { translate } from 'react-switch-lang'
 import StudentRequest from '../../request/student'
-import { setCookie } from 'nookies'
-import { useRouter } from 'next/router'
+import { documentTypes, cities, degrees, affiliations, maritalStatus } from './data.json';
 import { Loader } from 'react-feather'
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux'
+import { SelectDefault } from '../common/select';
 
 const RegisterForm = ({ t }) => {
 
@@ -19,8 +19,8 @@ const RegisterForm = ({ t }) => {
     const [current_loading, setCurrentLoading] = useState(false)
 
     const handleInput = ({ name, value }) => {
-        setForm(prev => ({ ...prev, [name]: value }))
-        setErrors(prev => ({ ...prev, [name]: [] }))
+      setForm(prev => ({ ...prev, [name]: value }))
+      setErrors(prev => ({ ...prev, [name]: [] }))
     }
 
     const canSubmit = useMemo(() => { 
@@ -50,11 +50,11 @@ const RegisterForm = ({ t }) => {
                 <TabPane  className="fade show" tabId={"jwt"}>
                     <Form className="theme-form" onSubmit={handleSave}>
                         <h4>Formulario de Regístro</h4>
-                        <p>Complete los campos necesarios</p>
+                        <p>Complete los datos requeridos (<b className='text-danger'>*</b>)</p>
 
                         <div className='row justify-content-center'>
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Nombres</Label>
+                            <Label className="col-form-label">Nombres <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="name"
@@ -66,7 +66,7 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Apellidos</Label>
+                            <Label className="col-form-label">Apellidos <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="lastname"
@@ -78,19 +78,19 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Tipo Documento Identidad</Label>
-                            <Input className={`form-control block input-hero`} 
-                                type="text"
-                                name="documentTypeId"
-                                value={`${form?.documentTypeId || ''}`}
-                                onChange={(e) => handleInput(e.target)}
-                                disabled={current_loading}
+                            <Label className="col-form-label">Tipo Documento Identidad <b className='text-danger'>*</b></Label>
+                            <SelectDefault
+                              options={documentTypes}
+                              onChange={(obj, meta) => handleInput({ ...meta, ...obj })}
+                              type="text"
+                              name="documentTypeId"
+                              disabled={current_loading}
                             />
                             <label>{errors?.documentTypeId?.[0] || ''}</label>
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Numero de Documento</Label>
+                            <Label className="col-form-label">Numero de Documento <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="documentNumber"
@@ -102,7 +102,7 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Fecha de Nacimiento</Label>
+                            <Label className="col-form-label">Fecha de Nacimiento <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="date"
                                 name="dateOfBirth"
@@ -114,19 +114,19 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Lugar de Nacimiento</Label>
-                            <Input className={`form-control block input-hero`} 
-                                type="text"
-                                name="cityId"
-                                value={`${form?.cityId || ''}`}
-                                onChange={(e) => handleInput(e.target)}
-                                disabled={current_loading}
+                            <Label className="col-form-label">Lugar de Nacimiento <b className='text-danger'>*</b></Label>
+                            <SelectDefault
+                              options={cities}
+                              onChange={(obj, meta) => handleInput({ ...meta, ...obj })}
+                              type="text"
+                              name="cityId"
+                              disabled={current_loading}
                             />
                             <label>{errors?.cityId?.[0] || ''}</label>
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Dirección de Recidencia</Label>
+                            <Label className="col-form-label">Dirección de Recidencia <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="address"
@@ -138,7 +138,7 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Barrio</Label>
+                            <Label className="col-form-label">Barrio <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="neighborhood"
@@ -162,7 +162,7 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Teléfono Movil</Label>
+                            <Label className="col-form-label">Teléfono Movil <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="phone"
@@ -174,7 +174,7 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Correo Electrónico</Label>
+                            <Label className="col-form-label">Correo Electrónico <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="email"
@@ -186,25 +186,25 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Nivel Académico</Label>
-                            <Input className={`form-control block input-hero`} 
-                                type="text"
-                                name="degreeId"
-                                value={`${form?.degreeId || ''}`}
-                                onChange={(e) => handleInput(e.target)}
-                                disabled={current_loading}
+                            <Label className="col-form-label">Nivel Académico <b className='text-danger'>*</b></Label>
+                            <SelectDefault
+                              options={degrees}
+                              onChange={(obj, meta) => handleInput({ ...meta, ...obj })}
+                              type="text"
+                              name="degreeId"
+                              disabled={current_loading}
                             />
                             <label>{errors?.degreeId?.[0] || ''}</label>
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Estado Civil</Label>
-                            <Input className={`form-control block input-hero`} 
-                                type="text"
-                                name="maritalStatusId"
-                                value={`${form?.maritalStatusId || ''}`}
-                                onChange={(e) => handleInput(e.target)}
-                                disabled={current_loading}
+                            <Label className="col-form-label">Estado Civil <b className='text-danger'>*</b></Label>
+                            <SelectDefault
+                              options={maritalStatus}
+                              onChange={(obj, meta) => handleInput({ ...meta, ...obj })}
+                              type="text"
+                              name="maritalStatusId"
+                              disabled={current_loading}
                             />
                             <label>{errors?.maritalStatusId?.[0] || ''}</label>
                           </FormGroup>
@@ -222,7 +222,7 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Eps</Label>
+                            <Label className="col-form-label">Eps <b className='text-danger'>*</b></Label>
                             <Input className={`form-control block input-hero`} 
                                 type="text"
                                 name="eps"
@@ -234,13 +234,13 @@ const RegisterForm = ({ t }) => {
                           </FormGroup>
 
                           <FormGroup className="mb-0 col-md-6 col-12">
-                            <Label className="col-form-label">Tipo de Afiliación</Label>
-                            <Input className={`form-control block input-hero`} 
-                                type="text"
-                                name="affiliationId"
-                                value={`${form?.affiliationId || ''}`}
-                                onChange={(e) => handleInput(e.target)}
-                                disabled={current_loading}
+                            <Label className="col-form-label">Tipo de Afiliación <b className='text-danger'>*</b></Label>
+                            <SelectDefault
+                              options={affiliations}
+                              onChange={(obj, meta) => handleInput({ ...meta, ...obj })}
+                              type="text"
+                              name="affiliationId"
+                              disabled={current_loading}
                             />
                             <label>{errors?.affiliationId?.[0] || ''}</label>
                           </FormGroup>
