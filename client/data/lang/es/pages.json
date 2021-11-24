@@ -13,18 +13,10 @@
             "description": "Listar Roles"
         }
     },
-    "restaurant": {
-        "products": {
+    "kardex": {
+        "invoices": {
             "title": "Productos",
             "description": "Listar Productos"
-        },
-        "boards": {
-            "title": "Tableros",
-            "description": "Listar Tableros"
-        },
-        "tickets": {
-            "title": "Entradas",
-            "description": "Listar Entradas"
         }
     }
 }

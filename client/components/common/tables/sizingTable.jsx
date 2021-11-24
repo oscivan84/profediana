@@ -27,13 +27,15 @@ const LoadingSkeleton = ({ columns = 1 }) => {
 const SizingTable = ({ 
     title = '', headers = ["#"], children = null, 
     isData = false, isLoading = false, disabled = false,
-    onRefresh = null, onDown = null }) => { 
+    onRefresh = null, onDown = null, content = null
+}) => { 
 
     return (
         <Card>
             <CardHeader>
                 {title}
             </CardHeader>
+            {content}
             <div className="table-responsive">
                 <Table size="xl">
                     <thead>

@@ -12,12 +12,10 @@
             "users": "Usuarios",
             "roles": "Roles"
         },
-        "restaurant": {
-            "title": "Restaurante",
-            "description": "Productos, Tableros & Entradas",
-            "products": "Productos",
-            "boards": "Tableros",
-            "tickets": "Entradas"
+        "kardex": {
+            "title": "Kardex",
+            "description": "Administración",
+            "invoices": "Ordenes"
         }
     }
 }

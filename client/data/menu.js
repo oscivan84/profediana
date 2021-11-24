@@ -1,4 +1,4 @@
-import { Users, Database, Layers, Clipboard, Coffee, List } from 'react-feather';
+import { Database, Coffee } from 'react-feather';
 
 const menus =  [
     {
@@ -13,52 +13,20 @@ const menus =  [
                 type: "link",
                 icon: <Database/>,
                 children: []
-            },
-            {
-                key: "/auth/users",
-                text: "layout.menu.auth.users",
-                info: "",
-                type: "link",
-                icon: <Users/>,
-                children: []
-            },
-            {
-                key: "/auth/roles",
-                text: "layout.menu.auth.roles",
-                info: "",
-                type: "link",
-                icon: <Layers/>,
-                children: []
             }
         ]
     },
     {
-        key: "restaurant",
-        text: "layout.menu.restaurant.title",
-        description: "layout.menu.restaurant.description",
+        key: "kardex",
+        text: "layout.menu.kardex.title",
+        description: "layout.menu.kardex.description",
         children: [
             {
-                key: "/restaurant/products",
-                text: "layout.menu.restaurant.products",
+                key: "/kardex/invoices",
+                text: "layout.menu.kardex.invoices",
                 info: "",
                 type: "link",
                 icon: <Coffee/>,
-                children: []
-            },
-            {
-                key: "/restaurant/boards",
-                text: "layout.menu.restaurant.boards",
-                info: "",
-                type: "link",
-                icon: <List/>,
-                children: []
-            },
-            {
-                key: "/restaurant/tickets",
-                text: "layout.menu.restaurant.tickets",
-                info: "",
-                type: "link",
-                icon: <Clipboard/>,
                 children: []
             }
         ]

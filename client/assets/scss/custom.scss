@@ -100,3 +100,19 @@
 .container-hidden {
     overflow-x:hidden;
 }
+
+.rounded-circle {
+    z-index: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-end {
+    justify-content: end;
+}
