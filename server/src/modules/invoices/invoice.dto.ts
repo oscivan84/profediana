@@ -1,4 +1,7 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+import { OmitType } from '@nestjs/mapped-types';
 import * as Joi from 'joi';
+import { PaginateDto } from '../../common/dto/paginate.dto';
 
 export const CreateInvoiceDto = Joi.object({
   transmitterType: Joi.string().required(),
@@ -8,3 +11,9 @@ export const CreateInvoiceDto = Joi.object({
   receiverType: Joi.string().required(),
   receiverId: Joi.number().required()
 })
+
+export class SearchReceiverDto extends OmitType(PaginateDto, ['querySearch'] as const) {
+  @IsNotEmpty()
+  @IsString()
+  public querySearch: string;
+}

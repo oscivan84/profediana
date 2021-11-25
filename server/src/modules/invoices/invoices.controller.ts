@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
+import { CustomValidation } from 'src/common/pipes/custom-validation.pipe';
 import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
-import { CreateInvoiceDto } from './invoice.dto';
+import { CreateInvoiceDto, SearchReceiverDto } from './invoice.dto';
 import { InvoiceEntity } from './invoice.entity';
 import { InvoicesService } from './invoices.service';
 
@@ -19,5 +20,10 @@ export class InvoicesController {
   public async debt(@Param('id') id: number) {
     const debt = await this.invoicesService.findDebt(id, true);
     return { debt };
+  }
+
+  @Get('searchReceiver')
+  public async searchReceiver(@Query(new CustomValidation(SearchReceiverDto)) query) {
+    return this.invoicesService.searchReceiver(query);
   }
 }

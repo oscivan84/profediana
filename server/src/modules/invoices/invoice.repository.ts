@@ -1,8 +1,13 @@
 import { Repository, EntityRepository } from 'typeorm';
 import { InvoiceEntity } from './invoice.entity';
+import { paginate, Pagination, IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 @EntityRepository(InvoiceEntity)
 export class InvoiceRepository extends Repository<InvoiceEntity> {
+
+  public async paginate(options: IPaginationOptions): Promise<Pagination<InvoiceEntity>> {
+    return paginate<InvoiceEntity>(this, options);
+  }
 
   // Monto de la deudas
   public async findDebt(id: number, cancelled?: boolean | undefined) {
@@ -31,5 +36,4 @@ export class InvoiceRepository extends Repository<InvoiceEntity> {
       .getRawOne();
     return parseInt(share);
   }
-
 }

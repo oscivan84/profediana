@@ -1,10 +1,18 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { CampusesService } from '../campuses/campuses.service';
+import { StudentsService } from '../students/students.service';
+import { UsersService } from '../users/users.service';
+import { SearchReceiverDto } from './invoice.dto';
 import { InvoiceEntity } from './invoice.entity';
 import { InvoiceRepository } from './invoice.repository';
 
 @Injectable()
 export class InvoicesService {
-  constructor(private invoiceRepository: InvoiceRepository) {}
+  constructor(
+    private usersService: UsersService,
+    private studentsService: StudentsService,
+    private campusesService: CampusesService,
+    private invoiceRepository: InvoiceRepository) {}
 
   public async createInvoice(payload: InvoiceEntity) {
     try {
@@ -40,5 +48,16 @@ export class InvoicesService {
     } catch (error) {
       throw new InternalServerErrorException("No se pudo cancelar la factura");
     }
+  }
+
+  public async searchReceiver(input: SearchReceiverDto) {
+    const typeStudents = await this.studentsService.getStudents(input);
+    const typeUsers = await this.usersService.getUsers(input);
+    const typeCampuses = await this.campusesService.getCampuses(input);
+    return [
+      { type: 'Student', data: typeStudents },
+      { type: 'User', data: typeUsers },
+      { type: 'Campus', data: typeCampuses },
+    ]
   }
 }

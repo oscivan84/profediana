@@ -1,4 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { PaginateDto } from 'src/common/dto/paginate.dto';
 import { StudentRepository } from './student.reporitory';
 import { StudentEntity } from './students.entity';
 
@@ -6,8 +7,12 @@ import { StudentEntity } from './students.entity';
 export class StudentsService {
   constructor(private studentRepository: StudentRepository) {}
 
-  public async getStudents(): Promise<any> {
-    return await this.studentRepository.find();
+  public async getStudents(input: PaginateDto): Promise<any> {
+    const students = this.studentRepository.createQueryBuilder('stu')
+      .where(`stu.name like '%${input.querySearch || ''}%'`)
+      .orWhere(`stu.lastname like '%${input.querySearch || ''}%'`)
+      .orWhere(`stu.document_number like '%${input.querySearch || ''}%'`);
+    return await this.studentRepository.paginate(students, input);
   }
 
   public async createStudent(payload: StudentEntity): Promise<StudentEntity> {

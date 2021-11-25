@@ -1,5 +1,5 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
-import { PaymentRequiredException } from '../exceptions/payment-required.exception';
+import { PaymentRequiredJoiException } from '../exceptions/payment-required.exception';
 import { Schema } from 'joi';
 
 @Injectable()
@@ -15,6 +15,6 @@ export class JoiValidationPipe implements PipeTransform {
 
     if (!error) return value;
 
-    throw new  PaymentRequiredException(error.details)
+    throw new  PaymentRequiredJoiException(error.details)
   }
 }
