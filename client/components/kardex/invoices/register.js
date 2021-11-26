@@ -7,6 +7,7 @@ import { Plus } from 'react-feather';
 import { SelectDefault } from '../../common/select';
 import { Search } from 'react-feather'
 import TableDetalle from './tableDetalle';
+import SearchDetailType from './searchDetailType';
 
 const InputSearch = () => {
   return (
@@ -50,6 +51,7 @@ const Register = () => {
         <h5>Regístro de Ordenes</h5>
       </CardHeader>
       <CardBody>
+        <SearchDetailType/>
         <TableDetalle/>
       </CardBody>
     </Card>

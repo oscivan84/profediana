@@ -8,6 +8,7 @@ import { roleReducer } from './roleThunk';
 import { productReducer } from './productThunk'
 import { restaurantReducer } from './restaurantThunk'
 import { boardReducer } from './boardThunk' 
+import { invoiceReducer } from './kardex/invoiceThunk';
 
 const rootReducer = combineReducers({
     screen: screeenReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     product: productReducer,
     restaurant: restaurantReducer,
     board: boardReducer,
+    invoice: invoiceReducer,
 });
 
 export default rootReducer;

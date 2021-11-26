@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardHeader, CardFooter, Col } from 'reactstrap';
 import Image from 'next/image';
-import { SelectDefault } from '../../common/select';
+import SearchReciver from './searchReceiver';
 
 const Receiver = ({
   name = "Oscar Diaz",
@@ -15,9 +15,7 @@ const Receiver = ({
   return (
     <Card className="custom-card" style={{ overflow: 'auto', minHeight: '100%' }}>
       <CardHeader>
-        <div style={{ zIndex: 999 }}>
-          <SelectDefault placeholder="Buscar comprador"/>
-        </div>
+        <SearchReciver/>
       </CardHeader>
       <div className="card-profile mt-4" style={{ zIndex: 0 }}>
         <Image body 

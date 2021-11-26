@@ -33,10 +33,10 @@ const Invoices = () => {
         </TabPane>
         <TabPane tabId={panes.ADD_DETALLE.key}>
           <Row>
-            <Col md="4">
+            <Col md="4" className='mb-2'>
               <Receiver/>
             </Col>
-            <Col md="8">
+            <Col md="8" className='mb-2'>
               <Register/>
             </Col>
           </Row>
