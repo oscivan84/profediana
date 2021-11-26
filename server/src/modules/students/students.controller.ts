@@ -2,10 +2,10 @@ import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { CreateStudentDto } from './student.dto';
 import { StudentEntity } from './students.entity';
 import { StudentsService } from './students.service';
-import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
+import { JoiValidationPipe } from '../../common/pipes/joi-validation.pipe';
 import { ApiBody } from '@nestjs/swagger';
-import { CustomValidation } from 'src/common/pipes/custom-validation.pipe';
-import { PaginateDto } from 'src/common/dto/paginate.dto';
+import { CustomValidation } from '../../common/pipes/custom-validation.pipe';
+import { PaginateDto } from '../../common/dto/paginate.dto';
 
 @Controller('students')
 export class StudentsController {

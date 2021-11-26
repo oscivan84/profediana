@@ -4,7 +4,7 @@ import { Response } from 'express';
 interface ParamsException {
   status?: number
   message: string,
-  errors?: { [key: string]: string[] }
+  errors?: { [key: string]: any }
 }
 
 @Catch()

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
-import { CustomValidation } from 'src/common/pipes/custom-validation.pipe';
-import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
+import { CustomValidation } from '../../common/pipes/custom-validation.pipe';
+import { JoiValidationPipe } from '../../common/pipes/joi-validation.pipe';
 import { CreateInvoiceDto, SearchReceiverDto } from './invoice.dto';
 import { InvoiceEntity } from './invoice.entity';
 import { InvoicesService } from './invoices.service';

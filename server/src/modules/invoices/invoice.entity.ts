@@ -43,6 +43,6 @@ export class InvoiceEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   public updatedAt: Date;
 
-  @OneToMany(() => DetailEntity, detail => detail.invoice)
-  public details: DetailEntity[];
+  // @OneToMany(() => DetailEntity, detail => detail.invoice)
+  // public details: DetailEntity[];
 }

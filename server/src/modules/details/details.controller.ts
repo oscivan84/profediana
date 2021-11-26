@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Query, Res } from '@nestjs/common';
 import { DetailEntity } from './detail.entity';
 import { DetailsService } from './details.service';
 import { CreateDetailDto, SearchTypeDto } from './detail.dto';
-import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
 import { ApiBody } from '@nestjs/swagger';
-import { CustomValidation } from 'src/common/pipes/custom-validation.pipe';
+import { CustomValidation } from '../../common/pipes/custom-validation.pipe';
+import { response, Response } from 'express';
+import { ParseErrorResponse } from '../../common/utils/parse-error-response';
 
 @Controller('details')
 export class DetailsController {
@@ -12,12 +13,24 @@ export class DetailsController {
 
   @ApiBody({ type: [DetailEntity] })
   @Post()
-  public async store(@Body(new JoiValidationPipe(CreateDetailDto)) payload: DetailEntity) {
+  public async store(@Body(new CustomValidation(CreateDetailDto)) payload: DetailEntity) {
     return await this.detailsService.createDetail(payload);
   }
 
+  @ApiBody({ type: [DetailEntity] })
+  @Put()
+  public async storeMany(
+    @Res() response: Response,
+    @Body(new CustomValidation(CreateDetailDto, true)) payload: DetailEntity[]) {
+    const result = this.detailsService.createDetailMany(payload);
+    return result.subscribe({
+      next: (details) => response.json(details),
+      error: (err) => new ParseErrorResponse(err).response(response) 
+    })
+  }
+
   @Get('searchType')
-  public async searchType(@Query(new CustomValidation(SearchTypeDto))input) {
+  public async searchType(@Query(new CustomValidation(SearchTypeDto)) input) {
     return await this.detailsService.searchType(input);
   }
 }

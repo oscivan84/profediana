@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
-import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
+import { JoiValidationPipe } from '../../common/pipes/joi-validation.pipe';
 import { CreateProductDto } from './product.dto';
 import { ProductEntity } from './product.entity';
 import { ProductsService } from './products.service';

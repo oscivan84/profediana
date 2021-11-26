@@ -36,6 +36,6 @@ export class DetailEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   public updatedAt: Date;
 
-  @ManyToOne(() =>  InvoiceEntity, invoice => invoice.details)
-  public invoice: InvoiceEntity;
+  // @ManyToOne(() =>  InvoiceEntity, invoice => invoice.details)
+  // public invoice: InvoiceEntity;
 }

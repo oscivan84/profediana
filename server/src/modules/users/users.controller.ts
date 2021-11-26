@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
+import { JoiValidationPipe } from '../../common/pipes/joi-validation.pipe';
 import { CreateUserDto } from './user.dto';
 import { UsersService } from './users.service';
 import { ApiBody } from '@nestjs/swagger';

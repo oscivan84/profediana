@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { JoiValidationPipe } from 'src/common/pipes/joi-validation.pipe';
+import { JoiValidationPipe } from '../../common/pipes/joi-validation.pipe';
 import { CreatePaymentDto } from './payment.dto';
 import { PaymentEntity } from './payment.entity';
 import { PaymentsService } from './payments.service';
