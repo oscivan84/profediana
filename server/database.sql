@@ -268,13 +268,12 @@ CREATE TABLE IF NOT EXISTS `details` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique-details-product` (`invoice_id`,`detailable_type`,`detailable_id`),
   CONSTRAINT `pk-details-invoices` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla profediana.details: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `details` DISABLE KEYS */;
 REPLACE INTO `details` (`id`, `invoice_id`, `detailable_type`, `detailable_id`, `price`, `amount`, `state`, `created_at`, `updated_at`) VALUES
-	(1, 3, 'Product', 1, 10.00, 100, 1, NULL, NULL),
-	(2, 4, 'Product', 1, 10.00, 30, 1, NULL, NULL);
+	(28, 3, 'Product', 1, 10.00, 100, 1, NULL, NULL);
 /*!40000 ALTER TABLE `details` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.document_types
@@ -478,9 +477,9 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Volcando datos para la tabla profediana.products: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 REPLACE INTO `products` (`id`, `name`, `description`, `product_type_id`, `stock`, `code`, `purchase_price`, `sale_price`, `state`, `created_at`, `updated_at`) VALUES
-	(2, 'Lapicero', 'Lapiceros Azul', 1, 100, '0001', 0.50, 1.00, 1, NULL, NULL),
-	(3, 'Jabon', 'Jabon para Hombre', 1, 100, '00J1', 0.50, 2.00, 1, NULL, NULL),
-	(4, 'Jabon', 'Jabon para Hombre', 1, 100, '00J1', 0.50, 2.00, 1, NULL, NULL);
+	(2, 'Coca Cola', 'Coca Cola', 1, 6, '0001', 0.50, 1.00, 1, NULL, NULL),
+	(3, 'Pepsi', 'Pepsi', 1, 7, '00J1', 0.50, 2.00, 1, NULL, NULL),
+	(4, 'Popeye', 'Jabon de cara', 1, 10, '00J1', 0.50, 2.00, 1, NULL, NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.product_types
