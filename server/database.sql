@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `business` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla profediana.business: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla profediana.business: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `business` DISABLE KEYS */;
 REPLACE INTO `business` (`id`, `name`, `description`, `state`, `created_at`, `updated_at`) VALUES
 	(1, 'Profe Diana', 'Belleza', 1, NULL, NULL);
@@ -87,14 +87,18 @@ CREATE TABLE IF NOT EXISTS `campuses` (
   `state` tinyint(1) DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `pk-campuses-bussines` (`company_id`),
+  KEY `pk-campuses-cities` (`city_id`),
+  CONSTRAINT `pk-campuses-bussines` FOREIGN KEY (`company_id`) REFERENCES `business` (`id`),
+  CONSTRAINT `pk-campuses-cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla profediana.campuses: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `campuses` DISABLE KEYS */;
 REPLACE INTO `campuses` (`id`, `name`, `description`, `company_id`, `city_id`, `state`, `created_at`, `updated_at`) VALUES
 	(1, 'Bogota', 'Cll 34 N', 1, 1, 1, NULL, NULL),
-	(2, 'Las Vegas', 'Usa - Nevada', 2, 1, 1, NULL, NULL);
+	(2, 'Las Vegas', 'Usa - Nevada', 1, 1, 1, NULL, NULL);
 /*!40000 ALTER TABLE `campuses` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.careers
@@ -107,12 +111,15 @@ CREATE TABLE IF NOT EXISTS `careers` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `pk-carrers-campus` (`campus_id`),
+  UNIQUE KEY `unique-campusId-name` (`campus_id`,`name`),
   CONSTRAINT `pk-carrers-campus` FOREIGN KEY (`campus_id`) REFERENCES `campuses` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla profediana.careers: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla profediana.careers: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `careers` DISABLE KEYS */;
+REPLACE INTO `careers` (`id`, `campus_id`, `name`, `description`, `state`, `created_at`, `updated_at`) VALUES
+	(3, 1, 'Master en Uñas', 'Creación de uñas, pinados y estampados', 1, NULL, NULL),
+	(5, 1, 'Master en Uñas 2', 'Creación de uñas, pinados y estampados', 1, NULL, NULL);
 /*!40000 ALTER TABLE `careers` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.cities
@@ -253,16 +260,21 @@ CREATE TABLE IF NOT EXISTS `details` (
   `invoice_id` int(11) NOT NULL,
   `detailable_type` enum('Product','Schedule') NOT NULL,
   `detailable_id` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `amount` int(10) NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `pk-details-invoices` (`invoice_id`),
+  UNIQUE KEY `unique-details-product` (`invoice_id`,`detailable_type`,`detailable_id`),
   CONSTRAINT `pk-details-invoices` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla profediana.details: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla profediana.details: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `details` DISABLE KEYS */;
+REPLACE INTO `details` (`id`, `invoice_id`, `detailable_type`, `detailable_id`, `price`, `amount`, `state`, `created_at`, `updated_at`) VALUES
+	(1, 3, 'Product', 1, 10.00, 100, 1, NULL, NULL),
+	(2, 4, 'Product', 1, 10.00, 30, 1, NULL, NULL);
 /*!40000 ALTER TABLE `details` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.document_types
@@ -309,11 +321,11 @@ CREATE TABLE IF NOT EXISTS `files` (
 -- Volcando estructura para tabla profediana.invoices
 CREATE TABLE IF NOT EXISTS `invoices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `transmitter_type` enum('Company','Provider','User') NOT NULL COMMENT 'TYPE Emisor de la factura',
+  `transmitter_type` enum('Campus','Provider','User') NOT NULL COMMENT 'TYPE Emisor de la factura',
   `transmitter_id` int(11) NOT NULL COMMENT 'ID Emisor de la factura',
   `description` varchar(50) NOT NULL,
   `date` date NOT NULL COMMENT 'Fecha de emición de la factura',
-  `receiver_type` enum('User','Company','Student','') NOT NULL COMMENT 'TYPE Receptor de la factura',
+  `receiver_type` enum('User','Campus','Student','') NOT NULL COMMENT 'TYPE Receptor de la factura',
   `receiver_id` int(11) NOT NULL COMMENT 'ID Receptor de la factura',
   `cancelled` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 si el recibo se pago y cero si aún debe',
   `state` tinyint(1) NOT NULL DEFAULT '1',
@@ -323,10 +335,13 @@ CREATE TABLE IF NOT EXISTS `invoices` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `pk-invoices` (`user_id`),
   CONSTRAINT `pk-invoices` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tabla de factura o Movimiento';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='Tabla de factura o Movimiento';
 
--- Volcando datos para la tabla profediana.invoices: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla profediana.invoices: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
+REPLACE INTO `invoices` (`id`, `transmitter_type`, `transmitter_id`, `description`, `date`, `receiver_type`, `receiver_id`, `cancelled`, `state`, `user_id`, `created_at`, `updated_at`) VALUES
+	(3, 'Campus', 1, 'Pago de Curso', '2021-11-19', 'Student', 1, 0, 1, NULL, NULL, '2021-11-23 09:34:25'),
+	(4, 'Campus', 1, 'Pago de Curso', '2021-11-19', 'Student', 1, 0, 1, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.justifications
@@ -401,22 +416,25 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_id` int(11) NOT NULL,
   `payment_service_id` int(11) NOT NULL,
-  `amount` decimal(10,2) NOT NULL,
-  `payment_date` datetime NOT NULL,
-  `share` int(10) NOT NULL DEFAULT '1' COMMENT 'Numero de Cuota',
-  `cancelled` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1 si se pagó y 0 si no se cancelo',
+  `price` decimal(10,2) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `share` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'Numero de Cuota',
+  `cancelled` tinyint(1) NOT NULL COMMENT '1 si se pagó y 0 si no se cancelo',
   `state` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `pk-payments-invoices` (`invoice_id`),
   KEY `pk-payments-payment_services` (`payment_service_id`),
   CONSTRAINT `pk-payments-invoices` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`),
   CONSTRAINT `pk-payments-payment_services` FOREIGN KEY (`payment_service_id`) REFERENCES `payment_services` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla profediana.payments: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla profediana.payments: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+REPLACE INTO `payments` (`id`, `invoice_id`, `payment_service_id`, `price`, `datetime`, `share`, `cancelled`, `state`, `created_at`, `updated_at`) VALUES
+	(1, 3, 1, 100.00, '2021-10-12 12:00:00', 1, 1, 1, '2021-11-23 09:34:23', NULL),
+	(2, 3, 1, 100.00, '2021-10-12 12:00:00', 2, 1, 1, '2021-11-23 09:34:25', NULL);
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.payment_services
@@ -442,14 +460,12 @@ REPLACE INTO `payment_services` (`id`, `campus_id`, `name`, `description`, `stat
 -- Volcando estructura para tabla profediana.products
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `description` varchar(45) DEFAULT NULL,
-  `amount` int(10) NOT NULL DEFAULT '0',
+  `name` varchar(45) NOT NULL,
+  `description` varchar(45) NOT NULL,
   `product_type_id` int(11) NOT NULL,
-  `stock` varchar(45) DEFAULT NULL,
+  `stock` int(11) NOT NULL,
   `code` varchar(45) DEFAULT NULL,
-  `rutaimagen` varchar(45) DEFAULT NULL,
-  `purchase_price` varchar(10) DEFAULT NULL COMMENT 'precio de compra',
+  `purchase_price` decimal(10,2) DEFAULT NULL COMMENT 'precio de compra',
   `sale_price` decimal(10,2) DEFAULT NULL COMMENT 'precio de venta',
   `state` tinyint(1) DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
@@ -457,12 +473,14 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `pk-producs-product_types` (`product_type_id`),
   CONSTRAINT `pk-producs-product_types` FOREIGN KEY (`product_type_id`) REFERENCES `product_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla profediana.products: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla profediana.products: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-REPLACE INTO `products` (`id`, `name`, `description`, `amount`, `product_type_id`, `stock`, `code`, `rutaimagen`, `purchase_price`, `sale_price`, `state`, `created_at`, `updated_at`) VALUES
-	(1, 'Pension', 'Pension por 5 meses', 0, 2, NULL, '235689', '1', '230000', NULL, 1, NULL, NULL);
+REPLACE INTO `products` (`id`, `name`, `description`, `product_type_id`, `stock`, `code`, `purchase_price`, `sale_price`, `state`, `created_at`, `updated_at`) VALUES
+	(2, 'Lapicero', 'Lapiceros Azul', 1, 100, '0001', 0.50, 1.00, 1, NULL, NULL),
+	(3, 'Jabon', 'Jabon para Hombre', 1, 100, '00J1', 0.50, 2.00, 1, NULL, NULL),
+	(4, 'Jabon', 'Jabon para Hombre', 1, 100, '00J1', 0.50, 2.00, 1, NULL, NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.product_types
@@ -543,32 +561,48 @@ REPLACE INTO `status` (`id`, `name`, `description`, `state`, `created_at`, `upda
 -- Volcando estructura para tabla profediana.students
 CREATE TABLE IF NOT EXISTS `students` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `lastname` varchar(45) DEFAULT NULL,
-  `document_number` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `neighborhood` varchar(45) DEFAULT NULL COMMENT 'Barrio',
+  `name` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `document_number` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `neighborhood` varchar(45) NOT NULL COMMENT 'Barrio',
+  `date_of_birth` date NOT NULL,
   `landline` varchar(45) DEFAULT NULL COMMENT 'Telefono Fijo',
-  `phone` varchar(45) DEFAULT NULL COMMENT 'Telefono Movil',
+  `phone` varchar(45) NOT NULL COMMENT 'Telefono Movil',
   `email` varchar(45) DEFAULT NULL,
   `contact` varchar(45) DEFAULT NULL,
+  `eps` varchar(50) NOT NULL,
   `affiliation_id` int(11) NOT NULL,
   `degree_id` int(11) NOT NULL,
   `document_type_id` int(11) NOT NULL,
   `city_id` int(11) NOT NULL,
-  `status_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL DEFAULT '1',
   `marital_status_id` int(11) NOT NULL,
-  `sede_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `unique-students` (`document_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `unique-students` (`document_number`),
+  KEY `pk-students-affiliations` (`affiliation_id`),
+  KEY `pk-students-degrees` (`degree_id`),
+  KEY `pk-students-document_types` (`document_type_id`),
+  KEY `pk-students-cities` (`city_id`),
+  KEY `pk-students-status` (`status_id`),
+  KEY `pk-students` (`marital_status_id`),
+  CONSTRAINT `pk-students` FOREIGN KEY (`marital_status_id`) REFERENCES `marital_status` (`id`),
+  CONSTRAINT `pk-students-affiliations` FOREIGN KEY (`affiliation_id`) REFERENCES `affiliations` (`id`),
+  CONSTRAINT `pk-students-cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`),
+  CONSTRAINT `pk-students-degrees` FOREIGN KEY (`degree_id`) REFERENCES `degrees` (`id`),
+  CONSTRAINT `pk-students-document_types` FOREIGN KEY (`document_type_id`) REFERENCES `document_types` (`id`),
+  CONSTRAINT `pk-students-status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla profediana.students: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla profediana.students: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-REPLACE INTO `students` (`id`, `name`, `lastname`, `document_number`, `address`, `neighborhood`, `landline`, `phone`, `email`, `contact`, `affiliation_id`, `degree_id`, `document_type_id`, `city_id`, `status_id`, `marital_status_id`, `sede_id`, `created_at`, `updated_at`) VALUES
-	(1, 'Hans', 'Medina', '99999989', 'Jr Sol nacienteneigbo', 'Quirigua', '2003569', '9999999', 'twd2206@gmail.com', 'Juan Sanchez', 1, 1, 1, 1, 1, 1, 1, NULL, NULL);
+REPLACE INTO `students` (`id`, `name`, `lastname`, `document_number`, `address`, `neighborhood`, `date_of_birth`, `landline`, `phone`, `email`, `contact`, `eps`, `affiliation_id`, `degree_id`, `document_type_id`, `city_id`, `status_id`, `marital_status_id`, `created_at`, `updated_at`) VALUES
+	(2, 'Hans Lorenz', 'Medina Gonzales', '71051564', 'Jr Sol naciente', 'Luz y Paz', '1999-06-21', NULL, '928237596', 'twd2206@gmail.com', 'Padres', 'HOP897F89A', 1, 2, 1, 1, 1, 1, '2021-11-23 09:30:44', NULL),
+	(3, 'Karen', 'Vidaure', '71051565', 'Jr Sol naciente', 'Luz y Paz', '1999-06-21', NULL, '99999999', 'twd2206@gmail.com', 'Padres', '434353543543535', 1, 2, 1, 1, 1, 1, '2021-11-23 09:35:23', NULL),
+	(4, 'Alex Chistian', 'Medina Fuchs', '40333469', 'Jr Sol naciente', 'Luz y Paz', '1973-01-23', NULL, '953658856', 'medinafuchs24@gmail.com', 'Padres', 'HOP897F89T', 1, 1, 1, 1, 1, 1, '2021-11-23 10:37:58', NULL),
+	(5, 'Oscar Iván', 'Díaz ', '80125630', 'Calle 90 #376', 'Orquidea', '1972-09-14', NULL, '3203201320', 'oscar.diaz@gmail.com', 'Marcela Garabito', 'asdfsdfsdff', 1, 2, 1, 1, 1, 2, '2021-11-23 18:11:24', NULL);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
 -- Volcando estructura para tabla profediana.users
@@ -589,13 +623,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `idrol` (`role_id`),
   CONSTRAINT `pk-users-campuses` FOREIGN KEY (`campus_id`) REFERENCES `campuses` (`id`),
   CONSTRAINT `pk-users-roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla profediana.users: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 REPLACE INTO `users` (`id`, `name`, `lastname`, `username`, `email`, `password`, `role_id`, `campus_id`, `state`, `created_at`, `updated_at`) VALUES
-	(1, 'Hans', 'Medina', 'twd2206', 'twd2206@gmail.com', 'hola123456', 1, 1, 1, '2021-11-18 17:48:37', NULL),
-	(2, 'Hans', 'Medina', 'twd2206', 'twd2206@gmail.com', 'hola123456', 1, 1, 1, '2021-11-18 17:49:16', NULL);
+	(1, 'Hans', 'Medina', 'twd2206', 'twd2206@gmail.com', 'hola123456', 1, 1, 1, '2021-11-18 17:48:37', NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
