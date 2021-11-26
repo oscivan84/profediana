@@ -1,0 +1,28 @@
+{
+    "formLogin": {
+        "title": "Iniciar Sesión",
+        "description": "Ingrese su correo y contraseña para iniciar sesión",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "button": "Iniciar Sesión",
+        "forget_password": "¿Olvidaste tu contraseña?",
+        "have_an_account": "¿No tienes una cuenta?",
+        "create_account": "Crear cuenta"
+    },
+
+    "formResetPassword": {
+        "title": "Restablecer la contraseña",
+        "description": "Ingrese su correo para recuperar su cuenta",
+        "email": "Correo Electrónico",
+        "code": "Código",
+        "password": "Contraseña Nueva",
+        "confirm_password": "Confirmar Contraseña",
+        "back": "Regresar a iniciar sesión",
+        "send_code": "Enviar código",
+        "timer": "espera {timer} min",
+        "continue": "Ya tengo el código",
+        "submit": "Cambiar contraseña",
+        "success_code": "El código ha sido enviado a su correo electrónico.",
+        "success_password": "La contraseña se cambió correctamente"
+    }
+}

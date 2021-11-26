@@ -1,0 +1,60 @@
+{
+  "documentTypes": [
+    {
+      "value": 1,
+      "label": "Cedula"
+    },
+    {
+      "value": 2,
+      "label": "Tarjeta Identidad"
+    },
+    {
+      "value": 3,
+      "label": "PEP"
+    }
+  ],
+  "cities": [
+    {
+      "value": 1,
+      "label": "Bogota"
+    }
+  ],
+  "degrees": [
+    {
+      "value": 1,
+      "label": "Primaria"
+    },
+    {
+      "value": 2,
+      "label": "Secundaria"
+    }
+  ],
+  "affiliations": [
+    {
+      "value": 1,
+      "label": "Sanitas - Cotizante"
+    },
+    {
+      "value": 2,
+      "label": "Sanitas - Beneficiario"
+    },
+    {
+      "value": 3,
+      "label": "Famisanar - Cotizante"
+    },
+    {
+      "value": 4,
+      "label": "Famisanar - Beneficiario"
+    }
+  ],
+  "maritalStatus": [
+    {
+      "value": 1,
+      "label": "Soltero"
+    },
+    {
+      "value": 2,
+      "label": "Casado"
+    }
+  ]
+}

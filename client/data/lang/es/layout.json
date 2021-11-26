@@ -1,0 +1,21 @@
+{
+    "setting": {
+        "account": "Cuenta",
+        "setting": "Ajustes",
+        "logout": "Salir"
+    },
+    "menu": {
+        "auth": {
+            "title": "Auth",
+            "description": "Personas, Usuarios, & Roles",
+            "people": "Personas",
+            "users": "Usuarios",
+            "roles": "Roles"
+        },
+        "kardex": {
+            "title": "Kardex",
+            "description": "Administración",
+            "invoices": "Ordenes"
+        }
+    }
+}

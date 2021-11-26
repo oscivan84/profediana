@@ -1,0 +1,22 @@
+{
+    "auth": {
+        "people": {
+            "title": "Personas",
+            "description": "Listar Personas"
+        },
+        "users": {
+            "title": "Usuarios",
+            "description": "Listar Usuarios"
+        },
+        "roles": {
+            "title": "Roles",
+            "description": "Listar Roles"
+        }
+    },
+    "kardex": {
+        "invoices": {
+            "title": "Productos",
+            "description": "Listar Productos"
+        }
+    }
+}
