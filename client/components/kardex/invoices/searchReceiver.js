@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 import { SelectDefault } from '../../common/select';
-import { useDispatch , useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import InvoiceRequest from '../../../request/kardex/invoiceRequest';
+import { setReceiver } from '../../../redux/thunks/kardex/invoiceThunk';
 
 const SearchReceiver = () => {
 
   const invoiceRequest = new InvoiceRequest();
   const dispatch = useDispatch();
-  const { receiver } = useSelector(state => state.invoice);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
-  const displayUser = (obj) => {
+  const displayStudent = (obj) => {
     return {
       value: obj.id,
       label: `${obj.name} ${obj.lastname} [Estudiante]`,
-      type: 'Student'
+      type: 'Student',
+      displayTitle: `${obj.name} ${obj.lastname}`.toLowerCase(),
+      displayEmail: obj.email,
+      displayPhone: obj.phone,
+      displayAddress: obj.address,
+      displayImage: require('../../../assets/images/kardex/student.png'),
     }
   }
 
@@ -23,15 +28,22 @@ const SearchReceiver = () => {
     return {
       value: obj.id,
       label: `${obj.name} [Campus]`,
-      type: 'Campus'
+      type: 'Campus',
+      displayTitle: `${obj.name}`,
+      displayAddress: obj.description,
+      displayImage: require('../../../assets/images/kardex/campus.png')
     }
   }
 
-  const displayStudent = (obj) => {
+  const displayUser = (obj) => {
     return {
       value: obj.id,
       label: `${obj.name} ${obj.lastname} [Usuario]`,
-      type: 'User'
+      type: 'User',
+      displayTitle: `${obj.name} ${obj.lastname}`,
+      displayEmail: obj.email,
+      displayAddress: '---',
+      displayImage: require('../../../assets/images/kardex/user.png'),
     }
   }
 
@@ -60,6 +72,10 @@ const SearchReceiver = () => {
     }).catch(() => setLoading(false))
   }
 
+  const selectReceiver = (newReceiver = {}) => {
+    dispatch(setReceiver(newReceiver));
+  }
+
   return (
     <div style={{ zIndex: 99 }}>
       <SelectDefault placeholder="Buscar comprador"
@@ -68,6 +84,7 @@ const SearchReceiver = () => {
         onInputChange={handleSearch}
         options={data}
         isClearable={true}
+        onChange={selectReceiver}
       />
     </div>
   )
