@@ -116,3 +116,14 @@
 .justify-end {
     justify-content: end;
 }
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.image-receiver {
+    object-fit: contain!important;
+    padding: 1em;
+    width: 100px;
+    height: 100px;
+}

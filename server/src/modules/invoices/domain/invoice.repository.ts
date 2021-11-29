@@ -36,4 +36,13 @@ export class InvoiceRepository extends Repository<InvoiceEntity> {
       .getRawOne();
     return parseInt(share);
   }
+
+  public async findTotal(id: number): Promise<number> {
+    const {total} = await this.createQueryBuilder('pay')
+      .innerJoin('details', 'det', 'det.invoice_id = pay.id')
+      .where(`pay.id = ${id}`)
+      .select('IFNULL(SUM(det.price * det.amount), 0) as total')
+      .getRawOne();
+    return total;
+  }
 }

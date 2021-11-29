@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { InvoiceEntity } from '../invoices/invoice.entity';
+// import { InvoiceEntity } from '../invoices/invoice.entity';
 
 @Entity('details')
 export class DetailEntity {
