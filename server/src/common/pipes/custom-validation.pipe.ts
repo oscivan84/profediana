@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException, PipeTransform } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { validateSync, ValidationError, validate} from 'class-validator';
+import { validateSync, ValidationError } from 'class-validator';
 import { PaymentRequiredCollectionException, PaymentRequiredException } from '../exceptions/payment-required.exception';
 
 @Injectable()

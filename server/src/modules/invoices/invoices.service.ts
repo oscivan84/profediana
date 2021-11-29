@@ -2,9 +2,10 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CampusesService } from '../campuses/campuses.service';
 import { StudentsService } from '../students/students.service';
 import { UsersService } from '../users/users.service';
-import { SearchReceiverDto } from './invoice.dto';
-import { InvoiceEntity } from './invoice.entity';
-import { InvoiceRepository } from './invoice.repository';
+import { SearchReceiverDto } from './domain/invoice.dto';
+import { InvoiceEntity } from './domain/invoice.entity';
+import { InvoiceRepository } from './domain/invoice.repository';
+import * as currency from 'currency-formatter';
 
 @Injectable()
 export class InvoicesService {
@@ -23,9 +24,19 @@ export class InvoicesService {
     }
   }
 
-  public async findDebt(id: number, cancelled?: boolean | undefined): Promise<number> {
+  public async findDebt(id: number, cancelled?: boolean | undefined): Promise<any> {
     try {
-      return await this.invoiceRepository.findDebt(id, cancelled);
+      const total = await this.invoiceRepository.findTotal(id);
+      const debt = await this.invoiceRepository.findDebt(id, cancelled);
+      const diff = (total - debt) as number;
+      const displayTotal = currency.format(total, { code: 'COP' });
+      const displayDebt = currency.format(debt, { code: 'COP' });
+      const displatDiff = currency.format(diff, { code: 'COP' });
+      return { 
+        total: displayTotal,
+        debt: displayDebt,
+        diff: displatDiff
+      }
     } catch (error) {
       throw new InternalServerErrorException("No se pudo obtener la deuda");
     }

@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InvoicesService } from '../invoices/invoices.service';
-import { PaymentEntity } from './payment.entity';
-import { PaymentRepository } from './payment.repository';
+import { PaymentEntity } from './domain/payment.entity';
+import { PaymentRepository } from './domain/payment.repository';
 
 @Injectable()
 export class PaymentsService {
