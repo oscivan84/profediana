@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Row, Col, TabContent, TabPane } from 'reactstrap';
-import Register from './register';
-import Receiver from './receiver';
+import { TabContent, TabPane } from 'reactstrap';
 import MenuPanes from './menuPanes';
+import Order from './order';
 
 const Invoices = () => {
 
@@ -32,14 +31,7 @@ const Invoices = () => {
           Crear Panes
         </TabPane>
         <TabPane tabId={panes.ADD_DETALLE.key}>
-          <Row>
-            <Col md="4" className='mb-2'>
-              <Receiver/>
-            </Col>
-            <Col md="8" className='mb-2'>
-              <Register/>
-            </Col>
-          </Row>
+            <Order/>
         </TabPane>
       </TabContent>
     </>

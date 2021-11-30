@@ -13,9 +13,11 @@ const SearchReceiver = () => {
 
   const displayStudent = (obj) => {
     return {
+      receiverType: 'Student',
+      receiverId: obj.id,
       value: obj.id,
       label: `${obj.name} ${obj.lastname} [Estudiante]`,
-      type: 'Student',
+      displayType: 'Estudiante',
       displayTitle: `${obj.name} ${obj.lastname}`.toLowerCase(),
       displayEmail: obj.email,
       displayPhone: obj.phone,
@@ -26,9 +28,11 @@ const SearchReceiver = () => {
 
   const displayCampus = (obj) => {
     return {
+      receiverType: 'Campus',
+      receiverId: obj.id,
       value: obj.id,
       label: `${obj.name} [Campus]`,
-      type: 'Campus',
+      displayType: 'Campus',
       displayTitle: `${obj.name}`,
       displayAddress: obj.description,
       displayImage: require('../../../assets/images/kardex/campus.png')
@@ -37,9 +41,11 @@ const SearchReceiver = () => {
 
   const displayUser = (obj) => {
     return {
+      receiverType: 'User',
+      receiverId: obj.id,
       value: obj.id,
       label: `${obj.name} ${obj.lastname} [Usuario]`,
-      type: 'User',
+      displayType: 'Usuario',
       displayTitle: `${obj.name} ${obj.lastname}`,
       displayEmail: obj.email,
       displayAddress: '---',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Card, CardHeader, CardFooter, Col } from 'reactstrap';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
@@ -10,11 +10,12 @@ const Receiver = ()  => {
 
   const defaultImage = require(`../../../assets/images/social-app/post-1.png`)
 
-  return (
-    <Card className="custom-card" style={{ overflow: 'auto', minHeight: '100%' }}>
-      <CardHeader>
-        <SearchReciver/>
-      </CardHeader>
+  const isReceiver = useMemo(() => {
+    return Object.keys(receiver || {}).length ? true : false;
+  }, [receiver]);
+
+  const renderInfo = () => (
+    <>
       <div className="card-profile mt-4" style={{ zIndex: 0 }}>
         <Image body 
           className="image-receiver"
@@ -24,7 +25,7 @@ const Receiver = ()  => {
       </div>
       <ul className="card-social">
         <li>
-          [{receiver?.type}]
+          [{receiver?.displayType}]
         </li>
       </ul>
       <div className="text-center profile-details mt-3">
@@ -37,6 +38,15 @@ const Receiver = ()  => {
           <h6>{receiver?.displayAddress}</h6>
         </Col>
       </CardFooter>
+    </>
+  );
+
+  return (
+    <Card className="custom-card" style={{ overflow: 'auto', minHeight: '100%' }}>
+      <CardHeader>
+        <SearchReciver/>
+      </CardHeader>
+      {isReceiver ? renderInfo() : null}
     </Card>
   )
 }

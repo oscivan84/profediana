@@ -25,9 +25,13 @@ const Sidebar = ({ t }) => {
           <Link href="hola">
             <a>
               <Show condicion={dark}
-                predeterminado={<Image className="img-fluid for-light" src={require("../../../assets/images/logo/logo.png")} alt="" />}
+                predeterminado={
+                  // <Image className="img-fluid for-light" src={require("../../../assets/images/logo/logo.png")} alt="" />
+                  `ProfeDiana`
+                }
               >
-                <Image className="img-fluid for-dark" src={require("../../../assets/images/logo/logo_dark.png")} alt="" />
+                {/* <Image className="img-fluid for-dark" src={require("../../../assets/images/logo/logo_dark.png")} alt="" /> */}
+                ProfeDiana
               </Show>
             </a>
           </Link>

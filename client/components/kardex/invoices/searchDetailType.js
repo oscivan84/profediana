@@ -3,20 +3,25 @@ import { SelectDefault } from '../../common/select';
 import { useDispatch , useSelector } from 'react-redux';
 import DetailRequest from '../../../request/kardex/detailRequest';
 import { format } from 'currency-formatter';
+import { setDetails } from '../../../redux/thunks/kardex/invoiceThunk';
 
 const SearchDetailType = () => {
 
   const detailRequest = new DetailRequest();
   const dispatch = useDispatch();
-  const { receiver } = useSelector(state => state.invoice);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
   const displayProduct = (obj) => {
     return {
+      detailableId: obj.id,
+      detailableType: 'Product',
+      objectId: `Product:${obj.id}`,
       value: obj.id,
-      label: `${obj.code} | ${obj.name} ; Precio: ${format(obj.sale_price, { locale: 'co-CO' })} [Producto]`,
-      type: 'Product',
+      label: `${obj.code} | ${obj.name} ; Precio: ${format(obj.salePrice, { locale: 'co-CO' })} [Producto]`,
+      displayName: obj.name,
+      displayPrice: obj.salePrice,
+      displayAmount: 0,
     }
   }
 
@@ -43,6 +48,13 @@ const SearchDetailType = () => {
     }).catch(() => setLoading(false))
   }
 
+  const handleSelectDetail = (newDetail = {}) => {
+    const isDetail = Object.keys(newDetail || {}).length;
+    if (!isDetail) return;
+    const serialize = JSON.parse(JSON.stringify(newDetail));
+    dispatch(setDetails(serialize));
+  }
+
   return (
     <div style={{ zIndex: 99 }} className='mb-5'>
       <SelectDefault placeholder="Buscar Producto..."
@@ -51,6 +63,7 @@ const SearchDetailType = () => {
         onInputChange={handleSearch}
         options={data}
         isClearable={true}
+        onChange={handleSelectDetail}
       />
     </div>
   )
