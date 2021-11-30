@@ -28,12 +28,12 @@ export class ProductEntity {
   public code: string;
 
   @ApiProperty()
-  @Column({ comment: 'precio de compra' })
-  public purchase_price: number;
+  @Column({ comment: 'precio de compra', name: 'purchase_price' })
+  public purchasePrice: number;
 
   @ApiProperty()
-  @Column({ comment: 'precio de venta' })
-  public sale_price: number;
+  @Column({ comment: 'precio de venta', name: 'sale_price' })
+  public salePrice: number;
 
   @Column({ default: true })
   public state: boolean = true;

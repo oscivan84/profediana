@@ -6,6 +6,8 @@ class BaseRequest {
     apiLib = {
         post: () => null,
         get: () => null,
+        put: () => null,
+        delete: () => null,
     }
 
     root = "/"
@@ -66,6 +68,15 @@ class BaseRequest {
         return new Promise(async (resolver, reject) => {
             let config = Object.assign({ headers: this.configHeaders }, tmpConfig)
             await this.apiLib.post(urlJoin(this.root, url), data, config)
+            .then(res => resolver(res))
+            .catch(err => reject(this.onError(err))) 
+        })
+    }
+
+    requestPut(url = '', data = {}, tmpConfig = {}) {
+        return new Promise(async (resolver, reject) => {
+            let config = Object.assign({ headers: this.configHeaders }, tmpConfig)
+            await this.apiLib.put(urlJoin(this.root, url), data, config)
             .then(res => resolver(res))
             .catch(err => reject(this.onError(err))) 
         })

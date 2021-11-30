@@ -11,6 +11,17 @@ class InvoiceRequest extends BaseRequest {
         let query = `page=${page}&limit=${limit}&querySearch=${querySearch}`;
         return this.requestGet(`/searchReceiver?${query}`);
     }
+
+    store(createDto = {
+        transmitterType: '',
+        transmitterId: 0,
+        description: '', 
+        date: '',
+        receiverType: '', 
+        receiverId: 0
+    }) {
+        return this.requestPost(`/`, createDto);
+    }
 }
 
 export default InvoiceRequest;

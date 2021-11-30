@@ -11,6 +11,26 @@ class DetailRequest extends BaseRequest {
         let query = `page=${page}&limit=${limit}&querySearch=${querySearch}`;
         return this.requestGet(`/searchType?${query}`);
     }
+
+    store(datos = {
+        invoiceId,
+        detailableType,
+        detailableId,
+        price,
+        amount
+    }) {
+        return this.requestPost('', datos);
+    }
+
+    storeMany(datos = [{
+        invoiceId,
+        detailableType,
+        detailableId,
+        price,
+        amount
+    }]) {
+        return this.requestPut('', datos);
+    }
 }
 
 export default DetailRequest;

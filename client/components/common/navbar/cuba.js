@@ -38,8 +38,12 @@ const NavbarCuba = () => {
                     </div>
                 </form>
                 <div className="header-logo-wrapper col-auto p-0">
-                    <div className="logo-wrapper"><a href="index.html" >
-                        <Image className="img-fluid" src={require("../../../assets/images/logo/logo.png")} alt=""/></a></div>
+                    <div className="logo-wrapper">
+                        <a href="index.html" >
+                            {/* <Image className="img-fluid" src={require("../../../assets/images/logo/logo.png")} alt=""/> */}
+                            ProfeDiana
+                        </a>
+                    </div>
                     <div className="toggle-sidebar" checked="checked" onClick={handleWrapperScreen}>
                         <Menu/>
                     </div>

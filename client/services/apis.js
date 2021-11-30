@@ -8,6 +8,12 @@ export const apiAuth = {
     },
     post: (path = '/', data = {}, config = {},  ctx = null) => {
         return axios.post(urlJoin(apiAuth.url, path), data, config)
+    },
+    put: (path = '/', data = {}, config = {},  ctx = null) => {
+        return axios.put(urlJoin(apiAuth.url, path), data, config)
+    },
+    delete: (path = '/', config = {},  ctx = null) => {
+        return axios.delete(urlJoin(apiAuth.url, path), config)
     }
 }
 
