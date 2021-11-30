@@ -15,7 +15,7 @@ import { AuthController } from './auth.controller';
     PassportModule,
     JwtModule.registerAsync({
       useFactory:() => ({
-        secret: process.env.JWT_SECRET,
+        secret: process.env.APP_KEY,
         signOptions: jwtOptions,
       })
     }),
