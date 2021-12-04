@@ -1,5 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { OmitType } from '@nestjs/mapped-types';
 import { PaginateDto } from '../../common/dto/paginate.dto';
 
