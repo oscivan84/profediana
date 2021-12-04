@@ -43,4 +43,4 @@ Actualmente el sistema utiliza "mysql:7.5" como gestor de base de datos
 
 ## Swagger
 Para visualizar la documentación de la API REST debe consultar a la dirección
-"http´://${HOST}/api/"
+"http://${HOST}/api/"
