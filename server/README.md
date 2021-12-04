@@ -36,7 +36,7 @@ $ npm run test:cov
 
 ## Running Production
 Se debe generar las variables de entorno con el nombre del archivo
-".env.prodcution" dentro de la carpeta dist
+".env.production" dentro de la carpeta dist
 
 ## Base de datos
 Actualmente el sistema utiliza "mysql:7.5" como gestor de base de datos
