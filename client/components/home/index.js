@@ -23,6 +23,7 @@ const Home = () => {
     <div className='container container-hidden container-viewport'
       style={mode == "xs" ? mediaQueryMobile : mediaQueryDesktop}
     >
+    
       <BannerHero/>
       <ServiceHero/>
       <AboutHero/>
