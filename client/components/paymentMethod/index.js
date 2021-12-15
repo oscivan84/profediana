@@ -1,4 +1,10 @@
+import React, { useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 const Orden = () => {
+  const [paymentType, setPaymentType] = useState("");
+
   return (
     <div className="payment-method text-gray-700">
       <div className="border shadow  mx-auto mt-20 flex flex-col px-10 py-10 ">
@@ -73,14 +79,61 @@ const Orden = () => {
             </tr>
           </tbody>
         </table>
-        <div className="mt-10">
-          <label value="metodo" className="mr-10 font-semibold">
-            Método de Pago
-          </label>
-          <select name="" id="" className="p-2 cursor-pointer w-40">
-            <option value="">Efectivo</option>
-            <option value="">Tarjeta</option>
-          </select>
+        <div className="flex items-center mt-10 text-lg">
+          <div className="mt-10 my-auto">
+            <label value="metodo" className="mr-10 font-semibold">
+              Método de Pago
+            </label>
+            <select
+              name=""
+              id=""
+              className="p-2 cursor-pointer w-40"
+              onChange={(e) => {
+                setPaymentType(e.target.value);
+              }}
+            >
+              <option value="efectivo">Efectivo</option>
+              <option value="tarjeta">Tarjeta</option>
+              <option value="nequi">Nequi</option>
+              <option value="deviplata">Deviplata</option>
+            </select>
+          </div>
+          {paymentType === "efectivo" ? (
+            <div className="grid grid-cols-2 text-lg grid-flow-col grid-rows-2  ml-14 text-center">
+              <div className=" p-3">Cantidad Recibida :</div>
+              <div className=" p-3">Vuelto :</div>
+              <div className=" ">
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Monto Recibido"
+                  className="w-full text-gray-600 border mb-4 outline-none py-2 pl-4  focus:ring-gray focus:border-gray-500"
+                />
+              </div>
+
+              <div className=" p-3">$ 10.00</div>
+            </div>
+          ) : (
+            <div className="ml-10 text-center">
+              <p className="text-gray-600 font-semibold text-lg">
+                Comprobante de pago
+              </p>
+              <img
+                className="max-h-40 w-40 object-cover"
+                src="https://elcomercio.pe/resizer/c4gJr6NT_fLbY39wl5QZubn-pe4=/980x528/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/VAZF7VLPDRCO3MCJ4F25BI4H3U.jpg"
+                alt=""
+              />
+            </div>
+          )}
+        </div>
+
+        <div className=" w-40 ml-10 mx-auto">
+          <Link href="/kardex/invoices">
+            <button className="w-full my-5 bg-blue-500 mt-10 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+              Regresar
+            </button>
+          </Link>
         </div>
       </div>
     </div>

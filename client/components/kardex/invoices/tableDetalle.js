@@ -131,7 +131,7 @@ const TableDetalle = () => {
             ) : (
               <tr>
                 <th className="text-center" colSpan={5}>
-                  Aún no hay productos seleccionado
+                  Aún no hay productos seleccionados
                 </th>
               </tr>
             )}
@@ -170,18 +170,9 @@ const TableDetalle = () => {
                   {loading ? "Guardando..." : "Terminar"}
                 </Button>
               ) : (
-                <Button
-                  block
-                  color="primary"
-                  size="lg"
-                  // disabled={!canSave || loading}
-                  // onClick={() => <Link href="/" />}
-                >
-                  <Link href="/orden">
-                  Método de Pago
-                  </Link>
-                  
-                </Button>
+                <Link href="/kardex/pymentMethod">
+                  Métodos de Pago
+                </Link>
               )}
             </div>
           </Col>
