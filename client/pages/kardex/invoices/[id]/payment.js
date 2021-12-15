@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
-import { authorize } from "../../helpers/authServerSideProps";
-import { LayoutCuba } from "../../components/common/layout";
+import { authorize } from "../../../../helpers/authServerSideProps";
+import { LayoutCuba } from "../../../../components/common/layout";
 import Link from "next/link";
-import Breadcrumb from "../../components/common/layout/breadcrumb";
+import Breadcrumb from "../../../../components/common/layout/breadcrumb";
 import { connect } from "react-redux";
 import Head from "next/head";
 
