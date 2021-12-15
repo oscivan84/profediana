@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Table, CardFooter, Row, Col, Input, Button } from "reactstrap";
 import { useSelector } from "react-redux";
 import Item from "./item";
@@ -10,14 +10,14 @@ import { useDispatch } from "react-redux";
 import { DateTime } from "luxon";
 import { format } from "currency-formatter";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const TableDetalle = () => {
-  const [selectPaymentMethod, setSelectPaymenytMethod] = useState(false);
-
   const invoiceRequest = new InvoiceRequest();
   const detailRequest = new DetailRequest();
 
   const dispatch = useDispatch();
+  const route = useRouter();
 
   const { mode } = useSelector((state) => state.screen);
   const { details, receiver, detailTotal } = useSelector(
@@ -27,6 +27,7 @@ const TableDetalle = () => {
   const [description, setDescription] = useState();
   const [loading, setLoading] = useState(false);
   const [currentId, setCurrentId] = useState(undefined);
+  const [nextPage, setNextPage] = useState(false);
 
   const canSave = useMemo(() => {
     return details?.length && receiver?.receiverId;
@@ -55,20 +56,15 @@ const TableDetalle = () => {
       });
     });
     return await detailRequest.storeMany(datos).then(() => {
-      Swal.fire({
-        icon: "success",
-        text: "Los datos se guardaron correctamente!",
-      });
       setLoading(false);
-      setCurrentId(undefined);
-      setDescription();
       dispatch(clearDetails());
+      setNextPage(true);
     });
   };
 
   const handleSave = async () => {
-    const answer = await dialogConfirm();
-    if (!answer) return;
+    const { isConfirmed } = await dialogConfirm();
+    if (!isConfirmed) return;
     setLoading(true);
     if (currentId) return handleSaveDetalle(currentId);
     // primera vez
@@ -93,6 +89,15 @@ const TableDetalle = () => {
         });
       });
   };
+
+  const handleNextPage = () => {
+    const { push, pathname } = route;
+    push(`${pathname}/${currentId}/payment`);
+  }
+
+  useEffect(() => {
+    if (nextPage) handleNextPage();
+  }, [nextPage]);
 
   return (
     <>
@@ -159,7 +164,6 @@ const TableDetalle = () => {
               </b>
             </div>
             <div className="flex mt-4 justify-end">
-              {selectPaymentMethod ? (
                 <Button
                   block
                   color="primary"
@@ -167,13 +171,8 @@ const TableDetalle = () => {
                   disabled={!canSave || loading}
                   onClick={handleSave}
                 >
-                  {loading ? "Guardando..." : "Terminar"}
+                  {loading ? "Guardando..." : "Pagar"}
                 </Button>
-              ) : (
-                <Link href="/kardex/pymentMethod">
-                  Métodos de Pago
-                </Link>
-              )}
             </div>
           </Col>
         </Row>
