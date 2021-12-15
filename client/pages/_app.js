@@ -6,6 +6,7 @@ import AppConfig from "../components/utils/appConfig"
 
 import 'animate.css';
 import '../assets/scss/app.scss'
+import '../assets/scss/Modal.css'
 
 
 const MyApp = ({ Component, pageProps }) => {
