@@ -22,6 +22,10 @@ class InvoiceRequest extends BaseRequest {
     }) {
         return this.requestPost(`/`, createDto);
     }
+
+    debt(id) {
+        return this.requestGet(`/${id}/debt`)
+    }
 }
 
 export default InvoiceRequest;

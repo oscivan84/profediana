@@ -7,7 +7,7 @@ import Webcam from "@uppy/webcam";
 import "@uppy/core/dist/style.css";
 import "@uppy/dashboard/dist/style.css";
 
-const DragAndDrop = ({ onUpload = () => {} }) => {
+const DragAndDrop = ({ onUpload = () => {}, title = '' }) => {
   const uppy = useMemo(() => {
     return new Uppy()
   }, []);
@@ -38,10 +38,10 @@ const DragAndDrop = ({ onUpload = () => {} }) => {
 
   return (
     <div className="">
-      <h4 className="text-gray-200 text-center mb-10">Sube tu foto de perfil</h4>
+      {title ? <h4 className="text-gray-200 text-center mb-10">{title}</h4> : null}
       <Dashboard
         width="100%"
-        // note="Images up to 200×200px"
+        height="400px"
         uppy={uppy}
         plugins={["Webcam", ""]}
         locale={{
