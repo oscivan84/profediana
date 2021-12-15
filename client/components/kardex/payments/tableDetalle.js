@@ -1,7 +1,7 @@
 import React from 'react';
 import { format } from 'currency-formatter';
 
-const TableDetalle = ({ total = 0, debt = 0, diff = 0 }) => {
+const TableDetalle = ({ total = 0, debt = 0, diff = 0, cancelled }) => {
 
   return (
     <div className='table-responsive'>
@@ -67,7 +67,7 @@ const TableDetalle = ({ total = 0, debt = 0, diff = 0 }) => {
             <td className="py-2 text-lg font-bold">{format(total || 0, { code: 'COP' })}</td>
           </tr>
           {
-            !diff ? null
+            cancelled ? null
             : (
               <tr className="border ">
                 <td colSpan={5} className="text-black font-bold text-xl text-left pl-2">Pagado</td>
@@ -76,7 +76,7 @@ const TableDetalle = ({ total = 0, debt = 0, diff = 0 }) => {
             ) 
           }
           {
-            !debt ? null 
+            debt ? null 
             : (
               <tr className="border ">
                 <td colSpan={5} className="text-black font-bold text-xl text-left pl-2">Deuda</td>

@@ -32,16 +32,9 @@ export const editUser = (newUser = {}) => ({
     payload: newUser || {}
 })
 
-export const logout = (translate = null) => async (dispatch) => {
-    const loginRequest = new LoginRequest({ translate })
-    await loginRequest.logout()
-    .then(() => dispatch({ type: LOGOUT }))
-    .catch(err => {
-        if (err.code == 'E_UNAUTHORIZED_ACCESS') {
-            dispatch({ type: LOGOUT });
-        }
-    })
-}
+export const logout = () => ({
+    type: LOGOUT
+})
 
 // Estado initial
 export const stateInitial = {
@@ -74,7 +67,8 @@ export const authReducer = (state = stateInitial, action) => {
         case LOGOUT:
             state.user = {};
             state.token = null;
-            nookies.destroy(null, 'auth_token');
+            console.log('logout');
+            nookies.destroy(null, 'access_token');
             Router.push('/login');
             return state;
         default:

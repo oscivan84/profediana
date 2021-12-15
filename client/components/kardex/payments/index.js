@@ -4,7 +4,7 @@ import TableDetalle from './tableDetalle';
 import InvoiceRequest from '../../../request/kardex/invoiceRequest';
 
 const IsCancelled = () => (
-  <div className='alert alert-success'>
+  <div className='alert alert-success mt-2'>
     El pago está efectuado...
   </div>
 )

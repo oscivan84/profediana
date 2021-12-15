@@ -35,7 +35,7 @@ const UserBar = ({ t }) => {
         e.preventDefault();
         switch (opt.key) {
             case 'logout':
-                dispatch(logout(t))
+                dispatch(logout())
                 break;
         }        
     }
