@@ -29,13 +29,12 @@ export class InvoicesService {
       const total = await this.invoiceRepository.findTotal(id);
       const debt = await this.invoiceRepository.findDebt(id, cancelled);
       const diff = (total - debt) as number;
-      const displayTotal = currency.format(total, { code: 'COP' });
-      const displayDebt = currency.format(debt, { code: 'COP' });
-      const displatDiff = currency.format(diff, { code: 'COP' });
+      const isCancelled = debt <= 0;
       return { 
-        total: displayTotal,
-        debt: displayDebt,
-        diff: displatDiff
+        total,
+        debt,
+        diff,
+        cancelled: isCancelled
       }
     } catch (error) {
       throw new InternalServerErrorException("No se pudo obtener la deuda");
