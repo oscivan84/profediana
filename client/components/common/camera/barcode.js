@@ -31,6 +31,8 @@ const Barcode = ({ onResult = null, defaultStream = true }) => {
   const [stopStream, setStopStream] = useState(defaultStream);
   const [isError, setIsError] = useState(false);
 
+  let intervalResult = null
+
   const handleUpdate = (err, result) => {
     if (!result) return;
     setData(result.text);
@@ -39,25 +41,35 @@ const Barcode = ({ onResult = null, defaultStream = true }) => {
   }
 
   const handlePermissions = () => {
-    navigator?.permissions?.query({ name: 'camera' })
-    .then(({ state }) => {
-      if (state == 'denied') throw new Error();
-      setIsError(false);
-    }).catch(() => setIsError(true));
+    intervalResult = setInterval(() => {
+      navigator?.permissions?.query({ name: 'camera' })
+      .then(({ state }) => {
+        if (state == 'denied') throw new Error();
+        setIsError(false);
+      }).catch(() => {
+        setIsError(true);
+        setStopStream(true);
+      });
+    }, 1000)
   }
 
   const handleToggle = () => {
     setData()
     setStopStream(prev => !prev)
   }
+
+  useEffect(() => {
+    handlePermissions();
+    return () => clearInterval(intervalResult);
+  }, [])
   
   return (
     <>
       <div className={styles.barcode__content}>
         {!stopStream
           ? <BarcodeScannerComponent
+              facingMode='user'
               onUpdate={handleUpdate}
-              onError={(err) => console.log(err)}
             />
           : <BarcodeResult result={data}/>
         }
