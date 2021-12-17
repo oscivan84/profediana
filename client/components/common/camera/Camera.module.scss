@@ -1,0 +1,55 @@
+
+.barcode__content {
+  margin: auto auto;
+  position: relative;
+  width: 400px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.5em;
+  overflow: hidden;
+  border: 0.5em solid #000;
+}
+
+.barcode__content video {
+  height: auto;
+  position: absolute;
+  top: 0px;
+}
+
+.barcode__button, .barcode__button:focus {
+  width: 35px;
+  height: 35px;
+  z-index: 999;
+  padding: 0px;
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #000!important;
+  border: none;
+}
+
+.barcode__button.active {
+  background: #e53935!important;
+}
+
+.barcode__button:hover {
+  background-color: #fff!important;
+  color: #000;
+  transition: all ease 0.4s;
+}
+
+.barcode__icon {
+  margin: auto auto;
+}
+
+.barcode_result {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  margin: auto auto;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}

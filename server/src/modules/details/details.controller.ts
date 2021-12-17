@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Put, Query, Res } from '@nestjs/common';
 import { DetailEntity } from './detail.entity';
 import { DetailsService } from './details.service';
 import { CreateDetailDto, SearchTypeDto } from './detail.dto';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
 import { CustomValidation } from '../../common/pipes/custom-validation.pipe';
 import { Response } from 'express';
 import { ParseErrorResponse } from '../../common/utils/parse-error-response';
@@ -29,7 +29,8 @@ export class DetailsController {
     })
   }
 
-  @Get('searchType')
+  @ApiQuery({ type: [SearchTypeDto] })
+  @Get('search/type')
   public async searchType(@Query(new CustomValidation(SearchTypeDto)) input) {
     return await this.detailsService.searchType(input);
   }

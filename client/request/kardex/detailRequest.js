@@ -9,7 +9,7 @@ class DetailRequest extends BaseRequest {
 
     searchType({ page = 1, limit = 30, querySearch }) {
         let query = `page=${page}&limit=${limit}&querySearch=${querySearch}`;
-        return this.requestGet(`/searchType?${query}`);
+        return this.requestGet(`/search/type?${query}`);
     }
 
     store(datos = {

@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiQuery } from '@nestjs/swagger';
 import { PaginateDto } from 'src/common/dto/paginate.dto';
 import { CustomValidation } from '../../common/pipes/custom-validation.pipe';
 import { CreateInvoiceDto, SearchReceiverDto } from './domain/invoice.dto';
@@ -26,6 +26,7 @@ export class InvoicesController {
     return await this.invoicesService.findDebt(id, true);
   }
 
+  @ApiQuery({ type: [SearchReceiverDto] })
   @Get('search/receiver')
   public async searchReceiver(@Query(new CustomValidation(SearchReceiverDto)) query) {
     return await this.invoicesService.searchReceiver(query);
