@@ -40,7 +40,10 @@ const Payment = ({ id }) => {
 
         {loading ? 'Obteniendo deuda..' : null}
         {!currentDebt?.cancelled && currentDebt?.total 
-          ? <MethodPayment debt={currentDebt?.debt}/> 
+          ? <MethodPayment 
+              debt={currentDebt?.debt}
+              onSave={() => getDebt()}
+            /> 
           : null
         }
 

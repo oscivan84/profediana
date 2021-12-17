@@ -6,7 +6,7 @@ import { useRouter } from 'next/dist/client/router';
 import DragAndDrop from '../../DragAndDrop';
 import Swal from 'sweetalert2'
 
-const MethodPayment = ({ debt = 0 }) => {
+const MethodPayment = ({ debt = 0, onSave = null }) => {
 
   const paymentRequest = new PaymentRequest();
 
@@ -71,7 +71,10 @@ const MethodPayment = ({ debt = 0 }) => {
         icon: 'success',
         text: 'El pago se realizo correctamente!'
       })
-      router.back();
+      // pagar
+      if (typeof onSave == 'function') onSave();
+      // limpiar
+      setForm({});
     }).catch(() => Swal.fire({
       icon: 'error', text: 'No se pudo ralizar el pago'
     }))
@@ -100,7 +103,7 @@ const MethodPayment = ({ debt = 0 }) => {
             min={1}
             disabled={loading}
             onChange={({ target }) => handleInput(target)}
-            value={form?.price}
+            value={form?.price || 0}
             name='price'
           />
         </div>

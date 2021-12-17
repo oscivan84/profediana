@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { format } from 'currency-formatter';
 
 const TableDetalle = ({ total = 0, debt = 0, diff = 0, cancelled }) => {
+
+  const hideDiff = useMemo(() => {
+    return cancelled ||!diff
+  }, [cancelled, diff]);
+
+  const hideDebt = useMemo(() => {
+    return (debt == total) || cancelled
+  }, [cancelled, debt]);
 
   return (
     <div className='table-responsive'>
@@ -67,7 +75,7 @@ const TableDetalle = ({ total = 0, debt = 0, diff = 0, cancelled }) => {
             <td className="py-2 text-lg font-bold">{format(total || 0, { code: 'COP' })}</td>
           </tr>
           {
-            cancelled ? null
+            hideDiff ? null
             : (
               <tr className="border ">
                 <td colSpan={5} className="text-black font-bold text-xl text-left pl-2">Pagado</td>
@@ -76,7 +84,7 @@ const TableDetalle = ({ total = 0, debt = 0, diff = 0, cancelled }) => {
             ) 
           }
           {
-            debt ? null 
+            hideDebt ? null 
             : (
               <tr className="border ">
                 <td colSpan={5} className="text-black font-bold text-xl text-left pl-2">Deuda</td>
