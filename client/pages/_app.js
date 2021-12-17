@@ -3,8 +3,8 @@ import { useRouter } from "next/router"
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import { wrapper } from "../redux/store"
 import AppConfig from "../components/utils/appConfig"
-import Head from 'next/head';
 
+import '../assets/scss/tailwind.css';
 import 'animate.css';
 import '../assets/scss/app.scss'
 import '../assets/scss/Modal.css'
@@ -16,12 +16,6 @@ const MyApp = ({ Component, pageProps }) => {
 
   return (
       <AppConfig>
-        <Head>
-          <link
-            href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-            rel="stylesheet"
-          ></link>
-        </Head>
         <SwitchTransition mode="out-in">
           <CSSTransition key={router.pathname} classNames='page' timeout={300}>
             <Component {...pageProps} />

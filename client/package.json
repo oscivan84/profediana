@@ -43,6 +43,7 @@
     "knob": "^1.1.0",
     "leaflet": "^1.6.0",
     "luxon": "^2.1.1",
+    "moment": "^2.29.1",
     "next": "11.1.0",
     "next-redux-wrapper": "^7.0.2",
     "node-sass": "^4.14.1",

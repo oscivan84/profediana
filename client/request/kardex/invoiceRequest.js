@@ -9,7 +9,7 @@ class InvoiceRequest extends BaseRequest {
 
     searchReceiver({ page = 1, limit = 30, querySearch }) {
         let query = `page=${page}&limit=${limit}&querySearch=${querySearch}`;
-        return this.requestGet(`/searchReceiver?${query}`);
+        return this.requestGet(`/search/receiver?${query}`);
     }
 
     store(createDto = {
@@ -23,8 +23,16 @@ class InvoiceRequest extends BaseRequest {
         return this.requestPost(`/`, createDto);
     }
 
+    show(id) {
+        return this.requestGet(`/${id}`)
+    }
+
     debt(id) {
         return this.requestGet(`/${id}/debt`)
+    }
+
+    details(id) {
+        return this.requestGet(`/${id}/details`);
     }
 }
 

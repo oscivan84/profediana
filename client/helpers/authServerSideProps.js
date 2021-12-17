@@ -4,7 +4,7 @@ import { setLogged, setToken, setUser } from '../redux/thunks/authThunk'
 import { setTitle } from '../redux/thunks/screenThunk'
 import AuthRequest from '../request/auth/authRequest'
 
-export const authorize = (title = '') => wrapper.getServerSideProps(store => async (ctx) => {
+export const authorize = (title = '', callback = null) => wrapper.getServerSideProps(store => async (ctx) => {
     const { access_token } = nookies.get(ctx);
     const isLogged = access_token ? true : false;
 
@@ -36,6 +36,12 @@ export const authorize = (title = '') => wrapper.getServerSideProps(store => asy
     // add title
     store.dispatch(setToken(access_token))
     store.dispatch(setTitle(title))
+    // obtener Props
+    const pageProps = typeof callback == 'function' ? await callback(ctx) : {};
+    // response
+    return {
+        props: pageProps
+    }
 })
 
 
