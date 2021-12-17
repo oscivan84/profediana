@@ -29,6 +29,7 @@ const Barcode = ({ onResult = null, defaultStream = true }) => {
 
   const [data, setData] = useState(null);
   const [stopStream, setStopStream] = useState(defaultStream);
+  const [isError, setIsError] = useState(false);
 
   const handleUpdate = (err, result) => {
     if (!result) return;
@@ -39,33 +40,38 @@ const Barcode = ({ onResult = null, defaultStream = true }) => {
 
   const handlePermissions = () => {
     navigator?.permissions?.query({ name: 'camera' })
-    .then(permission => {
-      console.log(permission);
-    }).catch(err => console.log(err));
+    .then(({ state }) => {
+      if (state == 'denied') throw new Error();
+      setIsError(false);
+    }).catch(() => setIsError(true));
   }
 
   const handleToggle = () => {
     setData()
     setStopStream(prev => !prev)
   }
-
-  useEffect(() => {
-    handlePermissions();
-  }, []);
   
   return (
-    <div className={styles.barcode__content}>
-      {!stopStream
-        ? <BarcodeScannerComponent
-            onUpdate={handleUpdate}
-          />
-        : <BarcodeResult result={data}/>
-      }
-      <BarcodeButton 
-        onToggle={handleToggle}
-        stop={stopStream}
-      />
-    </div>
+    <>
+      <div className={styles.barcode__content}>
+        {!stopStream
+          ? <BarcodeScannerComponent
+              onUpdate={handleUpdate}
+              onError={(err) => console.log(err)}
+            />
+          : <BarcodeResult result={data}/>
+        }
+        <BarcodeButton 
+          onToggle={handleToggle}
+          stop={stopStream}
+        />
+      </div>
+      {isError ? 
+        <div className='alert alert-danger mt-2'>
+          No se encontró la camara o no tiene permiso de uso
+        </div>
+      : null}
+    </>
   )
 } 
 
