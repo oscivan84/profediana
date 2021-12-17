@@ -29,3 +29,8 @@ export class SearchTypeDto extends OmitType(PaginateDto, ['querySearch'] as cons
   @IsString()
   public querySearch: string;
 }
+
+export class FilterDetail {
+  public invoiceId?: number;
+  public detailableType?: string;
+}

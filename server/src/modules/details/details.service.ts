@@ -5,6 +5,9 @@ import { SearchTypeDto } from './detail.dto';
 import { DetailEntity } from './detail.entity';
 import { DetailRepository } from './detail.repository';
 import { Observable } from 'rxjs';
+import { FilterDetail } from './detail.dto';
+import { PaginateDto } from 'src/common/dto/paginate.dto';
+import { Collection } from 'collect.js';
 
 @Injectable()
 export class DetailsService {
@@ -12,6 +15,28 @@ export class DetailsService {
     private connection: Connection,
     private productsService: ProductsService,
     private detailRepository: DetailRepository) {}
+
+  public async getDetails(filters: FilterDetail, input: PaginateDto) {
+    const queryBuilder = this.detailRepository.createQueryBuilder()
+      .where(filters.invoiceId ? `invoice_id = ${filters.invoiceId}` : `1`)  
+      .andWhere(filters.detailableType ? `detailable_type = '${filters?.detailableType}'` : '1');
+    const details = await this.detailRepository.paginate(queryBuilder, input);
+    const ids = new Collection(details.items).pluck('detailableId').toArray();
+    // get products
+    const productInputs: any = { ids, ...input };
+    const products = new Collection(await this.productsService.getProducts(productInputs, false));
+    // setting data
+    await details.items.map((det: any) => {
+      det.detailableObject = {};
+      if (det.detailableType === 'Product')  {
+        det.detailableObject = products.where('id', det.detailableId).first();
+      }
+      
+      return det;
+    });
+    // result
+    return details;
+  }
 
   public async createDetail(payload: DetailEntity): Promise<DetailEntity> {
     try {

@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+import { PaginateDto } from 'src/common/dto/paginate.dto';
 
 export const CreateProductDto = Joi.object({
   name: Joi.string().required().max(40),
@@ -9,3 +10,7 @@ export const CreateProductDto = Joi.object({
   purchase_price: Joi.number().required().max(10),
   sale_price: Joi.number().required().max(10),
 })
+
+export class FilterProduct extends PaginateDto {
+  ids?: number[]
+}

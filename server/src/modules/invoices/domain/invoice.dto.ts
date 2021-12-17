@@ -1,4 +1,4 @@
-import { IsDate, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsDate, IsEnum, IsNotEmpty, IsNumber, IsString, IsOptional } from 'class-validator';
 import { OmitType } from '@nestjs/mapped-types';
 import { PaginateDto } from '../../../common/dto/paginate.dto';
 import { reciverTypeEnum, transmitterTypeEnum } from './invoice.enum';
@@ -12,7 +12,7 @@ export class CreateInvoiceDto {
   @IsNumber()
   public transmitterId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   public description: string;
 

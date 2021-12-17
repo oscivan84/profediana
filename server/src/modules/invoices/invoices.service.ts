@@ -5,7 +5,10 @@ import { UsersService } from '../users/users.service';
 import { SearchReceiverDto } from './domain/invoice.dto';
 import { InvoiceEntity } from './domain/invoice.entity';
 import { InvoiceRepository } from './domain/invoice.repository';
-import * as currency from 'currency-formatter';
+import ObjectId from 'bson-objectid';
+import { PaginateDto } from 'src/common/dto/paginate.dto';
+import { DetailsService } from '../details/details.service';
+import { FilterDetail } from '../details/detail.dto';
 
 @Injectable()
 export class InvoicesService {
@@ -13,15 +16,27 @@ export class InvoicesService {
     private usersService: UsersService,
     private studentsService: StudentsService,
     private campusesService: CampusesService,
+    private detailsService: DetailsService,
     private invoiceRepository: InvoiceRepository) {}
 
   public async createInvoice(payload: InvoiceEntity) {
     try {
-      const newInvoice = this.invoiceRepository.create(payload);
+      const objectId = new ObjectId();
+      const newInvoice = this.invoiceRepository.create({
+        ...payload,
+        code: objectId.toHexString()
+      });
       return await this.invoiceRepository.save(newInvoice);
     } catch (error) {
       throw new InternalServerErrorException("No se pudo guardar los datos");
     }
+  }
+
+  public async findInvoice(id) {
+    return this.invoiceRepository.createQueryBuilder()
+      .where(`id = :id`, { id })
+      .orWhere(`code = :id`, { id })
+      .getOneOrFail()
   }
 
   public async findDebt(id: number, cancelled?: boolean | undefined): Promise<any> {
@@ -69,5 +84,10 @@ export class InvoicesService {
       { type: 'User', data: typeUsers },
       { type: 'Campus', data: typeCampuses },
     ]
+  }
+
+  public async details(id: number, input: PaginateDto) {
+    const filters: FilterDetail = { invoiceId: id };
+    return this.detailsService.getDetails(filters, input);
   }
 }

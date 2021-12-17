@@ -4,7 +4,7 @@ import { DetailsService } from './details.service';
 import { CreateDetailDto, SearchTypeDto } from './detail.dto';
 import { ApiBody } from '@nestjs/swagger';
 import { CustomValidation } from '../../common/pipes/custom-validation.pipe';
-import { response, Response } from 'express';
+import { Response } from 'express';
 import { ParseErrorResponse } from '../../common/utils/parse-error-response';
 
 @Controller('details')

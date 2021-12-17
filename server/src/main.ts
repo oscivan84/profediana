@@ -25,11 +25,10 @@ async function bootstrap() {
     .setTitle('SofSol')
     .setDescription('Api de SofSol')
     .setVersion('1.0')
-    .addTag('SofSol')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/docs', app, document);
 
   const { HOST, PORT } = process.env;
   await app.listen(PORT, HOST, () => {

@@ -6,6 +6,7 @@ import { InvoiceRepository } from './domain/invoice.repository';
 import { StudentsModule } from '../students/students.module';
 import { UsersModule } from '../users/users.module';
 import { CampusesModule } from '../campuses/campuses.module';
+import { DetailsModule } from '../details/details.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CampusesModule } from '../campuses/campuses.module';
     StudentsModule,
     UsersModule,
     CampusesModule,
+    DetailsModule,
   ],
   providers: [InvoicesService],
   controllers: [InvoicesController],
