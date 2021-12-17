@@ -9,7 +9,7 @@ const ModalBarcode = ({ onToggle = null, onResult = null }) => {
   const detailRequest = new DetailRequest();
 
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({});
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleItem = ({ type, data }) => {
     const obj = data?.items?.[0];
@@ -17,20 +17,27 @@ const ModalBarcode = ({ onToggle = null, onResult = null }) => {
     return null;
   }
 
+  const alertError = () => {
+    Swal.fire({ icon: 'warning', text: 'No se encontró el regístro' })
+  }
+
   const handleCode = async (code) => {
     setLoading(true);
+    setIsSuccess(false);
     await detailRequest.searchType({ querySearch: code })
     .then(({ data }) => {
       for(let d of data) {
         const result = handleItem(d);
         if (typeof onResult != 'function') continue;
         if (result) {
-          onResult(result);
-          break;
+          setIsSuccess(true);
+          return onResult(result);
         }
       }
+      // error de producto
+      alertError();
     })
-    .catch(() => Swal.fire({ icon: 'warning', text: 'No se encontró el regístro' }))
+    .catch(() => alertError())
     setLoading(false);
   }
 
@@ -45,6 +52,7 @@ const ModalBarcode = ({ onToggle = null, onResult = null }) => {
       <ModalBody>
         <Barcode defaultStream={false}
           onResult={handleCode}
+          active={isSuccess}
         />
       </ModalBody>
     </Modal>
