@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
 import dynamic from 'next/dynamic';
 const BarcodeScannerComponent = dynamic(() => import("react-qr-barcode-scanner"), { ssr: false });
@@ -37,10 +37,21 @@ const Barcode = ({ onResult = null, defaultStream = true }) => {
     if (typeof onResult == 'function') onResult(result.text);
   }
 
+  const handlePermissions = () => {
+    navigator?.permissions?.query({ name: 'camera' })
+    .then(permission => {
+      console.log(permission);
+    }).catch(err => console.log(err));
+  }
+
   const handleToggle = () => {
     setData()
     setStopStream(prev => !prev)
   }
+
+  useEffect(() => {
+    handlePermissions();
+  }, []);
   
   return (
     <div className={styles.barcode__content}>
