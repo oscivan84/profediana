@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card, CardHeader, CardFooter, Col } from 'reactstrap';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import SearchReciver from './searchReceiver';
+import ModalCamera from './modalCamera';
 
 const Receiver = ()  => {
 
@@ -10,9 +11,17 @@ const Receiver = ()  => {
 
   const defaultImage = require(`../../../assets/images/social-app/post-1.png`)
 
+  const changeImage = ['Student'];
+
+  const [showCamera, setShowCamera] = useState(false);
+
   const isReceiver = useMemo(() => {
     return Object.keys(receiver || {}).length ? true : false;
   }, [receiver]);
+
+  const isChangeImage = useMemo(() => {
+    return changeImage.includes(receiver?.receiverType);
+  }, [receiver?.receiverType])
 
   const renderInfo = () => (
     <>
@@ -23,6 +32,19 @@ const Receiver = ()  => {
           alt="image" 
         />
       </div>
+      {isChangeImage 
+      ? (
+        <div className='text-center'>
+          <u className='text-primary' 
+            style={{ cursor: 'pointer' }}  
+            onClick={() => setShowCamera(true)}      
+          >
+            Tomar Foto
+          </u>
+        </div>
+      )
+      : null}
+      
       <ul className="card-social">
         <li>
           [{receiver?.displayType}]
@@ -38,6 +60,8 @@ const Receiver = ()  => {
           <h6>{receiver?.displayAddress}</h6>
         </Col>
       </CardFooter>
+      {/* modal para tomar foto */}
+      {showCamera ? <ModalCamera onToggle={() => setShowCamera(false)}/> : null}
     </>
   );
 

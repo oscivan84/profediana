@@ -309,10 +309,6 @@ const RegisterForm = ({ t }) => {
                 />
                 <label>{errors?.affiliationId?.[0] || ""}</label>
               </FormGroup>
-              {/* captura de  foto */}
-              <FormGroup className="mb-0 col-12 text-center mt-4">
-                <DragAndDrop />F
-              </FormGroup>
 
               <FormGroup className="mb-0 col-12 text-center mt-4">
                 <input

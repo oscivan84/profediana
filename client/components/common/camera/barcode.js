@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'reactstrap';
 import dynamic from 'next/dynamic';
 const BarcodeScannerComponent = dynamic(() => import("react-qr-barcode-scanner"), { ssr: false });
-import { Aperture, StopCircle } from 'react-feather';
 import styles from './Camera.module.scss';
+import ButtonCamera from './buttonCamera';
 
 export const BarcodeResult = ({ result, active = false }) => {
   return (
@@ -12,18 +11,6 @@ export const BarcodeResult = ({ result, active = false }) => {
     </div>
   )
 }
-
-export const BarcodeButton = ({ onToggle = null, stop = false }) => (
-  <Button 
-    className={`${styles.barcode__button} ${!stop ? styles.active : null}`} 
-    onClick={onToggle}
-  >
-    {stop 
-      ? <Aperture className={styles.barcode__icon}/> 
-      : <StopCircle className={styles.barcode__icon}/>
-    }
-  </Button>
-)
 
 const Barcode = ({ onResult = null, defaultStream = true, active = false }) => {
 
@@ -73,7 +60,7 @@ const Barcode = ({ onResult = null, defaultStream = true, active = false }) => {
             />
           : <BarcodeResult result={data} active={active}/>
         }
-        <BarcodeButton 
+        <ButtonCamera 
           onToggle={handleToggle}
           stop={stopStream}
         />

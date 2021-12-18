@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import Barcode from '../../common/camera/barcode';
+import { Barcode } from '../../common/camera';
 import DetailRequest from '../../../request/kardex/detailRequest';
 import Swal from 'sweetalert2'
 

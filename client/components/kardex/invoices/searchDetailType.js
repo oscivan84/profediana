@@ -5,7 +5,7 @@ import DetailRequest from '../../../request/kardex/detailRequest';
 import { format } from 'currency-formatter';
 import { setDetails } from '../../../redux/thunks/kardex/invoiceThunk';
 import ModalBarcode from './modalBarcode';
-import { BarcodeButton } from '../../common/camera/barcode';
+import ButtonCamera from '../../common/camera/buttonCamera';
 
 const SearchDetailType = () => {
 
@@ -86,7 +86,7 @@ const SearchDetailType = () => {
           </div>    
 
           <div className='col-md-2'>
-            <BarcodeButton onToggle={() => setIsModal(true)} stop={true}/>
+            <ButtonCamera onToggle={() => setIsModal(true)} stop={true}/>
           </div>  
         </div>
       </div>

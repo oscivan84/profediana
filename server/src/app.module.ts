@@ -11,6 +11,7 @@ import { DetailsModule } from './modules/details/details.module';
 import { PaymentsModule } from './modules/payments/payments.module';
 import { BusinessModule } from './modules/business/business.module';
 import { CampusesModule } from './modules/campuses/campuses.module';
+import { FilesModule } from './modules/files/files.module';
 import * as path from 'path';
 
 @Module({
@@ -41,7 +42,8 @@ import * as path from 'path';
     DetailsModule,
     PaymentsModule,
     BusinessModule,
-    CampusesModule
+    CampusesModule,
+    FilesModule
   ],
 })
 export class AppModule {}
