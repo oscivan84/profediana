@@ -3,13 +3,15 @@ import Select from 'react-select';
 
 const SelectDefault = (props) => {
 
+  const hero = (styles) => ({
+    ...styles,
+    padding: `0.3em 1em`,
+    borderColor: "#efefef",
+    zIndex: 99
+  });
+
   const colorStyles = {
-    control:  (styles) => ({
-      ...styles, backgroundColor: 'rgba(0, 0, 0, 0.01)',
-      padding: `0.3em 1em`,
-      borderColor: "#efefef",
-      zIndex: 99
-    })
+    control: (styles) => props.basic ? styles : hero(styles)
   }
 
   return (

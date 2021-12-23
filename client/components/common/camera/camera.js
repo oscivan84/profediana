@@ -17,7 +17,6 @@ const Camera = ({ onCapture = null }) => {
     const imageBuffer = Buffer.from(data, 'base64');
     const imageBlob = new Blob([imageBuffer.buffer]);
     const imageFile = new File([imageBlob], 'screen.jpeg', { type: 'image/jpeg' });
-    console.log(imageFile);
     if (typeof onCapture === 'function') onCapture(imageFile);
   }, [webcamRef]);
 

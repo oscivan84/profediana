@@ -29,7 +29,8 @@ import * as path from 'path';
           password: process.env.MYSQL_PASSWORD,
           database: process.env.MYSQL_DBNAME,
           entities: [path.resolve(__dirname, './modules/**/*.entity{.ts,.js}')],
-          logging: false
+          logging: false,
+          synchronize: false
         } as TypeOrmModuleOptions
       }
     }),

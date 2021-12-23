@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { FilterProduct } from './product.dto';
-import { ProductEntity } from './product.entity';
-import { ProductRepository } from './product.repository';
+import { CreateProductDto, FilterProduct } from './dtos/product.dto';
+import { ProductEntity } from '../domain/product.entity';
+import { ProductRepository } from '../domain/product.repository';
 
 @Injectable()
 export class ProductsService {
@@ -22,11 +22,12 @@ export class ProductsService {
     return await queryBuilder.getMany();
   }
 
-  public async createProduct(payload: ProductEntity): Promise<ProductEntity> {
+  public async createProduct(payload: CreateProductDto): Promise<ProductEntity> {
     try {
       const newProduct = this.productRepository.create(payload)
       return await this.productRepository.save(newProduct);
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException("No se puede guardar los datos");
     }
   }

@@ -4,6 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 @Entity('products')
 export class ProductEntity {
 
+  @ApiProperty()
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -16,8 +17,12 @@ export class ProductEntity {
   public description: string;
 
   @ApiProperty()
-  @Column({ name: 'product_type_id' })
-  public productTypeId: number;
+  @Column()
+  public providerId: number;
+
+  @ApiProperty()
+  @Column()
+  public campusId: number;
 
   @ApiProperty()
   @Column()
@@ -28,13 +33,14 @@ export class ProductEntity {
   public code: string;
 
   @ApiProperty()
-  @Column({ comment: 'precio de compra', name: 'purchase_price' })
+  @Column({ comment: 'precio de compra' })
   public purchasePrice: number;
 
   @ApiProperty()
-  @Column({ comment: 'precio de venta', name: 'sale_price' })
+  @Column({ comment: 'precio de venta' })
   public salePrice: number;
 
+  @ApiProperty()
   @Column({ default: true })
   public state: boolean = true;
 

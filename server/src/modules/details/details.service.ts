@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Connection } from 'typeorm';
-import { ProductsService } from '../products/products.service';
+import { ProductsService } from '../products/application/products.service';
 import { SearchTypeDto } from './detail.dto';
 import { DetailEntity } from './detail.entity';
 import { DetailRepository } from './detail.repository';
