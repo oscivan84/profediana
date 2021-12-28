@@ -13,6 +13,8 @@ import { BusinessModule } from './modules/business/business.module';
 import { CampusesModule } from './modules/campuses/campuses.module';
 import { FilesModule } from './modules/files/files.module';
 import * as path from 'path';
+import { ScheduleEntity } from './modules/schedules/domain/schedule.entity';
+import { SchedulesModule } from './modules/schedules/schedules.module';
 
 @Module({
   imports: [
@@ -44,7 +46,8 @@ import * as path from 'path';
     PaymentsModule,
     BusinessModule,
     CampusesModule,
-    FilesModule
+    FilesModule,
+    SchedulesModule,
   ],
 })
 export class AppModule {}

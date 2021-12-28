@@ -12,10 +12,14 @@ export class StudentsService {
     private studentRepository: StudentRepository) {}
 
   public async getStudents(input: PaginateDto): Promise<any> {
-    const students = this.studentRepository.createQueryBuilder('stu')
-      .where(`stu.name like '%${input.querySearch || ''}%'`)
-      .orWhere(`stu.lastname like '%${input.querySearch || ''}%'`)
-      .orWhere(`stu.document_number like '%${input.querySearch || ''}%'`);
+    const students = this.studentRepository.createQueryBuilder('stu');
+    if (input.querySearch) {
+      students.where(`stu.name like '%${input.querySearch}%'`) 
+      .orWhere(`stu.lastname like '%${input.querySearch}%'`)
+      .orWhere(`stu.document_number like '%${input.querySearch}%'`);
+    }
+    // ids
+    if (input.ids) students.andWhereInIds(input.ids);
     return await this.studentRepository.paginate(students, input);
   }
 

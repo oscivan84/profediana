@@ -1,15 +1,20 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class PaginateDto {
   @IsOptional()
   @IsNumber()
-  public page: number;
+  public page: number = 1;
 
   @IsOptional()
   @IsNumber()
-  public limit: number;
+  public limit: number = 30;
 
   @IsOptional()
   @IsString()
-  public querySearch: string;
+  public querySearch?: string;
+
+  @IsOptional()
+  @IsNumber()
+  @IsArray()
+  public ids?: number[];
 }
