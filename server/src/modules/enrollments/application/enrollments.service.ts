@@ -1,5 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { Collection } from "collect.js";
+import { PaginateDto } from "src/common/dto/paginate.dto";
+import { AssistancesService } from "src/modules/assistances/application/assistances.service";
+import { FilterAssistancDto } from "src/modules/assistances/application/dtos/filter-assitances.dto";
 import { StudentsService } from "src/modules/students/students.service";
 import { EnrollmentRepository } from "../domain/enrollment.repository";
 import { GetEnrollmentsDto } from "./dtos/filter-enrollments";
@@ -8,7 +11,8 @@ import { GetEnrollmentsDto } from "./dtos/filter-enrollments";
 export class EnrollmentsService {
   constructor(
     private enrollmentRepository: EnrollmentRepository,
-    private studentsService: StudentsService) { }
+    private studentsService: StudentsService,
+    private assistancesService: AssistancesService) { }
   
   public async getEnrollments(filter: GetEnrollmentsDto) {
     const builder = this.enrollmentRepository.createQueryBuilder();
@@ -31,5 +35,13 @@ export class EnrollmentsService {
       limit,
       ids
     });
+  }
+
+  public async getAssistances(id: number, filter: PaginateDto) {
+    const enrollment = await this.enrollmentRepository.findOneOrFail(id);
+    return await this.assistancesService.getAssistances({
+      ...filter,
+      enrollmentId: enrollment.id
+    })
   }
 }

@@ -13,8 +13,9 @@ import { BusinessModule } from './modules/business/business.module';
 import { CampusesModule } from './modules/campuses/campuses.module';
 import { FilesModule } from './modules/files/files.module';
 import * as path from 'path';
-import { ScheduleEntity } from './modules/schedules/domain/schedule.entity';
 import { SchedulesModule } from './modules/schedules/schedules.module';
+import { EnrollmentsModule } from './modules/enrollments/enrollments.module';
+import { AssistancesModule } from './modules/assistances/assistances.module';
 
 @Module({
   imports: [
@@ -48,6 +49,8 @@ import { SchedulesModule } from './modules/schedules/schedules.module';
     CampusesModule,
     FilesModule,
     SchedulesModule,
+    EnrollmentsModule,
+    AssistancesModule,
   ],
 })
 export class AppModule {}
