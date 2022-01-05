@@ -44,7 +44,7 @@ const UserBar = ({ t }) => {
         <li className="profile-nav onhover-dropdown p-0 me-0">
             <div className="media profile-media"><Image className="b-r-10" src={require("../../../assets/images/dashboard/profile.jpg")} alt=""/>
             <div className="media-body"><span>{user?.username}</span>
-                <p className="mb-0 font-roboto">Admin <i className="middle fa fa-angle-down"></i></p>
+                <p className="mb-0 font-roboto">{t(`Role_${user?.role_id}`)} <i className="middle fa fa-angle-down"></i></p>
             </div>
             </div>
             <ul className="profile-dropdown onhover-show-div">

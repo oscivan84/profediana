@@ -1,36 +1,63 @@
-import { Database, Coffee } from 'react-feather';
+import { Database, Coffee, List, } from 'react-feather';
 
-const menus =  [
-    {
-        key: "auth",
-        text: "layout.menu.auth.title",
-        description: "layout.menu.auth.description",
-        children: [
-            {
-                key: "/auth/people",
-                text: "layout.menu.auth.people",
-                info: "",
+const menus = (role) => {
+    if (role == 3) {
+        //admin
+        return [{
+            key: "",
+            text: "",
+            description: "",
+            children: [{
+                key: "/reportes",
+                text: "Reportes",
+                icon: <List />,
                 type: "link",
-                icon: <Database/>,
+                info: "",
                 children: []
-            }
-        ]
-    },
-    {
-        key: "kardex",
-        text: "layout.menu.kardex.title",
-        description: "layout.menu.kardex.description",
+            }]
+        }];
+    } else if (role == 2) {
+        //profesor
+        return [{
+            key: "asistencia",
+            text: "Profesor",
+            description: "",
+            children: [{
+                key: "/asistencia",
+                text: "Asistencia",
+                icon: <List />,
+                type: "link",
+                info: "",
+                children: []
+            }]
+        }];
+    } else if (role == 1) {
+        //vendedor
+        return [{
+            key: "/kardex/invoices",
+            text: "layout.menu.kardex.invoices",
+            info: "",
+            type: "link",
+            icon: <Coffee />,
+            children: []
+        }];
+    }
+    //no auth
+    else return [{
+        key: "auth",
+        text: "No ha ingresado",
+        description: "",
         children: [
             {
                 key: "/kardex/invoices",
-                text: "layout.menu.kardex.invoices",
+                text: "Iniciar sesión",
                 info: "",
                 type: "link",
-                icon: <Coffee/>,
+                icon: <Coffee />,
                 children: []
-            }
+            },
         ]
-    }
-]
+    }];
+}
 
 export default menus;

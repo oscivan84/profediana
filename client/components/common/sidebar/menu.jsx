@@ -32,21 +32,21 @@ const Menu = ({ menu, t }) => {
                     {/* menu acordion */}
                     <div className="according-menu">
                         {true ?
-                        <i className="fa fa-angle-down"></i>
-                        : <i className="fa fa-angle-right"></i>
+                            <i className="fa fa-angle-down"></i>
+                            : <i className="fa fa-angle-right"></i>
                         }
                     </div>
                 </a>
                 {/* sub menu */}
                 <ul className="sidebar-submenu" >
-                    {child?.children?.map((item, indexI) => 
-                    <li key={`list-menu-item-child-${indexI}`}>
-                        <a href="javascript" className={`${true ? '--active' : ''}`}>{t(item?.text)}
-                        <span className="sub-arrow">
-                            <i className="fa fa-chevron-right"></i>
-                        </span>
-                        </a>
-                    </li>
+                    {child?.children?.map((item, indexI) =>
+                        <li key={`list-menu-item-child-${indexI}`}>
+                            <a href="javascript" className={`${true ? '--active' : ''}`}>{t(item?.text)}
+                                <span className="sub-arrow">
+                                    <i className="fa fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </li>
                     )}
                 </ul>
             </>
@@ -55,23 +55,14 @@ const Menu = ({ menu, t }) => {
 
     return (
         <Fragment>
-            <li className="sidebar-main-title">
-                <div>
-                <h6 className="lan-1">{t(menu?.text)}</h6>
-                <p className="lan-2">{t(menu?.description)}</p>
-                </div>
+            <li className="sidebar-list">
+                {/* sub */}
+                <Show condicion={menu.type == 'sub'}
+                    predeterminado={<NavLink child={menu} />}
+                >
+                    <NavSub child={menu} />
+                </Show>
             </li>
-            {/* sidebar list */}
-            {menu?.children?.map((child, indexC) => 
-                <li className="sidebar-list" key={`list-child-primary-${indexC}`}>
-                    {/* sub */}
-                    <Show condicion={child.type == 'sub'}
-                        predeterminado={<NavLink child={child}/>}
-                    >
-                        <NavSub child={child}/>
-                    </Show>
-                </li>   
-            )}
         </Fragment>
     )
 }

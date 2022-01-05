@@ -1735,7 +1735,8 @@
                 .sidebar-link {
                   border-radius: 10px;
                   transition: all 0.5s ease;
-                  display: block;
+                  display: flex;
+                  align-items: center;
 
                   &.active {
                     // background-image: linear-gradient(90deg,

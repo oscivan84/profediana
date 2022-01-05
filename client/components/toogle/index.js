@@ -1,6 +1,6 @@
 import React from "react";
 
-const Toogle = () => {
+const Toogle = ({defaultChecked}) => {
   return (
     <div>
       {/* <!-- Rectangular switch --> */}
@@ -10,8 +10,8 @@ const Toogle = () => {
       </label> */}
 
       {/* <!-- Rounded switch --> */}
-      <label class="switch">
-        <input type="checkbox" />
+      <label className="switch">
+        <input type="checkbox" defaultChecked={defaultChecked}/>
         <span className="slider round"></span>
       </label>
     </div>
