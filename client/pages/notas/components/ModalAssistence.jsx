@@ -4,7 +4,6 @@ import Modal from "../../../components/modales/Modal";
 import Table from '../../../components/utils/table/Table';
 
 //TODO: convert to map and add editable option
-const assistances = [];
 const ModalAssistence = ({ student, close }) => {
     if (!student) return null;
     return <Modal isOpen={student != null} closeModal={close}>
