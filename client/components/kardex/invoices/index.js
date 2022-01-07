@@ -255,7 +255,7 @@ const Invoices = () => {
           < div className='d-flex w-full md:justify-content-end' >
             <a href='/kardex/createProduct' className='btn btn-primary'>
               <i className='fa fa-plus'></i>
-              &nbsp;&nbsp;Nueva Orden
+              &nbsp;&nbsp;Nuevo Producto
             </a>
           </div>
           <Table columns={columns} data={fakeData} itemsPerPage={2} search={true} />
