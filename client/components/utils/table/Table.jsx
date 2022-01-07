@@ -43,7 +43,7 @@ const Table = ({ columns, data, itemsPerPage, onPageChange, initialPage, search,
                 </thead>
                 <tbody>
                     {_filtredSearch().slice((currentPage - 1) * itemsPerPage, (currentPage) * itemsPerPage).map((item, index) => <tr key={index} className='font-medium border-b'>
-                        {columns.map((column, indexColumn) => <td key={indexColumn} className='px-1 py-3'>{column.render ? <div className='w-full d-flex justify-content-center'>{column.render(item)}</div> : item[column.keyName]}</td>)}
+                        {columns.map((column, indexColumn) => <td key={indexColumn} className='px-1 py-3'>{column.render ? <div className='w-full d-flex justify-content-center'>{column.render(item, index)}</div> : item[column.keyName]}</td>)}
                     </tr>)}
                 </tbody>
             </table>

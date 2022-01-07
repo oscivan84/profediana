@@ -1,4 +1,4 @@
-import { Database, Coffee, List, } from 'react-feather';
+import { Database, Coffee, List, FolderPlus, } from 'react-feather';
 
 const menus = (role) => {
     if (role == 3) {
@@ -19,18 +19,22 @@ const menus = (role) => {
     } else if (role == 2) {
         //profesor
         return [{
-            key: "asistencia",
-            text: "Profesor",
-            description: "",
-            children: [{
-                key: "/asistencia",
-                text: "Asistencia",
-                icon: <List />,
-                type: "link",
-                info: "",
-                children: []
-            }]
-        }];
+            key: "/notas",
+            text: "Notas",
+            info: "",
+            type: "link",
+            icon: <List />,
+            children: []
+        },
+        {
+            key: "/class/create",
+            text: "Crear curso",
+            info: "",
+            type: "link",
+            icon: <FolderPlus />,
+            children: []
+        },
+    ];
     } else if (role == 1) {
         //vendedor
         return [{

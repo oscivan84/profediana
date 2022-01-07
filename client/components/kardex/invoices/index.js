@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TabContent, TabPane } from 'reactstrap';
 import Table from '../../utils/table/Table';
+import BestSells from './bestSells';
 import MenuPanes from './menuPanes';
 import Order from './order';
 
@@ -136,7 +137,7 @@ const fakeData = [
     quantity: 10,
     cost: 20,
     price: 30
-  },{
+  }, {
     name: "Producto 12",
     quantity: 10,
     cost: 20,
@@ -213,6 +214,10 @@ const Invoices = () => {
     CREATE_INVOICE: {
       key: "create-detalle",
       label: "Regístro"
+    },
+    BEST_SELLES: {
+      key: "best-selles",
+      label: "Mejores Ventas"
     }
   }
 
@@ -253,10 +258,13 @@ const Invoices = () => {
               &nbsp;&nbsp;Nueva Orden
             </a>
           </div>
-          <Table columns={columns} data={fakeData} itemsPerPage={2} search={true}/>
+          <Table columns={columns} data={fakeData} itemsPerPage={2} search={true} />
         </TabPane>
         <TabPane tabId={panes.ADD_DETALLE.key}>
           <Order />
+        </TabPane>
+        <TabPane tabId={panes.BEST_SELLES.key}>
+          <BestSells/>
         </TabPane>
       </TabContent>
     </>

@@ -54,7 +54,7 @@ const Sidebar = ({ t }) => {
                   <div className="mobile-back text-right"><span>{"Back"}</span><i className="fa fa-angle-right pl-2" aria-hidden="true"></i></div>
                 </li>
                 {/* iter menu */}
-                {menus(user?.role_id ?? 1)?.map((menu, index) =>
+                {menus(user?.role_id ?? 2)?.map((menu, index) =>
                   <Menu key={`list-menu-${index}`}
                     t={t}
                     menu={menu}
