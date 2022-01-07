@@ -213,7 +213,7 @@ const Invoices = () => {
     },
     CREATE_INVOICE: {
       key: "create-detalle",
-      label: "Regístro"
+      label: "Kardex"
     },
     BEST_SELLES: {
       key: "best-selles",
