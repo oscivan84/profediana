@@ -5,6 +5,7 @@ import PaymentRequest from '../../../request/kardex/PaymentRequest';
 import { useRouter } from 'next/dist/client/router';
 import DragAndDrop from '../../DragAndDrop';
 import Swal from 'sweetalert2'
+import { Col, Row } from 'react-bootstrap';
 
 const MethodPayment = ({ debt = 0, onSave = null }) => {
 
@@ -83,11 +84,11 @@ const MethodPayment = ({ debt = 0, onSave = null }) => {
 
 
   return (
-    <div className='row mt-3'>
-      <div className='col-md-8 mb-2'>
+    <Row className='mt-3'>
+      <Col md={8} className='mb-2'>
         <DragAndDrop/>
-      </div>
-      <div className='col-md-4 mb-2'>
+      </Col>
+      <Col md={4} className='mb-2'>
         <div className='form-group mb-2'>
           <SelectDefault
             isDisabled={loading}
@@ -117,8 +118,8 @@ const MethodPayment = ({ debt = 0, onSave = null }) => {
             {loading ? 'Pagando...' : 'Pagar'}
           </Button>
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
 

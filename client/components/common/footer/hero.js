@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './Footer.module.scss';
 import { Twitter, Facebook, Youtube, Instagram, Linkedin } from 'react-feather'
+import { Col } from 'react-bootstrap';
+import { Container, Row } from 'reactstrap';
 
 const FooterHero = () => {
   return (
@@ -11,7 +13,7 @@ const FooterHero = () => {
         animationName: "fadeIn"
       }}>
       <div className={`container-fluid ${styles.containerFluid}`}>
-        <div className="container">
+        <Container>
           <div className={styles.footerInfo}>
             <a href="index.html" className={styles.footerLogo}>P<span>rofe</span>Diana</a>
             <h3>Calle 23 # 56-56 Barrio</h3>
@@ -27,17 +29,17 @@ const FooterHero = () => {
               <a href="#" className='text-white mr-2'><Linkedin size={20}/></a>
             </div>
           </div>
-        </div>
-        <div className={`container ${styles.copyright}`}>
-          <div className="row justify-content-cetner">
-            <div className="col-md-6 text-center pb-4">
+        </Container>
+        <Container className={`${styles.copyright}`}>
+          <Row className="justify-content-cetner">
+            <Col md={6} className="text-center pb-4">
               <p>© <a href="#">ProfesoraDiana</a>, Todos los derechos reservados.</p>
-            </div>
-            <div className="col-md-6 text-center pb-4">
+            </Col>
+            <Col md={6} className="text-center pb-4">
               <p>Diseñado por <a href="#">SolSof</a></p>
-            </div>
-          </div>
-        </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
   </div>
   )

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './Banner.module.scss';
-import { Container } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 import { ArrowDown } from 'react-feather'
 import Link from 'next/link';
 
@@ -14,8 +14,8 @@ const BannerHero = ({
     <>
         <div className={styles.hero}>
             <Container>
-                <div className="row align-items-center">
-                    <div className="col-sm-12 col-md-6">
+                <Row className="align-items-center">
+                    <Col md={6}>
                         <div className={`${styles.heroText}`}>
                             <h1>{title}</h1>
                             <p>{description}</p>
@@ -25,13 +25,13 @@ const BannerHero = ({
                                 </Link>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-sm-12 col-md-6 d-none d-md-block">
+                    </Col>
+                    <Col md={6} className="d-none d-md-block">
                         <div className={styles.heroImage}>
                             <Image src={require('../../../assets/images/portada.png')} alt="Hero Image"/>
                         </div>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
             </Container>
             <div className={`${styles.heroContentArrow} animate__animated animate__shakeY animate__slow animate__infinite`}>
                 <a href='#heroService' className={styles.heroIconArrow}>

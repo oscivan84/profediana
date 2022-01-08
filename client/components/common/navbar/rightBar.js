@@ -4,6 +4,7 @@ import UserBar from './userBar';
 import { Maximize } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleTheme } from '../../../redux/thunks/screenThunk'
+import { Col } from 'reactstrap';
 
 const RightBar = () => {
 
@@ -14,7 +15,7 @@ const RightBar = () => {
     const handleToggleTheme = () => dispatch(toggleTheme())
 
     return (
-        <div className="nav-right col-8 pull-right right-header p-0">
+        <Col xs={8} className="nav-right pull-right right-header p-0">
             <ul className="nav-menus">
                 {/* notify */}
                 <NotifyBar/>
@@ -32,7 +33,7 @@ const RightBar = () => {
                 {/* user bar */}
                 <UserBar/>
             </ul>
-        </div>
+        </Col>
     )
 }
 

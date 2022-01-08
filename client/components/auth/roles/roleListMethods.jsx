@@ -6,6 +6,7 @@ import { translate } from 'react-switch-lang'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMethods } from '../../../redux/thunks/roleThunk'
 import ObjectId from 'bson-objectid'
+import { Col, Row } from 'react-bootstrap';
 
 const RoleListMethods = ({ t, isOpen = false, toggle = null }) => {
 
@@ -55,13 +56,13 @@ const RoleListMethods = ({ t, isOpen = false, toggle = null }) => {
                 <hr />
             </div>
             <div className="mt-3">
-                <div className="row">
+                <Row>
                     {role?.methods?.map(m => 
-                        <div className="col-6 mb-3" key={`item-${new ObjectId().toHexString()}`}>
+                        <Col xs={6} className=" mb-3" key={`item-${new ObjectId().toHexString()}`}>
                             <RoleItemMethod method={m}/>
-                        </div>
+                        </Col>
                     )}
-                </div>
+                </Row>
             </div>
         </SimpleModal>
     )

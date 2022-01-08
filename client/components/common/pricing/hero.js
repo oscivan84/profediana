@@ -1,4 +1,6 @@
 import React from 'react';
+import { Col } from 'react-bootstrap';
+import { Container, Row } from 'reactstrap';
 import styles from './Pricing.module.scss'
 
 const data = [
@@ -42,7 +44,7 @@ const PricingHero = () => {
 
   return (
     <div className={styles.price}>
-      <div className={`container ${styles.container}`}>
+      <Container className={` ${styles.container}`}>
           <div className={`${styles.header} text-center wow zoomIn`} 
             style={{ 
               visibility: "visible", 
@@ -52,10 +54,10 @@ const PricingHero = () => {
           >
             <h2 className={styles.title}>Planes de Precios</h2>
           </div>
-          <div className="row justify-content-center">
+          <Row className="justify-content-center">
               {data.map((d, index) => 
-                <div key={`item-pricing-${index}`}
-                  className="col-md-4 wow fadeInUp" 
+                <Col md={4} key={`item-pricing-${index}`}
+                  className=" wow fadeInUp" 
                   style={{ 
                     visibility: "visible",
                     animationDelay: "0s", 
@@ -93,10 +95,10 @@ const PricingHero = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </Col>
               )}
-          </div>
-      </div>
+          </Row>
+      </Container>
   </div>
   )
 }

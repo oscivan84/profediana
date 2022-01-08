@@ -11,7 +11,6 @@ const Orden = () => {
         <h4 className="text-xl mb-8 text-center border-b-2 pb-2">
           Detalles de la Compra
         </h4>
-
         <table className="w-10/12  text-center">
           <thead className=" shadow-sm">
             <tr className="text-lg font-bold tracking-wide text-black bg-white border border-on-warn-300 text-center ">

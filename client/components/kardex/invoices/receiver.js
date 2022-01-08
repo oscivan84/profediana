@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import SearchReciver from './searchReceiver';
 import ModalCamera from './modalCamera';
+import { Row } from 'react-bootstrap';
 
-const Receiver = ()  => {
+const Receiver = () => {
 
   const { receiver } = useSelector(state => state.invoice);
 
@@ -26,25 +27,25 @@ const Receiver = ()  => {
   const renderInfo = () => (
     <>
       <div className="card-profile mt-4" style={{ zIndex: 0 }}>
-        <Image body 
+        <Image body
           className="image-receiver"
-          src={receiver.displayImage || defaultImage} 
-          alt="image" 
+          src={receiver.displayImage || defaultImage}
+          alt="image"
         />
       </div>
-      {isChangeImage 
-      ? (
-        <div className='text-center'>
-          <u className='text-primary' 
-            style={{ cursor: 'pointer' }}  
-            onClick={() => setShowCamera(true)}      
-          >
-            Tomar Foto
-          </u>
-        </div>
-      )
-      : null}
-      
+      {isChangeImage
+        ? (
+          <div className='text-center'>
+            <u className='text-primary'
+              style={{ cursor: 'pointer' }}
+              onClick={() => setShowCamera(true)}
+            >
+              Tomar Foto
+            </u>
+          </div>
+        )
+        : null}
+
       <ul className="card-social">
         <li>
           [{receiver?.displayType}]
@@ -55,20 +56,22 @@ const Receiver = ()  => {
         <h6 className='mb-0'>{receiver?.displayEmail}</h6>
         <h6>{receiver?.displayPhone}</h6>
       </div>
-      <CardFooter className="row">
-        <Col sm="12 col-4">
-          <h6>{receiver?.displayAddress}</h6>
-        </Col>
+      <CardFooter>
+        <Row>
+          <Col xs={4} sm={12}>
+            <h6>{receiver?.displayAddress}</h6>
+          </Col>
+        </Row>
       </CardFooter>
       {/* modal para tomar foto */}
-      {showCamera ? <ModalCamera onToggle={() => setShowCamera(false)}/> : null}
+      {showCamera ? <ModalCamera onToggle={() => setShowCamera(false)} /> : null}
     </>
   );
 
   return (
     <Card className="custom-card" style={{ overflow: 'auto', minHeight: '100%' }}>
       <CardHeader>
-        <SearchReciver/>
+        <SearchReciver />
       </CardHeader>
       {isReceiver ? renderInfo() : null}
     </Card>

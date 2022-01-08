@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './Service.module.scss'
 import { Clock, Monitor, Hexagon } from 'react-feather'
+import { Col } from 'react-bootstrap';
+import { Container, Row } from 'reactstrap';
 
 const data = [
   { 
@@ -25,7 +27,7 @@ const ServiceHero = () => {
   return (
     <>
       <div className={styles.service} id="heroService">
-        <div className="container">
+        <Container>
             <div className={`${styles.serviceHeader} text-center wow zoomIn`} 
               data-wow-delay="0.1s" 
               style={{ 
@@ -36,10 +38,10 @@ const ServiceHero = () => {
             >
               <h2 className={styles.title}>Características</h2>
             </div>
-            <div className="row">
+            <Row>
               {data.map((d, index) => 
-                <div key={`list-item-service-${index}`}
-                  className="col-lg-4 col-md-6 wow fadeInUp" 
+                <Col md={6} lg={4} key={`list-item-service-${index}`}
+                  className="wow fadeInUp" 
                   style={{ 
                     visibility: "visible", 
                     animationDelay: "0s", 
@@ -55,10 +57,10 @@ const ServiceHero = () => {
                     <h3>{d.title}</h3>
                     <p>{d.description}</p>
                   </div>
-                </div>
+                </Col>
               )}
-            </div>
-        </div>
+            </Row>
+        </Container>
       </div>
       <div className={styles.serviceGradiant}></div>
     </>

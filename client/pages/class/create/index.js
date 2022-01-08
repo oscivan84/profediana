@@ -146,7 +146,7 @@ const CreateClass = () => {
 
                                         }} />
                                 </Col>
-                                <Col sm={12} md={2} className=''>
+                                <Col sm={12} md={2} className='d-flex flex-column'>
                                     <label>Acciones</label>
                                     <Button color="danger" className="btn-sm " onClick={() => setSchedulers(schedulers.filter((item, i) => i !== index))}>
                                         <i className="fa fa-trash"></i>

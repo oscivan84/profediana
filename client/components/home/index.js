@@ -4,6 +4,7 @@ import { ServiceHero } from '../common/service';
 import { AboutHero } from '../common/about';
 import { PricingHero } from '../common/pricing';
 import { useSelector } from 'react-redux';
+import { Container } from 'reactstrap';
 
 
 const Home = () => {
@@ -20,7 +21,7 @@ const Home = () => {
   }
 
   return (
-    <div className='container container-hidden container-viewport'
+    <Container className='container-hidden container-viewport'
       style={mode == "xs" ? mediaQueryMobile : mediaQueryDesktop}
     >
     
@@ -28,7 +29,7 @@ const Home = () => {
       <ServiceHero/>
       <AboutHero/>
       <PricingHero/>
-    </div>
+    </Container>
   ) 
 }
 

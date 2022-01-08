@@ -1,9 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './About.module.scss';
+import { Col } from 'react-bootstrap';
+import { Container, Row } from 'reactstrap';
 
 const data = [
-  { 
+  {
     title: "Uñas shellac",
     image: require('../../../assets/images/about/about-1.png'),
     description: `
@@ -12,7 +14,7 @@ const data = [
       la resistencia es mayor y el resultado parece más natural.
     `
   },
-  { 
+  {
     title: "Metodología de estudio",
     image: require('../../../assets/images/about/about-2.png'),
     description: `
@@ -20,7 +22,7 @@ const data = [
       permite compaginar el aprendizaje con la vida laboral y personal.
     `
   },
-  { 
+  {
     title: "Acreditaciones y certificaciones",
     image: require('../../../assets/images/about/about-3.png'),
     description: `
@@ -39,26 +41,26 @@ const AboutReact = () => {
 
   return (
     <>
-      <div className={`${styles.about} wow fadeInUp`} 
+      <div className={`${styles.about} wow fadeInUp`}
         style={{
           visibility: "visible",
-          animationDelay: "0.1s", 
+          animationDelay: "0.1s",
           animationName: "fadeInUp"
         }}>
-        {data.map((d, index) => 
-          <div key={`list-item-about-${index}`}
-            className="container mb-5"
+        {data.map((d, index) =>
+          <Container key={`list-item-about-${index}`}
+            className="mb-5"
           >
-            <div className="row align-items-start">
-              {isOver(index + 1) 
-                ? <div className="col-lg-5 col-md-6">
-                    <div className={styles.aboutImg}>
-                      <Image src={d.image || null} alt="Image"/>
-                    </div>
-                  </div> 
+            <Row className="align-items-start">
+              {isOver(index + 1)
+                ? <Col md={6} lg={5}>
+                  <div className={styles.aboutImg}>
+                    <Image src={d.image || null} alt="Image" />
+                  </div>
+                </Col>
                 : null
               }
-              <div className="col-lg-7 col-md-6">
+              <Col md={6} lg={7}>
                 <div className={`${styles.sectionHeader} text-left`}>
                   <h2 className={styles.title}>{d.title}</h2>
                 </div>
@@ -68,17 +70,17 @@ const AboutReact = () => {
                   </p>
                   <a className={styles.btn} href="">Ver más</a>
                 </div>
-              </div>
-              {!isOver(index + 1) 
-                ? <div className="col-lg-5 col-md-6">
-                    <div className={styles.aboutImg}>
-                      <Image src={d.image || null} alt="Image"/>
-                    </div>
+              </Col>
+              {!isOver(index + 1)
+                ? <Col md={6} lg={5}>
+                  <div className={styles.aboutImg}>
+                    <Image src={d.image || null} alt="Image" />
                   </div>
+                </Col>
                 : null
               }
-            </div>
-          </div>
+            </Row>
+          </Container>
         )}
       </div>
       <div className={styles.aboutGradiant}></div>

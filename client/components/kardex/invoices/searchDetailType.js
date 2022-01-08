@@ -6,6 +6,7 @@ import { format } from 'currency-formatter';
 import { setDetails } from '../../../redux/thunks/kardex/invoiceThunk';
 import ModalBarcode from './modalBarcode';
 import ButtonCamera from '../../common/camera/buttonCamera';
+import { Col, Row } from 'react-bootstrap';
 
 const SearchDetailType = () => {
 
@@ -73,8 +74,8 @@ const SearchDetailType = () => {
   return (
     <>
       <div style={{ zIndex: 99 }} className='mb-5'>
-        <div className='row'>
-          <div className='col-10'>
+        <Row>
+          <Col xs={10}>
             <SelectDefault placeholder="Buscar Producto..."
               isSearchable={true}
               isLoading={loading}
@@ -83,12 +84,12 @@ const SearchDetailType = () => {
               isClearable={true}
               onChange={handleSelectDetail}
             />
-          </div>    
+          </Col>    
 
-          <div className='col-md-2'>
+          <Col md={2}>
             <ButtonCamera onToggle={() => setIsModal(true)} stop={true}/>
-          </div>  
-        </div>
+          </Col>  
+        </Row>
       </div>
       {isModal 
         ? <ModalBarcode 

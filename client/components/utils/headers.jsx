@@ -1,25 +1,25 @@
 import React from 'react';
-import { Input, Button } from 'reactstrap'
+import { Input, Button, Row, Col } from 'reactstrap'
 import { Search } from 'react-feather'
 
 export const HeaderList = ({ start = 1, total = 1, querySearch = '', disabled = false, children = null, onChange = null, onClick = null }) => {
 
     return (
-        <div className="row">
-            <div className="col-md-1 mb-1">
+        <Row>
+            <Col md={1} className="mb-1">
                 <h6>{start}/{total}</h6>
-            </div>
-            <div className="col-md-5 mb-1 col-10">
+            </Col>
+            <Col xs={10} md={5} className="mb-1">
                 <Input onChange={({ target }) => typeof onChange == 'function' ? onChange(target) : null}
                     name="query_search"
                     disabled={disabled}
                     value={querySearch}
                 />
-            </div>
+            </Col>
 
             {children}
             
-            <div className="col-md-1 mb-1 col-2">
+            <Col md={1} xs={2} className="mb-1">
                 <Button size="xs" block
                     color="primary"
                     className="pt-1"
@@ -28,7 +28,7 @@ export const HeaderList = ({ start = 1, total = 1, querySearch = '', disabled = 
                 >
                     <Search/>
                 </Button>
-            </div>
-        </div>
+            </Col>
+        </Row>
     )
 }

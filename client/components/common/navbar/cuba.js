@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Menu } from 'react-feather'
 import { wrapperScreen, defaultTheme } from '../../../redux/thunks/screenThunk'
 import { useDispatch, useSelector } from 'react-redux'
+import { Row } from 'react-bootstrap';
 
 const NavbarCuba = () => {
 
@@ -20,7 +21,7 @@ const NavbarCuba = () => {
 
     return (
         <div className={`page-header ${wrapper ? 'close_icon' : ''}`}>
-            <div className="header-wrapper row m-0">
+            <Row className="header-wrapper m-0">
                 <form className="form-inline search-full col" action="#" method="get">
                     <div className="form-group w-100">
                     <div className="Typeahead Typeahead--twitterUsers">
@@ -55,7 +56,7 @@ const NavbarCuba = () => {
                 {/* navbar right */}
                 <RightBar/>
 
-            </div>
+            </Row>
         </div>
     )
 }
