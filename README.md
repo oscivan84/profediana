@@ -52,4 +52,8 @@ MYSQL_DBNAME=testing
 
 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
 
-
+Después de instalar dependencia en la carpeta server y en la carpeta cliente.
+Se puede acceder mediante el usuario
+twd2206
+Contraseña
+hola123456
