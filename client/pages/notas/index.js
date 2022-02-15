@@ -4,6 +4,7 @@ import Modal from "../../components/modales/Modal";
 import AddNoteModal from "./components/AddNoteModal";
 import ModalAssistence from "./components/ModalAssistence";
 import Table from '../../components/utils/table/Table';
+import { authorize, USER_ROLE } from "../../helpers/authServerSideProps";
 
 const Notas = () => {
   const profesorData = {
@@ -132,8 +133,9 @@ const Notas = () => {
       {/* Modal para asignar Asistencias */}
       <ModalAssistence student={selectedStudentAssistance} close={()=>setSelectedStudentAssistance(null)} />
     </Fragment>
-
   );
 };
+
+export const getServerSideProps = authorize("Notas", { userRoleRequired : USER_ROLE.TEACHER });
 
 export default Notas;
