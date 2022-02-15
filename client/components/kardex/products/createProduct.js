@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 
 export const CreateProduct = () => {
 
+
   const productRequest = new ProductRequest();
 
   const [loading, setLoading] = useState();
@@ -38,6 +39,9 @@ export const CreateProduct = () => {
   const converToSelect = (obj, name) => {
     return handleInput({ name, value: obj });
   }
+
+
+  console.log(form);
 
   const handleSave = async () => {
     setLoading(true);

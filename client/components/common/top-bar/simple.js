@@ -6,7 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 
 const Simple = ({ phone = "+51 000 000 000" }) => {
     return (
-        <div className={`${styles.topBar} d-none d-md-block`}>
+        <div className={`${styles.topBar} d-none d-md-block sticky-top`}>
             <div className="container-fluid">
                 <Row>
                     <Col md={8}>

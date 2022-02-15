@@ -6,7 +6,7 @@ import Link from 'next/link'
 const NavbarSimple = () => {
 
   return (
-    <div className={`${styles.navbar} navbar-expand-lg bg-dark ${styles.navbarDark}`}>
+    <div className={`${styles.navbar} navbar-expand-lg bg-dark sticky-top ${styles.navbarDark}`}>
         <Container fluid>
             <button type="button" className={`navbar-toggler`} data-toggle="collapse" data-target="#navbarCollapse">
                 <span className="navbar-toggler-icon"></span>
