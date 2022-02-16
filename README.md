@@ -34,7 +34,6 @@ NEXT_PUBLIC_AUTH_URL=http://localhost:4444/api
 
 
 
-
 El Back necesita las siguientes variables
 2. .env
 HOST=localhost
@@ -57,3 +56,12 @@ Se puede acceder mediante el usuario
 twd2206
 Contraseña
 hola123456
+
+
+Enviar informacion por whatsapp    
+https://www.npmjs.com/package/react-whatsapp
+
+
+Enviar por Correo
+https://www.npmjs.com/package/react-native-email
+
