@@ -1,4 +1,4 @@
-import { Database, Coffee, List, FolderPlus, } from 'react-feather';
+import { Database, Coffee, List, FolderPlus, Edit2} from 'react-feather';
 
 const menus = (role) => {
     if (role == 3) {
@@ -18,7 +18,40 @@ const menus = (role) => {
         }];
     } else if (role == 2) {
         //profesor
-        return [{
+        return [
+            {
+                key: "/kardex/invoices",
+                text: "Ventas",
+                info: "",
+                type: "link",
+                icon: <FolderPlus />,
+                children: []
+            },
+            {
+                key: "/paymentMethod",
+                text: "Tipos de Pago",
+                info: "",
+                type: "link",
+                icon: <Edit2 />,
+                children: []
+            },
+            {
+                key: "/kardex/createProduct",
+                text: "Crear Articulo",
+                info: "",
+                type: "link",
+                icon: <FolderPlus />,
+                children: []
+            },
+            {
+                key: "/class/create",
+                text: "Crear Curso",
+                info: "",
+                type: "link",
+                icon: <FolderPlus />,
+                children: []
+            },
+            {
             key: "/notas",
             text: "Notas",
             info: "",
@@ -29,6 +62,14 @@ const menus = (role) => {
         {
             key: "/class/create",
             text: "Crear curso",
+            info: "",
+            type: "link",
+            icon: <FolderPlus />,
+            children: []
+        },
+        {
+            key: "/graphic-stores",
+            text: "Graficas",
             info: "",
             type: "link",
             icon: <FolderPlus />,
