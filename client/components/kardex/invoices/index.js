@@ -217,7 +217,7 @@ const Invoices = () => {
     },
     BEST_SELLES: {
       key: "best-selles",
-      label: "Mejores Ventas"
+      label: "Resumen Ventas"
     }
   }
 
