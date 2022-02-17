@@ -22,11 +22,11 @@ const FooterHero = () => {
               <p>info@profediana.com</p>
             </div>
             <div className={styles.footerSocial}>
-              <a href="#" className='text-white mr-2'><Twitter size={20}/></a>
-              <a href="#" className='text-white mr-2'><Facebook size={20}/></a>
-              <a href="#" className='text-white mr-2'><Youtube size={20}/></a>
-              <a href="#" className='text-white mr-2'><Instagram size={20}/></a>
-              <a href="#" className='text-white mr-2'><Linkedin size={20}/></a>
+              <a href="#" className='text-white'><Twitter size={20}/></a>
+              <a href="#" className='text-white'><Facebook size={20}/></a>
+              <a href="#" className='text-white'><Youtube size={20}/></a>
+              <a href="#" className='text-white'><Instagram size={20}/></a>
+              <a href="#" className='text-white'><Linkedin size={20}/></a>
             </div>
           </div>
         </Container>

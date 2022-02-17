@@ -47,20 +47,19 @@ const AboutReact = () => {
           animationDelay: "0.1s",
           animationName: "fadeInUp"
         }}>
+          <Container fluid>
         {data.map((d, index) =>
-          <Container key={`list-item-about-${index}`}
-            className="mb-5"
-          >
-            <Row className="align-items-start">
+          
+            <Row key={`list-item-about-${index}`} className="my-5">
               {isOver(index + 1)
-                ? <Col md={6} lg={5}>
-                  <div className={styles.aboutImg}>
-                    <Image src={d.image || null} alt="Image" />
+                ? <Col md={6} xs={12}>
+                  <div className={`img-fluid ${styles.imgService}`}>
+                  <Image src={d.image || null} alt="Image" layout="responsive" className="img-fluid"/>
                   </div>
                 </Col>
                 : null
               }
-              <Col md={6} lg={7}>
+              <Col md={6} lg={5} className="mx-auto my-5">
                 <div className={`${styles.sectionHeader} text-left`}>
                   <h2 className={styles.title}>{d.title}</h2>
                 </div>
@@ -68,20 +67,20 @@ const AboutReact = () => {
                   <p>
                     {d.description}
                   </p>
-                  <a className={styles.btn} href="">Ver más</a>
+                  <a className={`text-center ${styles.btn}`} href="">Ver más</a>
                 </div>
               </Col>
               {!isOver(index + 1)
                 ? <Col md={6} lg={5}>
-                  <div className={styles.aboutImg}>
-                    <Image src={d.image || null} alt="Image" />
-                  </div>
+                  <div className={`img-fluid ${styles.imgService}`}>
+                  <Image src={d.image || null} alt="Image" layout="responsive" className="img-fluid"/>
+                  </div> 
                 </Col>
                 : null
               }
             </Row>
-          </Container>
         )}
+        </Container>
       </div>
       <div className={styles.aboutGradiant}></div>
     </>

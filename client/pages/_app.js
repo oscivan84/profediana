@@ -11,7 +11,7 @@ import '../assets/scss/Modal.css'
 
 
 const MyApp = ({ Component, pageProps }) => {
-  
+  console.log(pageProps)
   const router = useRouter()
 
   return (

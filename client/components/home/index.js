@@ -8,18 +8,7 @@ import { Container, Row } from 'reactstrap';
 
 
 const Home = () => {
-
-  const { mode } = useSelector(state => state.screen);
-
-  // const mediaQueryDesktop = {
-  //   maxWidth: "75%",
-  //   overflowX: "hidden"
-  // }
-
-  // const mediaQueryMobile = {
-  //   padding: "0px"
-  // }
-
+  
   return (
     <Container fluid>
       <Row>
@@ -28,7 +17,6 @@ const Home = () => {
       <AboutHero/>
       <PricingHero/>
       </Row>
-      {/* // style={mode == "xs" ? mediaQueryMobile : mediaQueryDesktop */}
     </Container>
   ) 
 }

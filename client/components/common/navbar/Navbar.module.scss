@@ -1,7 +1,9 @@
 .navbar {
-  position: relative;
+  position: sticky !important;
+  top: 0;
   transition: .5s;
   z-index: 999;
+  box-shadow: 3px 3px 12px rgba(0, 0, 0, .3);
 }
 
 .navbar.navSticky {
@@ -43,7 +45,7 @@
 .navbarDark .navbarNav .navLink:hover,
 .navbarDark .navbarNav .navLink.active {
   padding: 10px 10px 8px 10px;
-  color: #ffffff;
+  color: #e91e63;
 }
 
 .navbarDark .navbarNav .navLink:hover,
@@ -69,11 +71,9 @@
 
 @media (min-width: 992px) {
   .navbar {
-      position: absolute;
       width: 100%;
       top: 35px;
       padding: 20px 60px;
-      background: rgba(0, 0, 0, .1) !important;
       z-index: 9;
   }
   
@@ -103,11 +103,12 @@
   }
   
   .navbar .navbarBrand span {
-      color: #ffffff;
+      color: #e91e63;
   }
   
   .navbar a.navLink {
       padding: 5px;
+      color: #e91e63 !important;
   }
   
   .navbar .dropdownMenu {
