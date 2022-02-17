@@ -42,7 +42,9 @@ const AddNoteModal = ({ submit, close, student, isOpen }) => {
                         value: 5,
                         errorMessage: 'La nota debe ser menor o igual a 5'
                     }
-                }} 
+                }
+            
+            } 
             />)}
         </AvForm>
     </ModalContainer>
