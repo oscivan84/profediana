@@ -22,7 +22,7 @@ const panes = {
  */
 
 const ModalAssistence = ({ student, isOpen, close }) => {    
-    const [ tabActive, setTabActive ] = useState(panes.LIST);
+    const [ tabActive, setTabActive ] = useState(panes.BY_DATE);
     return <ModalContainer isOpen={isOpen} toggle={close} title={`Alumno : ${student.name}`} >
         <MenuPanes
             options={panes}
@@ -38,7 +38,7 @@ const ModalAssistence = ({ student, isOpen, close }) => {
                     }, {
                         displayName: 'Asistio',
                         keyName: 'asistio',
-                        render: (item) => item.assistance ? 'Asistío' : (item.excuse ? 'Excusado' : 'No Asistío')
+                        render: (item) => item.assistance ? 'Asistío' : (item.excuse ? 'Justificado' : 'No Asistío')
                     }, {
                         displayName: 'Acciones',
                         keyName: 'actions',

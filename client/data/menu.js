@@ -43,22 +43,8 @@ const menus = (role) => {
                 icon: <FolderPlus />,
                 children: []
             },
-            {
-                key: "/class/create",
-                text: "Crear Curso",
-                info: "",
-                type: "link",
-                icon: <FolderPlus />,
-                children: []
-            },
-            {
-            key: "/notas",
-            text: "Notas",
-            info: "",
-            type: "link",
-            icon: <List />,
-            children: []
-        },
+            
+            
         {
             key: "/class/create",
             text: "Crear curso",
@@ -68,8 +54,24 @@ const menus = (role) => {
             children: []
         },
         {
+            key: "/notas",
+            text: "Notas",
+            info: "",
+            type: "link",
+            icon: <List />,
+            children: []
+        },
+        {
             key: "/graphic-stores",
             text: "Graficas",
+            info: "",
+            type: "link",
+            icon: <FolderPlus />,
+            children: []
+        },
+        {
+            key: "/users/create",
+            text: "Crear Usuarios",
             info: "",
             type: "link",
             icon: <FolderPlus />,
