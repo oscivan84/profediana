@@ -34,7 +34,6 @@ NEXT_PUBLIC_AUTH_URL=http://localhost:4444/api
 
 
 
-
 El Back necesita las siguientes variables
 2. .env
 HOST=localhost
@@ -52,4 +51,17 @@ MYSQL_DBNAME=testing
 
 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
 
+Después de instalar dependencia en la carpeta server y en la carpeta cliente.
+Se puede acceder mediante el usuario
+twd2206
+Contraseña
+hola123456
+
+
+Enviar informacion por whatsapp    
+https://www.npmjs.com/package/react-whatsapp
+
+
+Enviar por Correo
+https://www.npmjs.com/package/react-native-email
 
