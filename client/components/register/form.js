@@ -66,7 +66,6 @@ const RegisterForm = ({ t }) => {
   };
 
   ;
-
   return (
     <Col md={mode == "xs" ? 8 : null} xs={mode == "xs" ? 10 : null}
       className='login-main'
