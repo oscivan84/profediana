@@ -1,64 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Toogle from "../../../components/toogle";
-import { TabContent, TabPane, Button } from 'reactstrap';
+import { Collapse, Button } from 'reactstrap';
 import Table from '../../../components/utils/table/Table';
-import MenuPanes from '../../../components/kardex/invoices/menuPanes';
-import { ModalContainer } from '../../../components/modales';
+import { ModalConfig, ModalContainer } from '../../../components/modales';
 
-const panes = {
-    LIST : {
-        key : 'list',
-        label : 'Lista'
-    },
-    BY_DATE : {
-        key : 'date',
-        label : 'Por fecha'
-    }
-}
 /**
  * EDITAR : 
  *  -> Imagen
  *  -> Editar estado
  */
+const CurrentDate = new Date()
+const defaultStudent = {
+    name: 'Juan Perez',
+    photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
+    statePayment: 'Pagado',
+    note: 0,
+    assistances: [],
+    notes: {}
+}
 
-const ModalAssistence = ({ student, isOpen, close }) => {    
-    const [ tabActive, setTabActive ] = useState(panes.LIST);
+const ToggleController = ({ content = '', value=true , onChange= ( state )=>{}, ...props}) => {
+    return (
+        <div style={{ display:'grid', gap:'10px', gridTemplateColumns : 'auto auto', padding : '0 10px' }} >
+            <div style={{height : '80%', fontSize : '1.2em'}} >{content}</div>
+            <Toogle defaultChecked={value} onChange={ onChange } />
+        </div>
+    )
+}
+
+const ModalAssistence = ({ student = defaultStudent, isOpen, close, updateStudentAssistance = ( newStudentData )=>{} }) => {
+    const [ currentStudent, setCurrentStudent ] = useState( student );
+    const [ modalOpen, setModalOpen ] = useState( false );
+    const [ index, setIndex ] = useState( 0 );
+    const changeIndex = (item) => {
+        setIndex( student.assistances.indexOf(item) );
+        toggleModal();
+    }
+    const changeCurrentStudent = ( newStudent ) => {
+        currentStudent.assistances[index] = newStudent
+    };
+    const toggleModal = () => {
+        setModalOpen( !modalOpen );
+    };
+    useEffect( () => {
+        updateStudentAssistance( currentStudent );
+    }, [currentStudent] );
     return <ModalContainer isOpen={isOpen} toggle={close} title={`Alumno : ${student.name}`} >
-        <MenuPanes
-            options={panes}
-            active={tabActive.key}
-            onClick={(e, obj) => setTabActive(obj)}
-        />
-        <TabContent activeTab={tabActive.key} >
-            <TabPane tabId={panes.LIST.key} >
-                <Table className={'my-1'} itemsPerPage={6} columns={[
-                    {
-                        displayName: 'Fecha',
-                        keyName: 'date',
-                    }, {
-                        displayName: 'Asistio',
-                        keyName: 'asistio',
-                        render: (item) => item.assistance ? 'Asistío' : (item.excuse ? 'Excusado' : 'No Asistío')
-                    }, {
-                        displayName: 'Acciones',
-                        keyName: 'actions',
-                        render: (item) => <Button>
-                            Editar
-                        </Button>
-                    }
-                ]} data={student.assistances} search={true} />
-            </TabPane>
-            <TabPane tabId={panes.BY_DATE.key} >
-                <label htmlFor="" className="text-center">Ingrese la Fecha</label>
-                <input
-                    type="date"
-                    defaultValue={new Date().toISOString().substring(0, 10)}
-                    className="w-full text-gray-600 border mb-4 outline-none py-2 pl-4  focus:ring-gray focus:border-gray-500"
-                />
-                <label htmlFor="">Asistio:</label>
-                <Toogle defaultChecked={true} />
-            </TabPane>
-        </TabContent>
+        <ToggleController value content={`Asistencia del día ( ${CurrentDate.getFullYear()}-${CurrentDate.getMonth()}-${CurrentDate.getDate()} ): `} />
+        <Table className={'my-1'} itemsPerPage={6} columns={[
+            {
+                displayName: 'Fecha',
+                keyName: 'date',
+            }, {
+                displayName: 'Asistio',
+                keyName: 'asistio',
+                render: (item) => item.assistance ? 'Asistío' : (item.excuse ? 'Justificado' : 'No Asistío')
+            }, {
+                displayName: 'Acciones',
+                keyName: 'actions',
+                render: (item) => <Button onClick={()=>changeIndex( item )} >
+                    Editar
+                </Button>
+            }
+        ]} data={currentStudent.assistances} search={true} />
+        <ModalConfig isOpen={modalOpen} toggle={toggleModal} title={`Fecha `} configObject={currentStudent.assistances[index]} renderMode={{
+            assistance : (item)=><ToggleController value={ item.value } content='Asistencia : ' />,
+            excuse : (item)=><ToggleController value={ item.value } content='Justificado : ' />
+        }} onSave={changeCurrentStudent} />
     </ModalContainer>
 }
 

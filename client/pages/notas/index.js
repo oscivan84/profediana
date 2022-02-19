@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import AddNoteModal from "./components/AddNoteModal";
 import ModalAssistence from "./components/ModalAssistence";
 import Table from '../../components/utils/table/Table';
@@ -8,6 +8,7 @@ import Breadcrumb from "../../components/common/layout/breadcrumb";
 import { Card, Row, Col, CardBody, CardTitle, Spinner, Button, Toast, ToastHeader, ToastBody, ListGroup, ListGroupItemText } from "reactstrap";
 import { SelectDefault } from "../../components/common/select";
 import { TabbedPane, SplitedPane } from "../../components/common/pane";
+import BrigadeModal from "./components/BrigadeModal";
 
 const profesorData = {
   name: 'Juan Perez',
@@ -70,24 +71,40 @@ const students = [
   }
 ];
 const members = [
-  {
-    name: 'Juan Perez',
-    photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
-    statePayment: 'Pagado',
-    note: 4.3,
-  },
-  {
-    name: 'Luis Ramirez',
-    photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
-    statePayment: 'Pagado',
-    note: 4.3,
-  },
-  {
-    name: 'Marco Polo',
-    photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
-    statePayment: 'Pagado',
-    note: 4.3,
-  }
+  [
+    {
+      name: 'Juan Perez',
+      photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
+      statePayment: 'Pagado',
+    },
+    {
+      name: 'Luis Ramirez',
+      photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
+      statePayment: 'Pagado',
+    },
+    {
+      name: 'Marco Polo',
+      photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
+      statePayment: 'Pagado',
+    }
+  ],
+  [
+    {
+      name: 'Felipe Sanchez',
+      photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
+      statePayment: 'Pagado',
+    },
+    {
+      name: 'Francisco Cordoda',
+      photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
+      statePayment: 'Pagado',
+    },
+    {
+      name: 'Felipe Alameda',
+      photo: 'https://www.luismaram.com/wp-content/uploads/2017/02/Como-captar-mas-alumnos.jpg',
+      statePayment: 'Pagado',
+    }
+  ],
 ];
 const Panes = {
   INDIVIDUAL : {
@@ -119,6 +136,20 @@ const Indexes = [
     </ListGroup> 
   }
 ]
+
+const InfoCard = ( { title ='Default title' , actionButton = { value : '', onClick : ()=>{} }, data=[], ...props} ) => {
+  return (
+    <>
+      <CardTitle tag="h5">
+        {title}
+      </CardTitle>
+      { React.cloneElement(props.children, { data : data })}
+      <Button color="primary" onClick={actionButton.onClick} >
+        {actionButton.value}
+      </Button>
+    </>
+  )
+}
 
 const Notas = () => {
   const columns = [
@@ -187,8 +218,10 @@ const Notas = () => {
     }
   ];
   const [ selectedUser, setSelectedUser ] = useState( students[0] );
+  const [ selectedBrigade, setSelectedBrigade ] = useState( members[0] );
   const [ assistance, setAssistance] = useState(false);
   const [ notes, setNotes] = useState(false);
+  const [ brigade, setBrigade] = useState(false);
   const toggleAssistence = ( item ) => {
     if( item )
       setSelectedUser( item );
@@ -199,6 +232,11 @@ const Notas = () => {
       setSelectedUser( item );
     setNotes( !notes )
   }
+  const toggleBrigade = ( item ) => {
+    if( item )
+      setSelectedUser( item );
+    setBrigade( !brigade )
+  }
   const handleValidSubmit = (event, values) => {
     console.log('values', values);
   }
@@ -208,68 +246,60 @@ const Notas = () => {
       <hr/>
       <TabbedPane panes={Panes} >
         <>
-          <Card>
-            <CardBody>
-              <Row>
-                <Col>
-                  <p className="text-base md:text-lg ">
-                    <label htmlFor="" className=" ">
-                      Profesor Asignado :  
-                    </label>
-                    <span className="font-semibold" >
-                      {profesorData.name}
-                    </span>
-                  </p>
-                </Col>
-                <Col>
-                  <SelectDefault options={profesorData.classes} />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <p className="text-center mt-10 text-gray-700 font-semibold text-base md:text-lg">
-                    Relación de Alumnos
-                  </p>
-                  <Table columns={columns} data={students} itemsPerPage={10} search={true} />
-                </Col>
-              </Row>
-            </CardBody>
+          <Card body >
+            <Row>
+              <Col>
+                <p className="text-base md:text-lg ">
+                  <label htmlFor="" className=" ">
+                    Profesor Asignado :  
+                  </label>
+                  <span className="font-semibold" >
+                    {profesorData.name}
+                  </span>
+                </p>
+              </Col>
+              <Col>
+                <SelectDefault options={profesorData.classes} />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <p className="text-center mt-10 text-gray-700 font-semibold text-base md:text-lg">
+                  Relación de Alumnos
+                </p>
+                <Table columns={columns} data={students} itemsPerPage={10} search={true} />
+              </Col>
+            </Row>
           </Card>
         </>
         <>
-          <Card>
-            <CardBody>
-              <Row>
-                <Col>
-                  <p className="text-base md:text-lg ">
-                    <label htmlFor="" className=" ">
-                      Profesor Asignado :  
-                    </label>
-                    <span className="font-semibold" >
-                      {profesorData.name}
-                    </span>
-                  </p>
-                </Col>
-                <Col>
-                  <SelectDefault options={profesorData.classes} />
-                </Col>
-              </Row>
-              <SplitedPane indexes={Indexes} >
-                <CardTitle tag="h5">
-                  Brigada : Nombre brigada
-                </CardTitle>
-                Members :
-                <Table columns={columns2} data={members} itemsPerPage={10} />
-                <Button color="primary" onClick={()=>toggleNotes(students[0])} >
-                  Notas
-                </Button>
-              </SplitedPane>
-            </CardBody>
+          <Card body >
+            <Row>
+              <Col>
+                <p className="text-base md:text-lg ">
+                  <label htmlFor="" className=" ">
+                    Profesor Asignado :  
+                  </label>
+                  <span className="font-semibold" >
+                    {profesorData.name}
+                  </span>
+                </p>
+              </Col>
+              <Col>
+                <SelectDefault options={profesorData.classes} />
+              </Col>
+            </Row>
+            <SplitedPane elements={Indexes} data={members} childKey='data' >
+              <InfoCard actionButton={{ value:'Notas de brigada', onClick:()=>setBrigade(true) }} >
+                <Table columns={columns2} data={[]} />
+              </InfoCard>
+            </SplitedPane>
           </Card>
         </>
       </TabbedPane>
       <AddNoteModal submit={handleValidSubmit} student={selectedUser} close={()=>toggleNotes(null)} isOpen={notes} />
       <ModalAssistence student={selectedUser} close={()=>toggleAssistence(null)} isOpen={assistance} />
+      <BrigadeModal close={()=>toggleBrigade(null)} isOpen={brigade} members={selectedBrigade.map(item=>item.name)} />
     </LayoutCuba>
   );
 };
