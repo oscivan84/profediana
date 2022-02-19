@@ -7,7 +7,7 @@ const SelectDefault = (props) => {
     ...styles,
     padding: `0.3em 1em`,
     borderColor: "#efefef",
-    zIndex: 99
+    zIndex: 99,
   });
 
   const colorStyles = {
