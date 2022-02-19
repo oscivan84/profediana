@@ -23,7 +23,7 @@ const CreateForm = ( {onSubmit = ( recoveredData )=>{} }) => {
         ],
         institution:[
             { 
-                key : 'campusId', label : 'Cede', type : 'select', options : [ {value : '1', label : 'Bogotá, Colombia'}, {value : '1', label : 'Soacha, Colombia'},]
+                key : 'campusId', label : 'Sede', type : 'select', options : [ {value : '1', label : 'Bogotá, Colombia'}, {value : '1', label : 'Soacha, Colombia'},]
             }
         ],
         credentials:[
