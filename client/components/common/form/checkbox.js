@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Input } from 'reactstrap';
+import { Input, Label, FormGroup } from 'reactstrap';
 import styled from 'styled-components';
 
 export const Check = styled.i.attrs( ( { isChecked = false, size = 22, margin = 0 } ) =>{

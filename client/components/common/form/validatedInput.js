@@ -1,4 +1,5 @@
 import React from 'react';
+import { Label, Input, FormGroup, FormFeedback } from 'reactstrap';
 
 const ValidatedInput = ({value, ...props}) =>{
     return <FormGroup className="position-relative" >
