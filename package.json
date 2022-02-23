@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-hook-form": "^7.27.1",
+    "react-select": "^5.2.2"
+  }
+}
