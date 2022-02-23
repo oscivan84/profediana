@@ -2,11 +2,13 @@ import React, { useState, useMemo, useRef, useEffect } from "react";
 import {
   Label,
   FormGroup,
-  Form,
-  Input,
   Container,
   InputGroup,
   InputGroupText,
+  Button,
+  Spinner,
+  TabContent,
+  TabPane
 } from "reactstrap";
 import { translate } from "react-switch-lang";
 import StudentRequest from "../../request/student";
@@ -16,63 +18,129 @@ import {
   degrees,
   affiliations,
   maritalStatus,
-} from "./data.json";
-import { Calendar, CreditCard, Loader, MapPin, Map, Phone, User, MessageCircle, AtSign  } from "react-feather";
+} from "./data";
+import {
+  CreditCard,
+  MapPin,
+  Map,
+  Phone,
+  User,
+  MessageCircle,
+  AtSign,
+  Users,
+  FileText,
+} from "react-feather";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import { SelectDefault } from "../common/select";
 import DragAndDrop from "../DragAndDrop";
 import { Col, Row } from "react-bootstrap";
 import Divider from "./divider";
+import { useForm, Controller } from "react-hook-form";
 
 const RegisterForm = ({ t }) => {
-  const { mode } = useSelector((state) => state.screen);
+  // const { mode } = useSelector((state) => state.screen);
   //variables para el video
 
   const studentRequest = new StudentRequest({ translate: t });
 
-  const [errors, setErrors] = useState({});
-  const [form, setForm] = useState({});
-  const [current_loading, setCurrentLoading] = useState(false);
+  // const [inputSuccess, setIputSuccess] = useState(false);
+  const [canSend, setCanSend] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  const handlerCheckAccess = (e) => {
+    const accessTerms = e.target.checked;
+    if (accessTerms) {
+      setCanSend(true);
+    } else {
+      setCanSend(false);
+    }
+  };
 
   const _userIcon = <User />;
   const _idCard = <CreditCard />;
-  const _placePin = <MapPin/>;
-  const _map = <Map/>;
-  const _phone = <Phone/>
-  const _message = <MessageCircle/>
-  const _mail = <AtSign/>
+  const _placePin = <MapPin />;
+  const _map = <Map />;
+  const _phone = <Phone />;
+  const _message = <MessageCircle />;
+  const _mail = <AtSign />;
+  const _married = <Users />;
+  const _file = <FileText />;
 
-  const handleInput = ({ name, value }) => {
-    setForm((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: [] }));
-    console.log([name]);
-  };
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+    watch
+  } = useForm();
 
-  const canSubmit = useMemo(() => {
-    return form?.access;
-  }, [form]);
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    setCurrentLoading(true);
+  const onSubmit = async (data) => {
+    console.log(data);
+    setLoading(true);
     await studentRequest
-      .store(form)
+      .store(data)
       .then(() => {
         Swal.fire({
           icon: "success",
-          text: `Los datos se guardaron correctamente!`,
+          text: "¡Datos guardados correctamente!",
         });
-        setForm({});
-        setErrors({});
-        setCurrentLoading(false);
+        reset();
+        setLoading(false);
       })
-      .catch((err) => {
-        Swal.fire({ icon: "warning", text: err.message });
-        setCurrentLoading(false);
-        setErrors(err.errors);
+      .catch((error) => {
+        Swal.fire({
+          icon: "warning",
+          text: `${error.message}`,
+        });
+        setLoading(false);
       });
   };
+
+  useEffect(() => {
+    const subscription = watch((data) => {
+      console.log(data)
+    })
+    return () => {
+      subscription.unsubscribe();
+    }
+  }, [watch])
+
+  // const handleInput = ({ name, value }) => {
+  //   setForm((prev) => ({ ...prev, [name]: value }));
+  //   setErrors((prev) => ({ ...prev, [name]: [] }));
+  //   if(inputRegex.test(value)){
+  //     setIputSuccess(true);
+  //   }else{
+  //     setIputSuccess(false)
+  //   }
+  // };
+
+  // const canSubmit = useMemo(() => {
+  //   return form?.access;
+  // }, [form]);
+
+  // const handleSave = async (e) => {
+  //   e.preventDefault();
+  //   setCurrentLoading(true);
+  //   await studentRequest
+  //     .store(form)
+  //     .then(() => {
+  //       Swal.fire({
+  //         icon: "success",
+  //         text: `Los datos se guardaron correctamente!`,
+  //       });
+  //       setForm({});
+  //       setErrors({});
+  //       setCurrentLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       Swal.fire({ icon: "warning", text: err.message });
+  //       setCurrentLoading(false);
+  //       setErrors(err.errors);
+  //     });
+  // };
 
   return (
     <Container fluid>
@@ -84,234 +152,406 @@ const RegisterForm = ({ t }) => {
           </p>
         </Col>
       </Row>
-      <Form>
+      <Row>
+        <Col>
+        <TabContent activeTab={"jwt"} className="content-login">
+        <TabPane className="fade show" tabId={"jwt"}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Datos Personales */}
         <Divider title="Datos Personales" />
-        <Row className="my-3">
-          <Col xs={12} md={6}>
+        <Row className="my-4">
+          <Col xs={12} md={4}>
             <FormGroup>
-              <Label>Nombres *</Label>
+              <Label>
+                Nombres <b className="text-danger">*</b>
+              </Label>
               <InputGroup>
                 <InputGroupText className="bg-white">
                   {_userIcon}
                 </InputGroupText>
-                <Input
-                className={`form-control block input-hero`}
-                  required
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
                   type="text"
-                  name="name"
-                  value={`${form?.name || ""}`}
+                  {...register("name", { required: true })}
                   placeholder="Ingresar nombres"
-                  onChange={(e) => handleInput(e.target)}
-                  disabled={current_loading}
                 />
               </InputGroup>
+              {errors?.name ? (
+                <span className="text-danger">* Campo requerido</span>
+              ) : null}
             </FormGroup>
           </Col>
 
-          <Col xs={12} md={6}>
+          <Col xs={12} md={4}>
             <FormGroup>
-              <Label>Apellidos *</Label>
+              <Label>
+                Apellidos <b className="text-danger">*</b>
+              </Label>
               <InputGroup>
                 <InputGroupText className="bg-white">
                   {_userIcon}
                 </InputGroupText>
-                <Input
-                className={`form-control block input-hero`}
-                  required
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  {...register("lastname", { required: true })}
                   type="text"
-                  name="lastname"
-                  value={`${form?.lastname || ""}`}
                   placeholder="Ingresar apellidos"
-                  onChange={(e) => handleInput(e.target)}
-                  disabled={current_loading}
-                  invalid={errors?.lastname?.[0]}
                 />
               </InputGroup>
+              {errors?.lastname ? (
+                <span className="text-danger">* Campo requerido</span>
+              ) : null}
             </FormGroup>
           </Col>
-          <Col md={6} xs={12}>
+          <Col md={4} xs={12}>
             <FormGroup>
               <Label>
                 Tipo Documento Identidad <b className="text-danger">*</b>
               </Label>
-                <SelectDefault
-                  options={documentTypes}
-                  onChange={(obj, meta) => handleInput({ ...meta, ...obj })}
-                  type="text"
-                  name="documentTypeId"
-                  disabled={current_loading}
-                />
+              <Controller
+                control={control}
+                name="documentTypeId"
+                rules={{ required: true }}
+                render={({ field: { value, onChange } }) => (
+                  <SelectDefault
+                    value={documentTypes.find(d => d.value === value)}
+                    options={documentTypes}
+                    onChange={val => onChange(val.value)}
+                    type="text"
+                  />
+                )}
+              />
             </FormGroup>
+            {errors?.documentTypeId ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={4}>
             <FormGroup>
-              <Label>Número de documento de identidad *</Label>
+              <Label>
+                Número de documento de identidad{" "}
+                <b className="text-danger">*</b>
+              </Label>
               <InputGroup>
-                <InputGroupText className="bg-white">
-                  {_idCard}
-                </InputGroupText>
-                <Input
-                className={`form-control block input-hero`}
-                  required
+                <InputGroupText className="bg-white">{_idCard}</InputGroupText>
+                <input
+                  className={`form-control block input-hero`}
+                  {...register("documentNumber", { required: true , maxLength: 12})}
                   type="text"
-                  name="documentNumber"
-                  value={`${form?.lastname || ""}`}
-                  placeholder="Ingresar número de documento de indentidad"
-                  onChange={(e) => handleInput(e.target)}
-                  disabled={current_loading}
-                  invalid={errors?.lastname?.[0]}
+                  placeholder="Ingresar número de doc. de indentidad"
                 />
               </InputGroup>
             </FormGroup>
+            {errors?.documentNumber ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={4}>
             <FormGroup>
-              <Label >
+              <Label>
                 Fecha de Nacimiento <b className="text-danger">*</b>
               </Label>
-              <Input
-                className={`form-control block input-hero`}
+              <input
+                className={`form-control block input-hero ${
+                  errors?.name ? "invalid-control" : ""
+                }`}
                 type="date"
-                name="dateOfBirth"
-                value={`${form?.dateOfBirth || ""}`}
-                onChange={(e) => handleInput(e.target)}
-                disabled={current_loading}
+                {...register("dateOfBirth", { required: true })}
               />
             </FormGroup>
+            {errors?.dateOfBirth ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={4} xs={12}>
+            <FormGroup>
+              <Label>
+                Lugar de Nacimiento <b className="text-danger">*</b>
+              </Label>
+              <Controller
+                name="cityId"
+                rules={{ required: true }}
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <SelectDefault
+                    value={cities.find((d) => d.value === value)}
+                    options={cities}
+                    onChange={val => onChange(val.value)}
+                    type="text"
+                  />
+                )}
+              />
+            </FormGroup>
+            {errors?.citId ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
           </Col>
           <Col md={6} xs={12}>
-                 <FormGroup>
-                   <Label >
-                     Lugar de Nacimiento <b className="text-danger">*</b>
-                   </Label>
-                   <SelectDefault
-                     options={cities}
-                     onChange={(obj, meta) => handleInput({ ...meta, ...obj })}
-                     type="text"
-                     name="cityId"
-                     required
-                     disabled={current_loading}
-                   />
-                   <label>{errors?.cityId?.[0] || ""}</label>
-                 </FormGroup>
-               </Col>
-               <Col md={6} xs={12}>
-                 <FormGroup>
-                   <Label>
-                     Dirección de Recidencia <b className="text-danger">*</b>
-                   </Label>
-                   <InputGroup>
-                   <InputGroupText className="bg-white">
-                   {_placePin}
-                   </InputGroupText>
-                   <Input
-                   className={`form-control block input-hero`}
-                     required
-                     type="text"
-                     name="address"
-                     value={`${form?.address || ""}`}
-                    onChange={(e) => handleInput(e.target)}
-                     disabled={current_loading}
-                     placeholder="Ingresar dirección de residencia"
-                   />
-                   </InputGroup>        
-                 </FormGroup>
-               </Col>
-               <Col md={6} xs={12}>
-                 <FormGroup >
-                   <Label>
-                     Barrio <b className="text-danger">*</b>
-                   </Label>
-                   <InputGroup>
-                   <InputGroupText className="bg-white">
-                   {_map}
-                   </InputGroupText>
-                   <Input
-                   className={`form-control block input-hero`}
-                     required
-                     type="text"
-                     name="neighborhood"
-                     value={`${form?.neighborhood || ""}`}
-                     onChange={(e) => handleInput(e.target)}
-                     disabled={current_loading}
-                     placeholder="Ingresar nombre de barrio"
-                   />
-                   </InputGroup>
-                 </FormGroup>
-               </Col>
+            <FormGroup>
+              <Label>
+                Dirección de Recidencia <b className="text-danger">*</b>
+              </Label>
+              <InputGroup>
+                <InputGroupText className="bg-white">
+                  {_placePin}
+                </InputGroupText>
+                <input
+                  {...register("address", { required: true })}
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  type="text"
+                  placeholder="Ingresar dirección de residencia"
+                />
+              </InputGroup>
+            </FormGroup>
+            {errors?.address ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={6} xs={12}>
+            <FormGroup>
+              <Label>
+                Barrio <b className="text-danger">*</b>
+              </Label>
+              <InputGroup>
+                <InputGroupText className="bg-white">{_map}</InputGroupText>
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  {...register("neighborhood", { required: true })}
+                  type="text"
+                  placeholder="Ingresar nombre de barrio"
+                />
+              </InputGroup>
+            </FormGroup>
+            {errors?.neighborhood ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
         </Row>
+        {/* Datos de contacto */}
         <Divider title="Datos de Contacto" />
         <Row>
-        <Col md={6} xs={12}>
-                 <FormGroup>
-                   <Label>Teléfono Fijo</Label>
-                   <InputGroup>
-                   <InputGroupText className="bg-white">
-                   {_phone}
-                   </InputGroupText>
-                   <Input
-                   className={`form-control block input-hero`}
-                     type="text"
-                     name="landline"
-                     value={`${form?.landline || ""}`}
-                     onChange={(e) => handleInput(e.target)}
-                     disabled={current_loading}
-                     placeholder="Ingresar número de teléfono"
-                   />
-                   </InputGroup>
-                 </FormGroup>
-               </Col>
-               <Col md={6} xs={12}>
-                 <FormGroup >
-                   <Label >
-                     WhatsApp <b className="text-danger">*</b>
-                   </Label>
-                   <InputGroup>
-                   <InputGroupText className="bg-white">
-                   {_message}
-                   </InputGroupText>
-                   <Input
-                     className={`form-control block input-hero`}
-                     required
-                     type="text"
-                     name="phone"
-                     value={`${form?.phone || ""}`}
-                     onChange={(e) => handleInput(e.target)}
-                     disabled={current_loading}
-                     placeholder="Ingresar número de Whatsapp"
-                   />
-                   </InputGroup>
-                 </FormGroup>
-               </Col>
-               <Col md={6} xs={12}>
-                 <FormGroup >
-                   <Label>
-                     Correo Electrónico <b className="text-danger">*</b>
-                   </Label>
-                   <InputGroup>
-                   <InputGroupText className="bg-white">
-                   {_mail}
-                   </InputGroupText>
-                   <Input
-                     className={`form-control block input-hero`}
-                     required
-                     type="email"
-                     name="email"
-                     value={`${form?.email || ""}`}
-                     onChange={(e) => handleInput(e.target)}
-                     disabled={current_loading}
-                     valid={!!form?.errors }
-                     placeholder="Ingresar dirección de correo electónico"
-                   />
-                   </InputGroup>
-                 </FormGroup>
-               </Col>
+          <Col md={6} xs={12}>
+            <FormGroup>
+              <Label>Teléfono Fijo</Label>
+              <InputGroup>
+                <InputGroupText className="bg-white">{_phone}</InputGroupText>
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  {...register("landline", { required: true })}
+                  type="text"
+                  placeholder="Ingresar número de teléfono"
+                />
+              </InputGroup>
+            </FormGroup>
+            {errors?.landline ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={6} xs={12}>
+            <FormGroup>
+              <Label>
+                WhatsApp <b className="text-danger">*</b>
+              </Label>
+              <InputGroup>
+                <InputGroupText className="bg-white">{_message}</InputGroupText>
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  {...register("phone", { required: true })}
+                  type="text"
+                  placeholder="Ingresar número de Whatsapp"
+                />
+              </InputGroup>
+            </FormGroup>
+            {errors?.phone ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={6} xs={12}>
+            <FormGroup>
+              <Label>
+                Correo Electrónico <b className="text-danger">*</b>
+              </Label>
+              <InputGroup>
+                <InputGroupText className="bg-white">{_mail}</InputGroupText>
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  {...register("email", { required: true })}
+                  type="email"
+                  placeholder="Ingresar dirección de correo electónico"
+                />
+              </InputGroup>
+            </FormGroup>
+            {errors?.email ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
         </Row>
+        {/* Datos Generales */}
         <Divider title="Datos Generales" />
-        <Row className="my-3">
-
+        <Row className="my-4">
+          <Col md={4} xs={12}>
+            <FormGroup>
+              <Label>
+                Nivel Académico <b className="text-danger">*</b>
+              </Label>
+              <Controller
+                control={control}
+                name="degreeId"
+                rules={{ required: true }}
+                render={({ field: { value, onChange } }) => (
+                  <SelectDefault
+                    value={degrees.find((d) => d.value === value)}
+                    options={degrees}
+                    onChange={val => onChange(val.value)}
+                    type="text"
+                  />
+                )}
+              />
+            </FormGroup>
+            {errors?.degreeId ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={4} xs={12}>
+            <FormGroup>
+              <Label>
+                Estado Civil <b className="text-danger">*</b>
+              </Label>
+              <Controller
+                control={control}
+                name="maritalStatusId"
+                rules={{ required: true }}
+                render={({ field: { value, onChange } }) => (
+                  <SelectDefault
+                    value={maritalStatus.find((d) => d.value === value)}
+                    options={maritalStatus}
+                    onChange={val => onChange(val.value)}
+                    type="text"
+                  />
+                )}
+              />
+            </FormGroup>
+            {errors?.maritalStatusId ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={4} xs={12}>
+            <FormGroup>
+              <Label>¿Con quién vive?</Label>
+              <InputGroup>
+                <InputGroupText className="bg-white">{_married}</InputGroupText>
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  {...register("contact", { required: true })}
+                  type="text"
+                />
+              </InputGroup>
+            </FormGroup>
+            {errors?.contact ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={4} xs={12}>
+            <FormGroup>
+              <Label>
+                Eps <b className="text-danger">*</b>
+              </Label>
+              <InputGroup>
+                <InputGroupText className="bg-white">{_file}</InputGroupText>
+                <input
+                  className={`form-control block input-hero ${
+                    errors?.name ? "invalid-control" : ""
+                  }`}
+                  {...register("eps", { required: true })}
+                  type="text"
+                />
+              </InputGroup>
+            </FormGroup>
+            {errors?.eps ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
+          <Col md={4} xs={12}>
+            <FormGroup>
+              <Label>
+                Tipo de Afiliación <b className="text-danger">*</b>
+              </Label>
+              <Controller
+                control={control}
+                name="affiliationId"
+                rules={{ required: true }}
+                defaultValue=""
+                render={({ field: { value, onChange } }) => (
+                  <SelectDefault
+                    value={affiliations.find((d) => d.value === value)}
+                    options={affiliations}
+                    onChange={val => onChange(val.value)}
+                    type="text"
+                  />
+                )}
+              />
+            </FormGroup>
+            {errors?.eps ? (
+              <span className="text-danger">* Campo requerido</span>
+            ) : null}
+          </Col>
         </Row>
-      </Form>
+        <Row>
+          <hr />
+          <Col xs={12} md={4}>
+            <FormGroup className="form-check">
+              <input
+                id="acces"
+                className="form-check-input"
+                type="checkbox"
+                onChange={handlerCheckAccess}
+              />
+              <Label className="form-check-label" for="acces">
+                Acepto el manejo de mis datos personales
+              </Label>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={4} xd={10} className="form-group mb-0 mt-5">
+            <Button
+              type="submit"
+              className="btn-block "
+              disabled={!canSend || loading}
+            >
+              {loading ? (
+                <>
+                  <Spinner size="sm" />
+                  <span>&nbsp;Enviando Formulario...</span>
+                </>
+              ) : (
+                <span>Enviar Formulario</span>
+              )}
+            </Button>
+          </Col>
+        </Row>
+      </form>
+        </TabPane>
+        </TabContent>
+        </Col>
+      </Row>
+
     </Container>
     // <Col md={12} className='login-main'>
     //   <TabContent activeTab={"jwt"} className="content-login">
