@@ -7,8 +7,7 @@
 
 Documento Base
 https://docs.google.com/document/d/1K6-6qzzljF-3THpsIRm0oQlFUSeDUufZ/edit
-
-
+https://docs.google.com/spreadsheets/d/1etUHPeg8BloEzYT3R9b3zyAxURyZozGXuB3UrLw_hi0/edit#gid=35428613
 
 
 La aplicaicon esta dividida en Server y client, en donde
