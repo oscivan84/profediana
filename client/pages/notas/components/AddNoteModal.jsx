@@ -22,6 +22,7 @@ const AddNoteModal = ({ submit, close, student, isOpen }) => {
                     </Badge>
                 </Col>
             </Row>
+
             <Row>
                 <Col xs={10} >
                     Notas :
@@ -62,6 +63,7 @@ const AddNoteModal = ({ submit, close, student, isOpen }) => {
                     <CheckboxDefault size={35} margin={ 30 } value={brigades[index]} />
                 </Col>
             </Row>})}
+
         </AvForm>
     </ModalContainer>
 }

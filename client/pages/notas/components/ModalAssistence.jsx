@@ -19,6 +19,7 @@ const defaultStudent = {
     notes: {}
 }
 
+
 const ToggleController = ({ content = '', value=true , onChange= ( state )=>{}, ...props}) => {
     return (
         <div style={{ display:'grid', gap:'10px', gridTemplateColumns : 'auto auto', padding : '0 10px' }} >
@@ -67,6 +68,7 @@ const ModalAssistence = ({ student = defaultStudent, isOpen, close, updateStuden
             assistance : (item)=><ToggleController value={ item.value } content='Asistencia : ' />,
             excuse : (item)=><ToggleController value={ item.value } content='Justificado : ' />
         }} onSave={changeCurrentStudent} />
+
     </ModalContainer>
 }
 
