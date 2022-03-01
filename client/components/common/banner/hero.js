@@ -12,10 +12,9 @@ const BannerHero = ({
 
   return (
     <>
-        <div className={styles.hero}>
-            <Container>
+            <Container fluid className={`${styles.hero}`}>
                 <Row className="align-items-center">
-                    <Col md={6}>
+                    <Col md={6} xs={12} className={styles.bannerContent}>
                         <div className={`${styles.heroText}`}>
                             <h1>{title}</h1>
                             <p>{description}</p>
@@ -26,9 +25,9 @@ const BannerHero = ({
                             </div>
                         </div>
                     </Col>
-                    <Col md={6} className="d-none d-md-block">
+                    <Col md={6} xs={12} className="d-none d-sm-block">
                         <div className={styles.heroImage}>
-                            <Image src={require('../../../assets/images/portada.png')} alt="Hero Image"/>
+                            <Image src={require('../../../assets/images/portada.png')} alt="Hero Image" className="img-fluid"/>
                         </div>
                     </Col>
                 </Row>
@@ -39,7 +38,6 @@ const BannerHero = ({
                 </a>
             </div>
             <div className={styles.heroGradiant}></div>
-        </div>
     </>
   )
 }

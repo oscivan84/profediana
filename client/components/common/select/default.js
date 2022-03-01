@@ -1,13 +1,19 @@
 import React from 'react';
 import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 const SelectDefault = (props) => {
+  const animatedComponents = makeAnimated();
 
   const hero = (styles) => ({
     ...styles,
-    padding: `0.3em 1em`,
+    padding: `0.5em 1em`,
     borderColor: "#efefef",
+ui-landingpage-y-formulario-registro
+    zIndex: 0,
+
     zIndex: 3
+
   });
 
   const colorStyles = {
@@ -16,6 +22,8 @@ const SelectDefault = (props) => {
 
   return (
     <Select {...props}
+    isClearable
+    components={animatedComponents}
       placeholder={props.placeholder || "Seleccionar..."}
       styles={colorStyles}
     />

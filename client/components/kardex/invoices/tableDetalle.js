@@ -9,7 +9,6 @@ import { clearDetails } from "../../../redux/thunks/kardex/invoiceThunk";
 import { useDispatch } from "react-redux";
 import { DateTime } from "luxon";
 import { format } from "currency-formatter";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const TableDetalle = () => {
@@ -23,15 +22,18 @@ const TableDetalle = () => {
   const { details, receiver, detailTotal } = useSelector(
     (state) => state.invoice
   );
-
+  
   const [description, setDescription] = useState();
   const [loading, setLoading] = useState(false);
-  const [currentId, setCurrentId] = useState(undefined);
+  const [currentId, setCurrentId] = useState();
   const [nextPage, setNextPage] = useState(false);
+  console.log('currentid', currentId);
 
   const canSave = useMemo(() => {
     return details?.length && receiver?.receiverId;
   }, [details.length, receiver?.receiverId]);
+
+  console.log()
 
   const dialogConfirm = async () => {
     return await Swal.fire({
@@ -47,6 +49,7 @@ const TableDetalle = () => {
   const handleSaveDetalle = async (id) => {
     const datos = [];
     await details?.map((det) => {
+      console.log('det', det)
       datos.push({
         invoiceId: id,
         detailableType: det.detailableType,
@@ -68,16 +71,17 @@ const TableDetalle = () => {
     setLoading(true);
     if (currentId) return handleSaveDetalle(currentId);
     // primera vez
-    await invoiceRequest
+   invoiceRequest
       .store({
         transmitterId: 1,
         transmitterType: "Campus",
         receiverType: receiver.receiverType,
         receiverId: receiver.receiverId,
         description,
-        date: DateTime.now().toFormat("yyyy-MM-dd"),
+        date: DateTime.now(),
       })
       .then(async ({ data }) => {
+        console.log('data', data)
         setCurrentId(data.id);
         await handleSaveDetalle(data.id);
       })
@@ -85,7 +89,7 @@ const TableDetalle = () => {
         setLoading(false);
         Swal.fire({
           icon: "error",
-          text: "No se pudó generar la orden",
+          text: `No se pudó generar la orden ${currentId}`
         });
       });
   };

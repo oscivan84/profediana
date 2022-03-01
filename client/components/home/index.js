@@ -4,31 +4,19 @@ import { ServiceHero } from '../common/service';
 import { AboutHero } from '../common/about';
 import { PricingHero } from '../common/pricing';
 import { useSelector } from 'react-redux';
-import { Container } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 
 
 const Home = () => {
-
-  const { mode } = useSelector(state => state.screen);
-
-  const mediaQueryDesktop = {
-    maxWidth: "75%",
-    overflowX: "hidden"
-  }
-
-  const mediaQueryMobile = {
-    padding: "0px"
-  }
-
+  
   return (
-    <Container className='container-hidden container-viewport'
-      style={mode == "xs" ? mediaQueryMobile : mediaQueryDesktop}
-    >
-    
+    <Container fluid>
+      <Row>
       <BannerHero/>
       <ServiceHero/>
       <AboutHero/>
       <PricingHero/>
+      </Row>
     </Container>
   ) 
 }

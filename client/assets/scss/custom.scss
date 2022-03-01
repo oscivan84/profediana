@@ -127,3 +127,7 @@
     width: 100px;
     height: 100px;
 }
+
+.form-control.invalid-control:focus{
+    border-color: red;
+}
