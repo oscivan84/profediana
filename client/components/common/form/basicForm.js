@@ -1,21 +1,9 @@
 import React, { useEffect } from 'react';
 import useFormValidation from '../../../hook/useFormValidation';
-import { Label, Input, FormFeedback, FormGroup, Form, Card } from 'reactstrap';
+import { Label, Form } from 'reactstrap';
 import { SelectDefault } from '../select';
-
-const ValidatedInput = ({value, ...props}) =>{
-    return <FormGroup className="position-relative" >
-        <Label for={props.id} md="6">{props.label}</Label>
-        <Input required type={props.type} valid={props.valid} invalid={ !props.valid && value != undefined } value={value?value:''} {...props} />
-        <FormFeedback tooltip invalid>
-            {
-                props.message ? 
-                    props.message
-                    :'Es necesario llenar este campo'
-            }
-        </FormFeedback>
-    </FormGroup>
-}
+import ValidatedInput from './validatedInput';
+import CheckboxController from './checkbox';
 
 const FormBasic = ({title, inputs = [], key = '', update, children = <></> }) => {
     const [ inputList, updateInputList ] = useFormValidation( inputs )
@@ -30,7 +18,9 @@ const FormBasic = ({title, inputs = [], key = '', update, children = <></> }) =>
                     inputList.map( ( input ) => {
                         return input.type === 'select' ? 
                             <><Label>{input.label}</Label><SelectDefault onChange={(e)=>updateInputList( {target : { id : input.key, value : e.value } } )} options={input.options} /></>
-                            : <ValidatedInput {...input} id={input.key} onInput={updateInputList} />    
+                            : input.type === 'checkbox' ? 
+                            <CheckboxController {...input} id={input.key} />
+                            : <ValidatedInput {...input} id={input.key} onInput={updateInputList} />
                     })
                 }
                 { children }
@@ -38,4 +28,5 @@ const FormBasic = ({title, inputs = [], key = '', update, children = <></> }) =>
         </>
     )
 }
+
 export default FormBasic
