@@ -8,7 +8,7 @@ const Register = () => {
   return (
     <Card>
       <CardHeader>
-        <h5>Regístro de Ordenes</h5>
+        <h5>Registro de Ordenes</h5>
       </CardHeader>
       <CardBody>
         <SearchDetailType/>

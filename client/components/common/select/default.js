@@ -9,7 +9,11 @@ const SelectDefault = (props) => {
     ...styles,
     padding: `0.5em 1em`,
     borderColor: "#efefef",
+ui-landingpage-y-formulario-registro
     zIndex: 0,
+
+    zIndex: 3
+
   });
 
   const colorStyles = {

@@ -98,6 +98,7 @@ const RegisterForm = ({ t }) => {
       });
   };
 
+
   useEffect(() => {
     const subscription = watch((data) => {
       console.log(data)
@@ -141,6 +142,7 @@ const RegisterForm = ({ t }) => {
   //       setErrors(err.errors);
   //     });
   // };
+
 
   return (
     <Container fluid>
